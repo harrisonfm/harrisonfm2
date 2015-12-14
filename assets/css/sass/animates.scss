@@ -1,0 +1,28 @@
+@keyframes reveal-image{
+	from{
+		opacity: 0;
+		transform: skewX(20deg);
+		transform: skewY(-5deg);
+	}
+	to{
+		opacity: 1;
+		transform: skewX(0deg);
+		transform: skewY(0deg);
+	}
+}
+@keyframes smoky-reveal{
+	from{
+		text-shadow: 0px 0px 50px white;
+	}
+	to{
+		text-shadow: 0px 0px 0px white, 3px 3px 3px #777, 3px 3px 6px black;
+	}
+}
+@keyframes smoky-reveal-black{
+	from{
+		text-shadow: 0px 0px 50px black;
+	}
+	to{
+		text-shadow: 0px 0px 0px black;
+	}
+}

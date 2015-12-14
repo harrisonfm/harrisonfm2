@@ -1,0 +1,35 @@
+@import 'about';
+@import 'animates';
+@import 'defines';
+@import 'intro';
+@import 'nav';
+@import 'photo';
+@import 'web';
+
+html{
+	font-size: 1.6rem;
+}
+body{
+	margin: 0;
+	color: transparent;
+}
+a{
+	text-decoration: none;
+  color: inherit;
+	transition: color .5s;
+	&:hover{
+		color: $blue;
+	}
+}
+p{
+	font-size: .8rem;
+	line-height: 1.2rem;
+}
+div.page{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+figure{
+	margin: 0;
+}

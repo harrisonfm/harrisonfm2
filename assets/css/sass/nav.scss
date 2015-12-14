@@ -1,0 +1,30 @@
+.page-template-page-about nav,
+.page-template-page-web nav,
+.page-template-page-photo nav{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 90%;
+	font-size: .8rem;
+	height: 100px;
+	animation-name: smoky-reveal-black;
+	animation-fill-mode: forwards;
+	animation-duration: 1.5s;
+	header{
+		padding: 10px 0;
+	}
+	.menu{
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+		padding: 10px;
+	}
+	header{
+		letter-spacing: 2px;
+		font-size: 1.25rem;
+		span{
+			font-size: .8em;
+		}
+	}
+}

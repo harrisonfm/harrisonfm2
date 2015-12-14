@@ -1,0 +1,154 @@
+.page-template-page-photo{
+	color: black;
+	.page{
+		display: flex;
+		@media(max-width: 768px){
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+	nav{
+		height: 110px;
+		.photo{
+			display: none;
+		}
+		ul{
+			padding: 0;
+			list-style: none;
+			display: none;
+		}
+		.menu{
+			align-items: baseline;
+			padding: 10px 0;
+			width: 280px;
+		}
+		.galleries{
+			cursor: pointer;
+	    border: solid black 3px;
+	    padding: 2.5px 5px;
+		}
+	}
+	#thumbnails{
+		img{
+			width: 100%;
+		}
+		figure{
+			margin: 5px 5px 15px;
+		}
+		figcaption{
+			font-size: .5em;
+			color: gray;
+			padding-left: 5px;
+		}
+	}
+	@media(min-width: 769px){
+		nav{
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			width: 225px;
+			height: auto;
+			padding: 10px;
+			box-sizing: border-box;
+			.menu{
+				width: 150px;
+			}
+			.galleries{
+				display: none;
+			}
+			ul{
+				display: block;
+				border-bottom: solid 1px black;
+			}
+		}
+		section{
+			max-width: 1500px;
+			flex: auto;
+			overflow-y: scroll;
+		}
+		section > div{
+			padding: 10px 10px 10px 0;
+		}
+		#thumbnails{
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			transition: max-height .5s, opacity .33s linear;
+			overflow-x: hidden;
+			&.closed{
+				max-height: 0 !important;
+				padding: 0;
+				opacity: 0;
+			}
+			figure{
+				margin: 0 5px 5px 0;
+				font-size: 0;
+				overflow: hidden;
+				width: calc(50% - 5px);
+				@media(min-width: 1025px){
+					width: calc(33.33% - 5px);
+				}
+				img{
+					transition: transform .5s;
+				}
+				&:hover{
+					img{
+						transform: scale3d(1.1, 1.1, 1.1);
+					}
+				}
+			}
+			figcaption{
+				display: none;
+			}
+		}
+		#slides{
+			display: flex;
+			justify-content: center;
+			figure{
+				position: relative;
+			}
+			img{
+				max-width: 100%;
+				max-height: calc(100vh - 26px);
+			}
+			.overlay{
+		    display: flex;
+		    width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    top: 0;
+		    align-items: center;
+		    cursor: pointer;
+		    &:hover div{
+		    	color: rgba(255,255,255, .33);
+		    }
+		    > div{
+		    	display: flex;
+		    	width: 33.33%;
+		    	height: 100%;
+		    	color: transparent;
+		    	transition: color .5s;
+		    	box-sizing: border-box;
+		    	font-size: 32px;
+			    &:hover{
+			    	color: rgba(255,255,255, .66);
+			    }
+		    }
+		    .left{
+		    	padding-left: 20px;
+		    	align-items: center;
+		    }
+		    .up{
+		    	padding-top: 20px;
+		    	justify-content: center;
+		    }
+		    .right{
+		    	padding-right: 20px;
+		    	justify-content: flex-end;
+		    	align-items: center;
+		    }
+			}
+		}
+	}
+}

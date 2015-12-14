@@ -1,0 +1,58 @@
+.page-template-page-about{
+	.page{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	nav{
+    max-width: 670px;
+		.about{ 
+			display: none;
+		}
+	}
+	section{
+		width: 90%;
+		padding-top: 25px;
+    max-width: 670px;
+    p{
+    	animation-delay: .5s;
+			animation-duration: 1s;
+			animation-name: smoky-reveal-black;
+			animation-fill-mode: forwards;
+    }
+    p:first-of-type{
+    	margin-top: 0;
+    }
+	}
+	img{
+		width: 100px;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+    float: left;
+    opacity: 0;
+  	animation-delay: 1.25s;
+		animation-duration: .75s;
+		animation-name: reveal-image;
+		animation-fill-mode: forwards;
+		@media(min-width: 500px){
+    	width: 150px;
+	    margin-right: 25px;
+	    margin-bottom: 25px;
+		}
+	}
+	footer{
+		display: flex;
+		margin-bottom: 25px;
+		width: 90%;
+		max-width: 670px;
+		justify-content: center;
+  	animation-delay: 1s;
+		animation-duration: 1s;
+		animation-name: smoky-reveal-black;
+		animation-fill-mode: forwards;
+		a{
+			margin: 0 5px;
+		}
+	}
+}

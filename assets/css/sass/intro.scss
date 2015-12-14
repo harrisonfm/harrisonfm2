@@ -1,0 +1,52 @@
+.home{
+	font-family: Palatino Linotype, sans-serif;
+	color: transparent;
+	letter-spacing: 1px;
+	font-size: .75em;
+	.page{
+		background-position: 50% 50%;
+		background-size: cover;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.logo{
+		text-transform: uppercase;
+		font-size: 10vw;
+		letter-spacing: 2px;
+		animation-duration: 2s;
+		animation-name: smoky-reveal;
+		animation-fill-mode: forwards;
+		@media(min-width: 600px){
+			font-size: 3em;
+			letter-spacing: 10px;
+		}
+		span{
+			font-size: .8em;
+		}
+	}
+	nav{
+		display: flex;
+		justify-content: center;
+		margin-top: 50px;
+		width: 100%;
+		max-width: 400px;
+		font-size: 1.25em;
+		animation-delay: 1s;
+		animation-duration: 1s;
+		animation-name: smoky-reveal;
+		animation-fill-mode: forwards;
+		header{
+			display: none;
+		}
+		.menu{
+			display: flex;
+			width: 90%;
+			justify-content: space-around;
+			a:hover{
+				color: inherit;
+			}
+		}
+	}
+}
