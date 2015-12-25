@@ -1,7 +1,8 @@
 module.exports = {
 	options: {
 		'node': true,
-		'browser': true
+		'browser': true,
+		'esnext': true
 	},
 	all: [
 		'Gruntfile.js',

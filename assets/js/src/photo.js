@@ -1,15 +1,16 @@
+"use strict";
+
 var $ = require('jquery'),
-_ = require('lodash');
+_ = require('lodash'),
+es6bindAll = require('es6bindall');
 
-module.exports = {
-	photoIndex: 0,
+class Photo {
 
-	$thumbnails: $('#thumbnails'),
-	$slides: $('#slides'),
+	constructor(){
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'setThumbnailHeight', 'enlarge', 'shrink', 'newSlide']);
 
-	init: function(){
-		_.bindAll(this);
-		this.$imgs = this.$thumbnails.find('figure');
+		this.photoIndex = 0;
+		this.cacheSelectors();
 
 		this.$thumbnails.on('click', 'figure', this.enlarge);
 		this.$slides.on('click', '.up', this.shrink);
@@ -20,15 +21,22 @@ module.exports = {
 			load: this.setThumbnailHeight,
 			resize: _.debounce(this.setThumbnailHeight, 300)
 		});
-	},
+	}
 
-	setThumbnailHeight: function(){
+	cacheSelectors(){
+		this.$thumbnails = $('#thumbnails');
+		this.$slides = $('#slides');
+		this.$imgs = this.$thumbnails.find('figure');
+	}
+
+	setThumbnailHeight(){
+		console.log(this);
 		this.$thumbnails.css({
 			height: '',
 			maxHeight: ''
 		});
 		if(window.innerWidth < 768){
-			shrink();
+			this.shrink();
 			return;
 		}
 
@@ -46,16 +54,16 @@ module.exports = {
 			height: _.ceil(furthest - 5),
 			maxHeight: _.ceil(furthest - 5)
 		});
-	},
+	}
 
-	enlarge: function(e){
+	enlarge(e){
 		var attributes = e.currentTarget.attributes;
 		this.photoIndex = attributes['data-id'].value;
 		this.$thumbnails.addClass('closed');
 		this.$slides.html(this.getSlideHTML(attributes['data-url-large'].value, attributes['data-url-full'].value));
-	},
+	}
 
-	getSlideHTML: function(large, full){
+	getSlideHTML(large, full){
 		return '<figure>'+
 			'<picture>'+
 				'<source media="(max-width: 1024px)" srcset="'+large+'" />'+
@@ -67,14 +75,14 @@ module.exports = {
 				'</div>'+
 			'</picture>'+
 		'</figure>';
-	},
+	}
 
-	shrink: function(){
+	shrink(){
 		this.$slides.empty();
 		this.$thumbnails.removeClass('closed');
-	},
+	}
 
-	newSlide: function(e){
+	newSlide(e){
 		if(e.currentTarget.className === 'left'){
 			if(--this.photoIndex < 0){
 				this.photoIndex = this.$imgs.length - 1;
@@ -88,4 +96,6 @@ module.exports = {
 		this.$slides.html(this.getSlideHTML(this.$imgs[this.photoIndex].getAttribute('data-url-large'), 
 			this.$imgs[this.photoIndex].getAttribute('data-url-full')));
 	}
-};
+}
+
+module.exports = new Photo();

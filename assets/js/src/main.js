@@ -1,6 +1,7 @@
-var $ = require('jquery'),
-photo = require('./photo.js');
+"use strict";
+
+var $ = require('jquery');
 
 $(function(){
-	photo.init();
+	var Photo = require('./photo');
 });
