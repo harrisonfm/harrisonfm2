@@ -4,3 +4,10 @@ vendor
 composer.lock
 phpunit.xml
 .idea
+assets/js/main.min.js
+assets/js/main.js
+assets/js/main-head.js
+assets/js/main-head.min.js
+assets/css/harrisonfm.css.map
+assets/css/harrisonfm.css
+assets/css/harrisonfm.min.css
