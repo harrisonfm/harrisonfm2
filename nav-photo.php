@@ -19,7 +19,7 @@
 <footer>
 	<h4 id="title"></h4>
 	<div id="controls">
-		<span class="prev">Prev</span> / <span class="next">Next</span> / <span class="return">Return</span>
+		<span class="prev">Prev</span> / <span class="next">Next</span> / <span class="up">Return</span>
 	</div>
 </footer>
 <?php 

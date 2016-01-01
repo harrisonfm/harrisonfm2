@@ -20,6 +20,7 @@ function setup() {
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' )     );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' )      );
 	add_theme_support( 'post-thumbnails' ); 
+	add_filter('show_admin_bar', '__return_false');
 
 	add_image_size('wide', 600, 900);
 	add_filter('post_gallery',$n('customFormatGallery'),10,2);
@@ -112,6 +113,7 @@ function customFormatGallery($string,$attr){
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){
     $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
+    shuffle($posts);
     for($i = 0; $i < count($posts) - 1; $i++){
     	$post = get_post($posts[$i]);
     	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];

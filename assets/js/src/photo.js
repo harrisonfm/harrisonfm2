@@ -2,12 +2,15 @@
 
 var $ = require('jquery'),
 _ = require('lodash'),
-es6bindAll = require('es6bindall');
+es6bindAll = require('es6bindall'),
+jQBridget = require('jquery-bridget'),
+Masonry = require('masonry-layout');
+$.bridget( 'masonry', Masonry );
 
 class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'setThumbnailHeight', 'enlarge', 'shrink', 'newSlide', 'updateTitle']);
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'setThumbnails', 'enlarge', 'shrink', 'newSlide', 'updateTitle']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
@@ -16,12 +19,13 @@ class Photo {
 		this.$slides.on('click', '.up', this.shrink);
 		this.$slides.on('click', '.prev', this.newSlide);
 		this.$slides.on('click', '.next', this.newSlide);
+		this.$navFooter.on('click', '.up', this.shrink);
 		this.$navFooter.on('click', '.prev', this.newSlide);
 		this.$navFooter.on('click', '.next', this.newSlide);
 
 		$(window).on({
-			load: this.setThumbnailHeight,
-			resize: _.debounce(this.setThumbnailHeight, 300)
+			load: this.setThumbnails,
+			resize: _.debounce(this.setThumbnails, 300)
 		});
 	}
 
@@ -33,30 +37,14 @@ class Photo {
 		this.$navFooter = $('nav footer');
 	}
 
-	setThumbnailHeight(){
-		this.$thumbnails.css({
-			height: '',
-			maxHeight: ''
-		});
+	setThumbnails(){
 		if(window.innerWidth < 768){
 			this.shrink();
 			return;
 		}
-
-		var multiplier = window.innerWidth >= 1025 ? 0.4 : 0.6,
-		furthest = 0;
-
-		this.$thumbnails.height(this.$thumbnails.height() * multiplier);
-		$.each(this.$imgs, function(photoIndex, element){
-			var distance = $(this).offset().top + $(this).height();
-			if(distance > furthest){
-				furthest = distance;
-			}
-		});
-		this.$thumbnails.css({
-			height: _.ceil(furthest - 5),
-			maxHeight: _.ceil(furthest - 5)
-		});
+		else{
+			this.$thumbnails.masonry();
+		}
 	}
 
 	enlarge(e){
@@ -67,8 +55,13 @@ class Photo {
 		this.updateTitle(e.currentTarget.id);
 	}
 
+	shrink(){
+		this.$slides.empty();
+		this.$thumbnails.removeClass('closed');
+		this.updateTitle(false);
+	}
+
 	updateTitle(text){
-		console.log(text);
 		this.$title.text(text);
 		if(text){
 			this.$navFooter.show();
@@ -90,12 +83,6 @@ class Photo {
 				</div>
 			</picture>
 		</figure>`;
-	}
-
-	shrink(){
-		this.$slides.empty();
-		this.$thumbnails.removeClass('closed');
-		this.updateTitle(false);
 	}
 
 	newSlide(e){

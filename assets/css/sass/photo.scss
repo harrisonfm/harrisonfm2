@@ -37,6 +37,11 @@
 		}
 		figure{
 			margin: 5px 5px 15px;
+			@media(max-width: 767px){
+		    position: relative !important;
+		    left: auto !important;
+		    top: auto !important;
+			}
 		}
 		figcaption{
 			font-size: .5em;
@@ -90,13 +95,8 @@
 			flex: auto;
 			overflow-y: scroll;
 		}
-		section > div{
-			padding: 10px 10px 10px 0;
-		}
 		#thumbnails{
-			display: flex;
-			flex-direction: column;
-			flex-wrap: wrap;
+			padding: 10px 0;
 			transition: max-height .5s, opacity .33s linear;
 			overflow-x: hidden;
 			&.closed{
@@ -126,6 +126,7 @@
 			}
 		}
 		#slides{
+			padding: 10px 10px 10px 0;
 			display: flex;
 			justify-content: center;
 			figure{
