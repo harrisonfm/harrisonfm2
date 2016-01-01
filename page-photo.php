@@ -8,9 +8,7 @@ get_header();
 	<?php get_template_part('nav', 'photo') ?>
 	<section>
 		<div id="thumbnails">
-			<?php
-			echo get_post_gallery($post->ID);
-			?>
+			<?= get_post_gallery($post->ID) ?>
 		</div>
 		<div id="slides"></div>
 	</section>

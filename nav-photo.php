@@ -16,6 +16,12 @@
 	}
 	?>
 </ul>
+<footer>
+	<h4 id="title"></h4>
+	<div id="controls">
+		<span class="prev">Prev</span> / <span class="next">Next</span> / <span class="return">Return</span>
+	</div>
+</footer>
 <?php 
 wp_reset_postdata();
 endif;

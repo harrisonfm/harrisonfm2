@@ -27,6 +27,9 @@
 	    border: solid black 3px;
 	    padding: 2.5px 5px;
 		}
+		footer{
+			display: none;
+		}
 	}
 	#thumbnails{
 		img{
@@ -51,6 +54,7 @@
 			height: auto;
 			padding: 10px;
 			box-sizing: border-box;
+			text-align: center;
 			.menu{
 				width: 150px;
 			}
@@ -59,7 +63,26 @@
 			}
 			ul{
 				display: block;
-				border-bottom: solid 1px black;
+		    padding-bottom: 5px;
+		    margin-bottom: 0;
+			}
+			footer{
+				border-top: solid black 1px;
+    		width: 100%;
+			}
+			h4{
+				margin: 20px 0 10px;
+				font-weight: 400;
+			}
+			#controls{
+				font-size: .75em;
+				span{
+					cursor: pointer;
+					transition: color .5s;
+					&:hover{
+						color: $blue;
+					}
+				}
 			}
 		}
 		section{
@@ -135,7 +158,7 @@
 			    	color: rgba(255,255,255, .66);
 			    }
 		    }
-		    .left{
+		    .prev{
 		    	padding-left: 20px;
 		    	align-items: center;
 		    }
@@ -143,7 +166,7 @@
 		    	padding-top: 20px;
 		    	justify-content: center;
 		    }
-		    .right{
+		    .next{
 		    	padding-right: 20px;
 		    	justify-content: flex-end;
 		    	align-items: center;
