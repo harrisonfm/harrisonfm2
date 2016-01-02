@@ -31,6 +31,23 @@
 			display: none;
 		}
 	}
+	section{
+		figure{
+			opacity: 1;
+			transition: opacity .5s;
+			&.loading{
+				opacity: 0;
+			}
+		}
+		& > div{
+			background: url(../../images/loader.gif);
+			background-repeat: no-repeat;
+			background-position: 50% 150px;
+			&.loaded{
+				background: none;
+			}
+		}
+	}
 	#thumbnails{
 		img{
 			width: 100%;
@@ -105,6 +122,8 @@
 				opacity: 0;
 			}
 			figure{
+				float: left;
+				cursor: pointer;
 				margin: 0 5px 5px 0;
 				font-size: 0;
 				overflow: hidden;
