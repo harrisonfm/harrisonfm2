@@ -3,23 +3,16 @@
 var $ = require('jquery'),
 _ = require('lodash'),
 es6bindAll = require('es6bindall'),
-jQBridget = require('jquery-bridget'),
-Masonry = require('masonry-layout'),
-imagesLoaded = require('imagesloaded');
-
-$.bridget( 'masonry', Masonry );
-imagesLoaded.makeJQueryPlugin( $ );
+jQBridget = require('jquery-bridget');
 
 class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'revealImage', 'setThumbnails', 'enlarge', 
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'setThumbnails', 'enlarge', 
 			'shrink', 'newSlide', 'updateTitle']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
-
-		this.$thumbnails.imagesLoaded().progress(this.revealImage);
 
 		this.$thumbnails.on('click', 'figure', this.enlarge);
 		this.$slides.on('click', '.up', this.shrink);
@@ -28,8 +21,6 @@ class Photo {
 		this.$navFooter.on('click', '.up', this.shrink);
 		this.$navFooter.on('click', '.prev', this.newSlide);
 		this.$navFooter.on('click', '.next', this.newSlide);
-
-		this.$thumbnails.imagesLoaded().done(this.setThumbnails);
 
 		$(window).on({
 			load: this.setThumbnails,
@@ -45,18 +36,9 @@ class Photo {
 		this.$navFooter = $('nav footer');
 	}
 
-	revealImage(inst, img){
-		inst.elements[0].className = 'loaded';
-		img.img.offsetParent.className = '';
-	}
-
 	setThumbnails(){
 		if(window.innerWidth < 768){
 			this.shrink();
-			return;
-		}
-		else{
-			this.$thumbnails.masonry();
 		}
 	}
 
@@ -65,7 +47,6 @@ class Photo {
 		this.photoIndex = attributes['data-id'].value;
 		this.$thumbnails.addClass('closed');
 		this.$slides.html(this.getSlideHTML(attributes['data-url-large'].value, attributes['data-url-full'].value));
-		this.$slides.imagesLoaded().progress(this.revealImage);
 		this.updateTitle(e.currentTarget.id);
 	}
 
