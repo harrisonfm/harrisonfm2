@@ -26,3 +26,11 @@
 		text-shadow: 0px 0px 0px black;
 	}
 }
+@keyframes smoky-reveal-button{
+	from{
+		border: solid 3px transparent;
+	}
+	to{
+		border: solid 3px black;
+	}
+}

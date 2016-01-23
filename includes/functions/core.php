@@ -119,7 +119,6 @@ function customFormatGallery($string,$attr){
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){
     $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
-    shuffle($posts);
     for($i = 0; $i < count($posts) - 1; $i++){
     	$post = get_post($posts[$i]);
     	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];

@@ -2,13 +2,12 @@
 
 var $ = require('jquery'),
 _ = require('lodash'),
-es6bindAll = require('es6bindall'),
-jQBridget = require('jquery-bridget');
+es6bindAll = require('es6bindall');
 
 class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'setThumbnails', 'enlarge', 
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 
 			'shrink', 'newSlide', 'updateTitle']);
 
 		this.photoIndex = 0;
@@ -22,9 +21,12 @@ class Photo {
 		this.$navFooter.on('click', '.prev', this.newSlide);
 		this.$navFooter.on('click', '.next', this.newSlide);
 
+		this.$galBtn.on('click', function(){
+			this.$galList.toggleClass('on');
+		}.bind(this));
+
 		$(window).on({
-			load: this.setThumbnails,
-			resize: _.debounce(this.setThumbnails, 300)
+			resize: _.debounce(this.handleThumbs, 300)
 		});
 	}
 
@@ -34,9 +36,11 @@ class Photo {
 		this.$imgs = this.$thumbnails.find('figure');
 		this.$title = $('#title');
 		this.$navFooter = $('nav footer');
+		this.$galBtn = $('#galleries');
+		this.$galList = $('nav ul');
 	}
 
-	setThumbnails(){
+	handleThumbs(){
 		if(window.innerWidth < 768){
 			this.shrink();
 		}
@@ -46,28 +50,35 @@ class Photo {
 		var attributes = e.currentTarget.attributes;
 		this.photoIndex = attributes['data-id'].value;
 		this.$thumbnails.addClass('closed');
-		this.$slides.html(this.getSlideHTML(attributes['data-url-large'].value, attributes['data-url-full'].value));
+		this.loadSlide(attributes['data-url-large'].value, attributes['data-url-full'].value);
 		this.updateTitle(e.currentTarget.id);
 	}
 
+	loadSlide(large, full){
+		this.$slides.html(this.getSlideHTML(large, full));
+		this.$slides.find('img').on('load', function(e){
+			e.currentTarget.offsetParent.className = 'loaded';
+		});
+	}
+
 	shrink(){
-		this.$slides.removeClass('loaded').empty();
+		this.$slides.empty();
 		this.$thumbnails.removeClass('closed');
 		this.updateTitle(false);
 	}
 
 	updateTitle(text){
-		this.$title.text(text);
 		if(text){
-			this.$navFooter.show();
+			this.$title.text(text);
+			this.$navFooter.addClass('on');
 		}
 		else{
-			this.$navFooter.hide();	
+			this.$navFooter.removeClass('on');
 		}
 	}
 
 	getSlideHTML(large, full){
-		return `<figure class="loading">
+		return `<figure>
 			<picture>
 				<source media="(max-width: 1024px)" srcset="${large}" />
 				<img src="${full}" />
@@ -93,7 +104,7 @@ class Photo {
 		}
 		var img = this.$imgs[this.photoIndex];
 		this.updateTitle(img.id);
-		this.$slides.removeClass('loaded').html(this.getSlideHTML(img.getAttribute('data-url-large'), img.getAttribute('data-url-full')));
+		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}
 }
 

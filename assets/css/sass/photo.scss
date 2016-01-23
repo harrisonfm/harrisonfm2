@@ -1,5 +1,4 @@
 .page-template-page-photo, .single-photo{
-	color: black;
 	.page{
 		display: flex;
 		@media(max-width: 768px){
@@ -8,7 +7,6 @@
 		}
 	}
 	nav{
-		height: 110px;
 		.photo{
 			display: none;
 		}
@@ -26,32 +24,17 @@
 			margin: 1em 0;
 			font-size: 14px;
 		}
-		.galleries{
+		#galleries{
 			cursor: pointer;
-	    border: solid black 3px;
 	    padding: 2.5px 5px;
+			animation-name: smoky-reveal-button;
+			animation-fill-mode: forwards;
+			animation-duration: 1.5s;
 		}
 		footer{
 			display: none;
 		}
-	}/*
-	section{
-		figure{
-			opacity: 1;
-			transition: opacity .5s;
-			&.loading{
-				opacity: 0;
-			}
-		}
-		& > div{
-			background: url(../../images/loader.gif);
-			background-repeat: no-repeat;
-			background-position: 50% 150px;
-			&.loaded{
-				background: none;
-			}
-		}
-	}*/
+	}
 	#thumbnails{
 		img{
 			width: 100%;
@@ -70,6 +53,20 @@
 			padding-left: 5px;
 		}
 	}
+	@media(max-width: 768px){
+		nav{
+			ul{
+				margin: 0;
+				width: 100%;
+				&.on{
+					display: block;
+					animation-name: smoky-reveal-black;
+					animation-fill-mode: forwards;
+					animation-duration: 1.5s;
+				}
+			}
+		}
+	}
 	@media(min-width: 769px){
 		nav{
 			flex-direction: column;
@@ -85,16 +82,22 @@
 			.menu{
 				width: 150px;
 			}
-			.galleries{
+			#galleries{
 				display: none;
 			}
 			ul{
-				display: block;
+				display: block !important;
 		    padding-bottom: 5px;
 		    margin-bottom: 0;
 			}
 			footer{
+				display: block;
     		width: 100%;
+				opacity: 0;
+				transition: opacity .5s;
+				&.on{
+					opacity: 1;
+				}
 			}
 			h4{
 				margin: 20px 0 10px;
@@ -156,8 +159,16 @@
 			padding: 10px;
 			display: flex;
 			justify-content: center;
+			background: url(../../images/loader.gif);
+			background-repeat: no-repeat;
+			background-position: 50% 200px;
 			figure{
 				position: relative;
+				opacity: 0;
+				transition: opacity .25s;
+				&.loaded{
+					opacity: 1;
+				}
 			}
 			img{
 				max-width: 100%;
@@ -172,18 +183,18 @@
 		    align-items: center;
 		    cursor: pointer;
 		    &:hover div{
-		    	color: rgba(255,255,255, .33);
+		    	color: rgba(255,255,255, .2);
 		    }
 		    > div{
 		    	display: flex;
-		    	width: 33.33%;
+		    	width: 45%;
 		    	height: 100%;
 		    	color: transparent;
 		    	transition: color .5s;
 		    	box-sizing: border-box;
 		    	font-size: 32px;
 			    &:hover{
-			    	color: rgba(255,255,255, .66);
+			    	color: rgba(255,255,255, .4);
 			    }
 		    }
 		    .prev{
@@ -191,6 +202,7 @@
 		    	align-items: center;
 		    }
 		    .up{
+		    	width: 10%;
 		    	padding-top: 20px;
 		    	justify-content: center;
 		    }

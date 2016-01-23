@@ -1,7 +1,7 @@
 <?php get_template_part('nav', 'core');
 $excerpt = get_the_excerpt();
-error_log(print_r($post, true)); ?>
-<div class="galleries">Galleries</div>
+?>
+<div id="galleries">Galleries</div>
 </div>
 <?php if($post->post_name === 'photo' || $post->post_type === 'photo'): ?> 
 <ul>
