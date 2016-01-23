@@ -1,4 +1,6 @@
-<?php get_template_part('nav', 'core') ?>
+<?php get_template_part('nav', 'core');
+$excerpt = get_the_excerpt();
+error_log(print_r($post, true)); ?>
 <div class="galleries">Galleries</div>
 </div>
 <?php if($post->post_name === 'photo' || $post->post_type === 'photo'): ?> 
@@ -16,6 +18,7 @@
 	}
 	?>
 </ul>
+<div id="description"><?= $excerpt ?></div>
 <footer>
 	<h4 id="title"></h4>
 	<div id="controls">

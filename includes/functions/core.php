@@ -24,6 +24,12 @@ function setup() {
 
 	add_image_size('wide', 600, 900);
 	add_filter('post_gallery',$n('customFormatGallery'),10,2);
+
+	add_action( 'init', $n('add_excerpt') );
+}
+
+function add_excerpt() {
+     add_post_type_support( 'page', 'excerpt' );
 }
 
 /**

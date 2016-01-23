@@ -94,7 +94,6 @@ class Photo {
 		var img = this.$imgs[this.photoIndex];
 		this.updateTitle(img.id);
 		this.$slides.removeClass('loaded').html(this.getSlideHTML(img.getAttribute('data-url-large'), img.getAttribute('data-url-full')));
-		this.$slides.imagesLoaded().progress(this.revealImage);
 	}
 }
 

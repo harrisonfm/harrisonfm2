@@ -1,6 +1,4 @@
-.page-template-page-about nav,
-.page-template-page-web nav,
-.page-template-page-photo nav{
+:not(.home) nav{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
