@@ -2,7 +2,8 @@
 
 var $ = require('jquery'),
 _ = require('lodash'),
-es6bindAll = require('es6bindall');
+es6bindAll = require('es6bindall'),
+Loader = require('./loader');
 
 class Photo {
 
@@ -13,24 +14,25 @@ class Photo {
 		this.photoIndex = 0;
 		this.cacheSelectors();
 
+		this.loader = new Loader(this.$thumbnails, this.$imgs.length);
+		$('#thumbnails img').filter(function() {
+		    return this.complete;
+		}).each(this.loader.increment).end().on('load', this.loader.increment);
+
 		this.$thumbnails.on('click', 'figure', this.enlarge);
-		this.$slides.on('click', '.up', this.shrink);
-		this.$slides.on('click', '.prev', this.newSlide);
-		this.$slides.on('click', '.next', this.newSlide);
-		this.$navFooter.on('click', '.up', this.shrink);
-		this.$navFooter.on('click', '.prev', this.newSlide);
-		this.$navFooter.on('click', '.next', this.newSlide);
+		this.$page.on('click', '.up', this.shrink);
+		this.$page.on('click', '.prev', this.newSlide);
+		this.$page.on('click', '.next', this.newSlide);
 
 		this.$galBtn.on('click', function(){
 			this.$galList.toggleClass('on');
 		}.bind(this));
 
-		$(window).on({
-			resize: _.debounce(this.handleThumbs, 300)
-		});
+		$(window).on('resize', _.debounce(this.handleThumbs, 300));
 	}
 
 	cacheSelectors(){
+		this.$page = $('.page');
 		this.$thumbnails = $('#thumbnails');
 		this.$slides = $('#slides');
 		this.$imgs = this.$thumbnails.find('figure');
@@ -55,10 +57,11 @@ class Photo {
 	}
 
 	loadSlide(large, full){
-		this.$slides.html(this.getSlideHTML(large, full));
+		this.$slides.html(this.getSlideHTML(large, full)).addClass('loading');
 		this.$slides.find('img').on('load', function(e){
 			e.currentTarget.offsetParent.className = 'loaded';
-		});
+			this.$slides.removeClass('loading');
+		}.bind(this));
 	}
 
 	shrink(){

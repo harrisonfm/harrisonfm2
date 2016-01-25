@@ -9,7 +9,12 @@ $excerpt = get_the_excerpt();
 		<li><a href="/photo">Highlights</a>
 	<?php
 	}
-	$galleries = new WP_Query(array('post_type'=>'photo', 'post_not__in'=>$post->ID));
+	$galleries = new WP_Query(
+		array(
+			'post_type'=>'photo', 
+			'post__not_in'=> array($post->ID)
+		)
+	);
 	if ($galleries->have_posts()){
 		while($galleries->have_posts()){
 			$galleries->the_post();

@@ -125,7 +125,7 @@ function customFormatGallery($string,$attr){
     	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
     	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
     	$output .= '
-    	<figure id="'.$post->post_title.'" class="loading" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
+    	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
     		<picture>
     			<source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="'.$wide.'" />
     			<img src="'.$large.'" />

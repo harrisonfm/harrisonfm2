@@ -3,5 +3,7 @@
 var $ = require('jquery');
 
 $(function(){
-	var Photo = require('./photo');
+	if($('.page-template-page-photo').length || $('.single-photo').length){
+		var Photo = require('./photo');
+	}
 });
