@@ -27,9 +27,6 @@
 		#galleries{
 			cursor: pointer;
 	    padding: 2.5px 5px;
-			animation-name: smoky-reveal-button;
-			animation-fill-mode: forwards;
-			animation-duration: 1.5s;
 		}
 		footer{
 			display: none;
@@ -66,9 +63,6 @@
 				width: 100%;
 				&.on{
 					display: block;
-					animation-name: smoky-reveal-black;
-					animation-fill-mode: forwards;
-					animation-duration: 1.5s;
 				}
 			}
 		}

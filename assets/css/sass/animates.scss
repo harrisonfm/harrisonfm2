@@ -18,19 +18,3 @@
 		text-shadow: 0px 0px 0px white, 3px 3px 3px #777, 3px 3px 6px black;
 	}
 }
-@keyframes smoky-reveal-black{
-	from{
-		text-shadow: 0px 0px 50px black;
-	}
-	to{
-		text-shadow: 0px 0px 0px black;
-	}
-}
-@keyframes smoky-reveal-button{
-	from{
-		border: solid 3px transparent;
-	}
-	to{
-		border: solid 3px black;
-	}
-}

@@ -1,8 +1,7 @@
 "use strict";
 
 var $ = require('jquery'),
-es6bindAll = require('es6bindall'),
-TweenMax = require('gsap');
+es6bindAll = require('es6bindall');
 
 module.exports = class Loader {
 	constructor($parent, count){
@@ -13,18 +12,19 @@ module.exports = class Loader {
 		this.$parent = $parent;
 		this.$el = $parent.find('#loader');
 		this.$bar = this.$el.find('.bar');
-		setInterval(this.doneLoading, 100);
+		this.interval = setInterval(this.doneLoading, 100);
 	}
 	increment(){
-		TweenMax.to(this.$bar, 0.4, {
-        width: this.animateDistance * ++this.index
-    });
+		this.$bar.animate({
+			width: this.animateDistance * ++this.index
+		}, 200, 'linear');
 	}
 	doneLoading(){
 		if(this.$bar.width() >= 300){
-			this.$el.fadeOut().remove();
+			console.log('test');
+			this.$el.fadeOut();//.remove();
 			this.$parent.addClass('loaded');
-			window.clearInterval();
+			window.clearInterval(this.interval);
 		}
 	}
 };

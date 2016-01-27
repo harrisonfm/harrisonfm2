@@ -12,11 +12,6 @@
 	background-repeat: no-repeat;
 	background-position: 50% 75px;
 	background-image: url(../../images/loader.gif);
-	opacity: 0;
-	transition: opacity .5s;
-	&.on{
-		opacity: 1;
-	}
 	#progress{
 		width: 300px;
 		position: relative;

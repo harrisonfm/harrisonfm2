@@ -2,15 +2,13 @@
 .page-template-page-web nav,
 .page-template-page-photo nav,
 .single-photo nav{
+	color: black;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
 	width: 90%;
 	font-size: .8rem;
-	animation-name: smoky-reveal-black;
-	animation-fill-mode: forwards;
-	animation-duration: 1.5s;
 	header{
 		padding: 10px 10px 10px 0;
 	}
