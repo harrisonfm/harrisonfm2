@@ -39,12 +39,14 @@
 		width: 100px;
     margin-right: 15px;
     margin-bottom: 5px;
-    border-radius: 50%;
     float: left;
 		@media(min-width: 500px){
     	width: 150px;
 	    margin-right: 25px;
 	    margin-bottom: 25px;
+		}
+		img{
+    	border-radius: 50%;
 		}
 	}
 	footer{

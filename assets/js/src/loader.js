@@ -12,7 +12,7 @@ module.exports = class Loader {
 		this.$parent = $parent;
 		this.$el = $parent.find('#loader');
 		this.$bar = this.$el.find('.bar');
-		this.interval = setInterval(this.doneLoading, 50);
+		this.interval = setInterval(this.doneLoading, 25);
 	}
 	increment(){
 		this.$bar.animate({

@@ -49,6 +49,9 @@ class Photo {
 	}
 
 	enlarge(e){
+		if(window.innerWidth < 768){
+			return;
+		}
 		var attributes = e.currentTarget.attributes;
 		this.photoIndex = attributes['data-id'].value;
 		this.$thumbnails.addClass('closed');
