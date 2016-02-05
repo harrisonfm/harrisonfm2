@@ -16,11 +16,17 @@
 		display: flex;
 		flex-wrap: wrap;
 		margin-bottom: 25px;
+		position: relative;
 		@media(max-width: 620px){
 			justify-content: center;
 		}
+		&.loaded figure{
+			opacity: 1;
+		}
 	}
 	figure{
+		opacity: 0;
+		transition: opacity .5s;
 		border: solid 2px grey;
 		box-sizing: border-box;
 		width: 300px;

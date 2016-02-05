@@ -12,17 +12,16 @@ module.exports = class Loader {
 		this.$parent = $parent;
 		this.$el = $parent.find('#loader');
 		this.$bar = this.$el.find('.bar');
-		this.interval = setInterval(this.doneLoading, 100);
+		this.interval = setInterval(this.doneLoading, 50);
 	}
 	increment(){
 		this.$bar.animate({
 			width: this.animateDistance * ++this.index
-		}, 200, 'linear');
+		}, 50, 'linear');
 	}
 	doneLoading(){
 		if(this.$bar.width() >= 300){
-			console.log('test');
-			this.$el.fadeOut();//.remove();
+			this.$el.fadeOut().remove();
 			this.$parent.addClass('loaded');
 			window.clearInterval(this.interval);
 		}

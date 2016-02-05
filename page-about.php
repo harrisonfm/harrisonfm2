@@ -10,7 +10,10 @@ $me = wp_get_attachment_image_src($me, 'thumbnail', true);
 	<?php get_template_part('nav') ?>
 	<?php if(have_posts()): ?>
 		<section>
-			<img src="http://harrisonfm.com/api/wp-content/uploads/2015/05/me-150x150.jpg">
+			<?php get_template_part('loader') ?>
+			<figure>
+				<img src="http://harrisonfm.com/api/wp-content/uploads/2015/05/me-150x150.jpg">
+			</figure>
 			<?php while(have_posts()):
 				the_post();
 				the_content(); 
