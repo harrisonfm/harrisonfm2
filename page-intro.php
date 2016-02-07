@@ -3,10 +3,10 @@
 Template Name: Intro
 */
 get_header();
-$bg = get_post_thumbnail_id();
+$bgid = get_post_thumbnail_id();
 $bg = array(
-	'large' => wp_get_attachment_image_src($bg, 'large', true),
-	'full' => wp_get_attachment_image_src($bg, 'full', true)
+	'large' => wp_get_attachment_image_src($bgid, 'large', true),
+	'full' => wp_get_attachment_image_src($bgid, 'full', true)
 );
 ?>
 <style>
@@ -19,7 +19,8 @@ $bg = array(
 		}
 	}
 </style>
-<div class="page">
+<div class="page" data-url-large="<?= $bg['large'][0] ?>" data-url-full="<?= $bg['full'][0] ?>">
+	<?php get_template_part('loader') ?>
 	<div class="logo">Harrison <span class="icon-bolt-before"></span>FM<span class="icon-bolt-after"></span></div>
 	<?php get_template_part('nav') ?>
 </div>

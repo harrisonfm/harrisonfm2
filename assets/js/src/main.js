@@ -3,13 +3,17 @@
 var $ = require('jquery');
 
 $(function(){
-	if($('.page-template-page-photo').length || $('.single-photo').length){
+	var $body = $('body');
+	if($body.hasClass('home')){
+		var Intro = require('./intro');
+	}
+	else if($body.hasClass('.page-template-page-photo') || $body.hasClass('.single-photo')){
 		var Photo = require('./photo');
 	}
-	else if($('.page-template-page-web').length){
+	else if($body.hasClass('.page-template-page-web')){
 		var Web = require('./web');
 	}
-	else if($('.page-template-page-about').length){
+	else if($body.hasClass('.page-template-page-about')){
 		var About = require('./about');
 	}
 });

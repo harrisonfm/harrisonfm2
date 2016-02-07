@@ -43,13 +43,13 @@ class Photo {
 	}
 
 	handleThumbs(){
-		if(window.innerWidth < 768){
+		if(window.innerWidth <= 768){
 			this.shrink();
 		}
 	}
 
 	enlarge(e){
-		if(window.innerWidth < 768){
+		if(window.innerWidth <= 768){
 			return;
 		}
 		var attributes = e.currentTarget.attributes;

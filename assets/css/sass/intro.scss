@@ -10,13 +10,20 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		&.loaded{
+			nav{
+				animation-name: smoky-reveal;	
+			}
+			.logo{
+				animation-name: smoky-reveal;
+			}
+		}
 	}
 	.logo{
 		text-transform: uppercase;
 		font-size: 10vw;
 		letter-spacing: 2px;
 		animation-duration: 2s;
-		animation-name: smoky-reveal;
 		animation-fill-mode: forwards;
 		@media(min-width: 600px){
 			font-size: 3em;
@@ -35,7 +42,6 @@
 		font-size: 1.25em;
 		animation-delay: 1s;
 		animation-duration: 1s;
-		animation-name: smoky-reveal;
 		animation-fill-mode: forwards;
 		header{
 			display: none;
