@@ -9,16 +9,6 @@ $bg = array(
 	'full' => wp_get_attachment_image_src($bgid, 'full', true)
 );
 ?>
-<style>
-	.page{
-		background-image: url(<?= $bg['large'][0] ?>);
-	}
-	@media (min-width: 769px){
-		.page{
-			background-image: url(<?= $bg['full'][0] ?>);
-		}
-	}
-</style>
 <div class="page" data-url-large="<?= $bg['large'][0] ?>" data-url-full="<?= $bg['full'][0] ?>">
 	<?php get_template_part('loader') ?>
 	<div class="logo">Harrison <span class="icon-bolt-before"></span>FM<span class="icon-bolt-after"></span></div>

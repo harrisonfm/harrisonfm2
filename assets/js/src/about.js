@@ -3,7 +3,7 @@
 var $ = require('jquery'),
 Loader = require('./loader');
 
-class About {
+module.exports = class About {
 	constructor(){
 		this.$figures = $('figure');
 		this.loader = new Loader($('section'), this.$figures.length);
@@ -11,5 +11,4 @@ class About {
 		    return this.complete;
 		}).each(this.loader.increment).end().on('load', this.loader.increment);
 	}
-}
-module.exports = new About();
+};

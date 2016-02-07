@@ -5,7 +5,7 @@ _ = require('lodash'),
 es6bindAll = require('es6bindall'),
 Loader = require('./loader');
 
-class Photo {
+module.exports = class Photo {
 
 	constructor(){
 		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 
@@ -112,6 +112,4 @@ class Photo {
 		this.updateTitle(img.id);
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}
-}
-
-module.exports = new Photo();
+};

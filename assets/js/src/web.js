@@ -3,7 +3,7 @@
 var $ = require('jquery'),
 Loader = require('./loader');
 
-class Web {
+module.exports = class Web {
 	constructor(){
 		this.$jobs = $('figure');
 		this.loader = new Loader($('section'), this.$jobs.length);
@@ -11,5 +11,4 @@ class Web {
 			$('<img/>').attr('src', el.attributes['data-url'].value).on('load', this.loader.increment);
 		}.bind(this));
 	}
-}
-module.exports = new Web();
+};
