@@ -1,0 +1,110 @@
+body.page-template-page-write, 
+body.single-post{
+	$nav-width: 225px;
+	.page{
+		display: flex;
+		flex-direction: column;
+	}
+	nav{
+		@media(max-width: 768px){
+			align-self: center;
+		}
+		.write{
+			display: none;
+		}
+		.menu{
+			align-items: baseline;
+			padding: 10px 0;
+			width: 280px;
+		}
+	}
+	section{
+		display: flex;
+		flex-wrap: wrap;
+		align-content: flex-start;
+		padding: 5px 10px;
+		position: relative;
+		&.loaded figure{
+			opacity: 1;
+		}
+	}
+	a{
+		margin: 5px 0;
+		width: 100%;
+	}
+	figure{
+		position: relative;
+		opacity: 0;
+		transition: opacity .5s;
+		background-size: cover;
+		background-position: 50%;
+		height: calc(100vw * .67);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		figcaption{
+			z-index: 1;
+			color: white;
+		}
+		.overlay{
+			background-color: rgba(0,0,0,.25);
+			transition: background-color .5s;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
+	@media(min-width: 769px){
+		.page{
+			flex-direction: row-reverse;
+		}
+		nav{
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			width: $nav-width;
+			height: auto;
+			padding: 10px;
+			box-sizing: border-box;
+			text-align: center;
+			box-shadow: 0 0 5px gray;
+			position: relative;
+			z-index: 2;
+			.menu{
+				width: 150px;
+			}
+		}
+		section{
+			flex: auto;
+			overflow-y: scroll;
+			a{
+			}
+		}
+		figure{
+			width: 100%;
+			height: calc((100vw - #{$nav-width}) * 0.5);
+			&:hover .overlay{
+				background-color: rgba(0,0,0,.5);
+			}
+		}
+	}
+	@media(min-width: 1024px){
+		section{
+			a{
+				flex: auto;
+				width: calc((100vw + 15px - #{$nav-width}) * 0.5);
+				margin: 5px 5px;
+				&:nth-last-of-type(odd){
+					flex: none;
+				}
+			}
+		}
+		figure{
+			height: calc((100vw - #{$nav-width}) * 0.25);
+		}
+	}
+}
