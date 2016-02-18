@@ -3,8 +3,10 @@ body:not(.home) nav{
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	width: 90%;
+	padding: 0 10px;
 	font-size: .8rem;
+	width: 100%;
+	box-sizing: border-box;
 	header{
 		padding: 10px 10px 10px 0;
 	}

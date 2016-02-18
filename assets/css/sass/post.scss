@@ -1,0 +1,35 @@
+body.single-post{
+	section{
+		max-width: 900px;
+		padding: 5px 10px;
+		position: relative;
+		header{
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			width: 100%;
+			padding-bottom: 5px;
+			h1{
+				margin: 0;
+			}
+			p{
+				margin: 0 0 0 auto;
+			}
+		}
+	}
+	#banner{
+		width: 100%;
+		height: calc(100vw * .67);
+		max-height: 600px;
+		background-position: 50%;
+		background-size: cover;
+	}
+	@media(min-width: 769px){
+		.page{
+			justify-content: center;
+		}
+		section{
+			box-shadow: -1px 0 5px #ababab;
+		}
+	}
+}
