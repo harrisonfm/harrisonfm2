@@ -2,9 +2,23 @@ body.single-post{
 	.page{
 		height: auto;
 	}
+	nav{
+		position: absolute;
+		z-index: 2;
+		background: white;
+		&.fixed{
+			position: fixed;
+			animation-duration: .25s;
+			animation-fill-mode: forwards;
+			animation-name: nav-show;
+			&.hide{
+				animation-name: nav-hide;
+			}
+		}
+	}
 	section{
 		max-width: 900px;
-		padding: 5px 10px 0;
+		padding: 65px 10px 0;
 		position: relative;
 		margin: auto;
 		box-sizing: border-box;

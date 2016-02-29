@@ -5,7 +5,7 @@ get_header();
 	<?php get_template_part('nav', 'write') ?>
 	<section>
 		<?php 
-		#get_template_part('loader');
+		get_template_part('loader');
 		if (have_posts()) :
 			while (have_posts()):the_post();
 				$id = $post->ID;
