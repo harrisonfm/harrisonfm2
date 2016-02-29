@@ -1,14 +1,15 @@
 body.single-post{
+	.page{
+		height: auto;
+	}
 	section{
 		max-width: 900px;
-		padding: 5px 10px;
+		padding: 5px 10px 0;
 		position: relative;
+		margin: auto;
+		box-sizing: border-box;
 		header{
-			display: flex;
-			justify-content: space-between;
-			align-items: baseline;
-			width: 100%;
-			padding-bottom: 5px;
+			padding: 25px 0 5px;
 			h1{
 				margin: 0;
 			}
@@ -16,20 +17,69 @@ body.single-post{
 				margin: 0 0 0 auto;
 			}
 		}
+		footer{
+			> h5{
+				margin: 25px 0 0;
+				border-bottom: solid 1px #AAA;
+				padding-bottom: 10px;
+			}
+			article{
+				border-bottom: solid 1px #AAA;
+				display: flex;
+				padding: 20px 0;
+				h5{
+					margin: 0;
+				}
+				p{
+					margin: 0;
+				}
+				figure{
+					width: 150px;
+					display: flex;
+					align-items: center;
+				}
+			}
+			> a:last-of-type article{
+				border: none;
+			}
+		}
+	}
+	#end{
+		background: black;
+    color: white;
+    display: flex;
+		justify-content: center;
+		width: 100vw;
+		margin-left: -10px;
+		a:hover{
+			color: skyblue;
+		}
+		p{
+			margin: 5px 10px;
+		}
 	}
 	#banner{
 		width: 100%;
-		height: calc(100vw * .67);
-		max-height: 600px;
+		height: calc((100vw - 20px) * .67);
 		background-position: 50%;
 		background-size: cover;
+		margin: auto;
 	}
 	@media(min-width: 769px){
 		.page{
 			justify-content: center;
 		}
-		section{
-			box-shadow: -1px 0 5px #ababab;
+		#banner{
+			width: 75%;
+			height: calc((75vw - 225px) * .67);
+			max-height: 450px;
+			border-radius: 5px;
+			box-shadow: 2px 2px 1px grey;
+		}
+	}
+	@media(min-width: 900px){
+		#end{
+			margin-left: calc(((100vw - 900px) / -2) - 10px);
 		}
 	}
 }
