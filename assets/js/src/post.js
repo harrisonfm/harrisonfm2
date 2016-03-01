@@ -7,21 +7,39 @@ Loader = require('./loader');
 
 module.exports = class Post {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['showNav']);
+		es6bindAll.es6BindAll(this, ['showNav', 'handleBG', 'resizeIframe']);
+
 		this.$banner = $('#banner');
+		this.$nav = $('nav');
+		this.$iframe = $('main').find('iframe');
+
 		var img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
 		this.$banner.css('backgroundImage', "url('"+img+"')");
 		this.loader = new Loader($('section'), 1);
-		this.$nav = $('nav');
 		$('<img/>').attr('src', img).on('load', this.loader.increment);
-		/*this.$figures.each(function(idx, el){
-			var img = window.innerWidth <= 400 ? el.attributes['data-url-wide'].value : el.attributes['data-url-large'].value;
-			el.style.backgroundImage = "url('"+img+"')";
-			$('<img/>').attr('src', img).on('load', this.loader.increment);
-		}.bind(this));/*
-		$(window).on('resize', _.debounce(this.handleBGs, 300));*/
-		$(window).on('scroll', _.debounce(this.showNav, 300));
+
 		this.lastScroll = 0;
+		this.lastWindowWidth = window.innerWidth;
+
+		$(window).on('resize', _.debounce(this.handleBG, 300));
+		if(this.$iframe.length){
+			this.resizeIframe();
+			$(window).on('resize', _.debounce(this.resizeIframe, 300));
+		}
+		$(window).on('scroll', _.debounce(this.showNav, 300));
+	}
+
+	resizeIframe(){
+		this.$iframe.width(window.innerWidth - 20).height(this.$iframe.width() * 0.67);
+	}
+
+	handleBG(){
+		if((this.lastWindowWidth <= 400 && window.innerWidth > 400) || (this.lastWindowWidth > 400 && window.innerWidth <= 400)){
+			var img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
+			this.$banner.css('backgroundImage', "url('"+img+"')");
+		}
+
+		this.lastWindowWidth = window.innerWidth;
 	}
 
 	showNav(e){

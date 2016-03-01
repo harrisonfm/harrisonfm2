@@ -60,5 +60,6 @@ get_header();
 			</div>
 			</footer>
 	</section>
+	<div id="slides"></div>
 </div>
 <?php get_footer();
