@@ -23,6 +23,7 @@ function setup() {
 	add_filter('show_admin_bar', '__return_false');
 
 	add_image_size('wide', 600, 900);
+	add_image_size('post_thumb', 580, 580, true);
 	add_filter('post_gallery',$n('customFormatGallery'),10,2);
 
 	add_action( 'init', $n('add_excerpt') );
@@ -120,7 +121,7 @@ function customFormatGallery($string,$attr){
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){
     $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
-    for($i = 0; $i < count($posts) - 1; $i++){
+    for($i = 0; $i < count($posts); $i++){
     	$post = get_post($posts[$i]);
     	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
     	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
@@ -134,6 +135,27 @@ function customFormatGallery($string,$attr){
     		<figcaption>'.$post->post_title.'</figcaption>
     	</figure>';
     }
+	}
+	else if($post->post_type === 'post'){
+    $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
+    $output .= '<div class="gallery">';
+    for($i = 0; $i < count($posts); $i++){
+    	$post = get_post($posts[$i]);
+    	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
+    	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
+    	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
+    	$post_thumb = wp_get_attachment_image_src($posts[$i]->ID, 'post_thumb')[0];
+    	$output .= '
+    	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
+    		<picture>
+    			<source media="(max-width: 400px)" srcset="'.$wide.'" />
+    			<source media="(min-width: 401px) and (max-width: 768px)" srcset="'.$large.'" />
+    			<img src="'.$post_thumb.'" />
+    		</picture>
+    		<figcaption>'.$post->post_title.'</figcaption>
+    	</figure>';
+    }
+    $output .= '</div>';
 	}
 	else{
 		return;
