@@ -60,6 +60,14 @@ get_header();
 			</div>
 			</footer>
 	</section>
-	<div id="slides"></div>
+	<div id="slides">
+		<footer>
+			<h4 id="title"></h4>
+			<p id="caption"></p>
+			<div id="controls">
+				<span class="prev">Prev</span> / <span class="up">Return</span> / <span class="next">Next</span>
+			</div>
+		</footer>
+	</div>
 </div>
 <?php get_footer();

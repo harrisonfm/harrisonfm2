@@ -152,7 +152,8 @@ function customFormatGallery($string,$attr){
     			<source media="(min-width: 401px) and (max-width: 768px)" srcset="'.$large.'" />
     			<img src="'.$post_thumb.'" />
     		</picture>
-    		<figcaption>'.$post->post_title.'</figcaption>
+    		<div class="overlay"></div>
+    		<figcaption><h4>'.$post->post_title.'</h4><p>'.$post->post_excerpt.'</p></figcaption>
     	</figure>';
     }
     $output .= '</div>';

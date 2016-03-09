@@ -8,8 +8,7 @@ Loader = require('./loader');
 module.exports = class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 
-			'shrink', 'newSlide', 'updateTitle']);
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'newSlide', 'updateTitle']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
