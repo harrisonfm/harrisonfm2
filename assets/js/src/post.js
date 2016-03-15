@@ -5,8 +5,6 @@ es6bindAll = require('es6bindall'),
 _ = require('lodash'),
 Loader = require('./loader');
 
-
-//slide functionality : load images
 module.exports = class Post {
 	constructor(){
 		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'newSlide']);

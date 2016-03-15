@@ -1,26 +1,16 @@
 body.page-template-page-photo, 
 body.single-photo{
 	nav{
-		.photo{
+		#galleries{
+			padding: 2.5px 5px;
 			display: none;
-		}
-		ul{
-			padding: 0;
-			list-style: none;
-			display: none;
-		}
-		.menu{
-			align-items: baseline;
-			padding: 10px 0;
-			width: 280px;
+			a{
+				display: block;
+			}
 		}
 		#description{
 			margin: 1em 0;
 			font-size: 14px;
-		}
-		#galleries{
-			cursor: pointer;
-	    padding: 2.5px 5px;
 		}
 		footer{
 			display: none;
@@ -51,13 +41,10 @@ body.single-photo{
 		}
 	}
 	@media(max-width: 768px){
-		nav{
-			ul{
-				margin: 0;
-				width: 100%;
-				&.on{
-					display: block;
-				}
+		nav .menu a:nth-child(n+5){
+			color: #A000AB;
+			&:hover{
+				color: $blue;
 			}
 		}
 	}
@@ -78,12 +65,12 @@ body.single-photo{
 			box-shadow: 0 0 5px gray;
 			.menu{
 				width: 150px;
+				a:nth-child(n+5){
+					display: none !important;
+				}
 			}
 			#galleries{
-				display: none;
-			}
-			ul{
-				display: block !important;
+				display: block;
 		    padding-bottom: 5px;
 		    margin-bottom: 0;
 			}

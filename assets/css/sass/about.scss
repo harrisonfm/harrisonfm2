@@ -1,17 +1,11 @@
 body.page-template-page-about{
 	color: black;
-	.page{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
 	nav{
+		margin: auto;
     max-width: 670px;
-		.about{ 
-			display: none;
-		}
 	}
 	section{
+		margin: auto;
 		position: relative;
 		width: 90%;
 		padding-top: 25px;
@@ -51,6 +45,7 @@ body.page-template-page-about{
 		}
 	}
 	footer{
+		margin: auto;
 		opacity: 0;
 		transition: opacity .5s;
 		display: flex;

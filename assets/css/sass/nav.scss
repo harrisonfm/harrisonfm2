@@ -1,6 +1,5 @@
 body:not(.home) nav{
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
 	padding: 0 10px;
@@ -13,14 +12,61 @@ body:not(.home) nav{
 	.menu{
     display: flex;
     justify-content: space-between;
-    width: 200px;
 		padding: 10px;
+		@media(max-width: 768px){
+			flex-direction: column;
+			align-items: flex-end;
+			a{
+				display: none;
+				opacity: 0;
+				transition: opacity .25s;
+				&.on{
+					opacity: 1;
+					display: block;
+				}
+			}
+		}
+		@media(min-width: 769px){
+			width: 200px;
+		}
+		&.on{
+			a{
+				display: block;
+			}
+			#hamburger div{
+				&:first-child{
+					transform: rotate(45deg) translate3d(8px, 5px, 0)
+				}
+				&:nth-child(2){
+					opacity: 0;
+				}
+				&:last-child{
+					transform: rotate(-45deg) translate3d(8.5px, -6px, 0)
+				}
+			}
+		}
 	}
 	header{
 		letter-spacing: 2px;
 		font-size: 1.25rem;
 		span{
 			font-size: .8em;
+		}
+	}
+	#hamburger{
+		@media(min-width: 769px){
+			display: none;
+		}
+		width: 30px;
+		height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+		div{
+			transition: transform .5s, opacity .25s;
+			height: 2px;
+			background: black;
 		}
 	}
 }

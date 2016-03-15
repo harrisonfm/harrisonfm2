@@ -6,7 +6,8 @@ Intro = require('./intro'),
 Photo = require('./photo'),
 Web = require('./web'),
 Write = require('./write'),
-Post = require('./post');
+Post = require('./post'),
+Nav = require('./nav');
 
 $(function(){
 	var $body = $('body');
@@ -28,4 +29,5 @@ $(function(){
 	else if($body.hasClass('page-template-page-about')){
 		var about = new About();
 	}
+	var nav = new Nav();
 });
