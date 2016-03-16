@@ -1,5 +1,6 @@
 $nav-width: 225px;
-body.page-template-page-write{
+body.page-template-page-write,
+body.search-results{
 	section{
 		display: flex;
 		flex-wrap: wrap;
@@ -8,6 +9,12 @@ body.page-template-page-write{
 		position: relative;
 		&.loaded figure{
 			opacity: 1;
+		}
+		> h4{
+			width: 100%;
+	    margin: 0 5px;
+	    font-style: italic;
+	    flex: auto;
 		}
 		a{
 			margin: 5px 0;
@@ -66,6 +73,18 @@ body.page-template-page-write{
 			}
 			.menu{
 				width: 150px;
+				flex-wrap: wrap;
+			}
+			.search-form{
+				width: 75%;
+				margin: auto;
+				input{
+					width: 100px;
+			    font-size: .67em;
+			    padding: 5px;
+			    margin: 0 auto 10px;
+			    text-align: left;
+				}
 			}
 		}
 		section{
@@ -84,10 +103,10 @@ body.page-template-page-write{
 				flex: none;
 				width: calc(50% - 5px);
 				margin: 5px 5px;
-				&:nth-child(even){
+				&:nth-of-type(even){
 					margin-right: 0;
 				}
-				&:nth-child(odd){
+				&:nth-of-type(odd){
 					margin-left: 0;
 				}
 			}

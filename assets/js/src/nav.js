@@ -10,9 +10,18 @@ module.exports = class Nav {
 		this.$body = $('body');
 		this.$burger = $('#hamburger');
 		this.$menu = $('.menu');
-		this.$children = this.$menu.find('a');
+		this.$children = this.$menu.children();
 
 		this.$burger.on('click', this.standardMenu);
+
+		$('#back-button').on('click', function(){
+			if(document.referrer.indexOf('harrisonfm') !== -1){
+				window.history.back();
+			}
+			else{
+				document.location = '/write';
+			}
+		});
 	}
 
 	standardMenu(){
@@ -22,7 +31,9 @@ module.exports = class Nav {
 			this.$children.each(function(index){
 				var delay = 300 * index + 1;
 				setTimeout(function(child){
-					child.addClass('on');
+					if(child.parent().hasClass('on')){
+						child.addClass('on');
+					}
 				}, delay, $(this));
 			});
 		}

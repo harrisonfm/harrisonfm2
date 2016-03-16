@@ -20,8 +20,11 @@ body.single-post{
 			}
 		}
 		> span{
-			align-self: center;
+			margin: 12.5px auto auto auto;
     	font-size: 1.5em;
+    	@media(min-width: 450px){
+    		margin-left: 33vw;
+    	}
 		}
 		#categories{
 			display: none;
@@ -130,6 +133,17 @@ body.single-post{
 		margin: auto;
 	}
 	@media(min-width: 769px){
+		nav{
+			.menu{
+				width: 300px;
+				#searchform{
+					width: 100px;
+			    margin-top: -2.5px;
+			    padding: 0 5px;
+			    height: 30px;
+				}
+			}
+		}
 		.page{
 			justify-content: center;
 		}

@@ -16,7 +16,7 @@ body:not(.home) nav{
 		@media(max-width: 768px){
 			flex-direction: column;
 			align-items: flex-end;
-			a{
+			> *:not(#hamburger){
 				display: none;
 				opacity: 0;
 				transition: opacity .75s;
@@ -24,7 +24,7 @@ body:not(.home) nav{
 					opacity: 1;
 					display: block;
 				}
-				&:nth-child(n+5){
+				&:nth-of-type(n+4){
 					color: #A000AB;
 					&:hover{
 						color: $blue;
@@ -34,12 +34,12 @@ body:not(.home) nav{
 		}
 		@media(min-width: 769px){
 			width: 200px;
-			a:nth-child(n+5){
+			a:nth-of-type(n+4){
 				display: none !important;
 			}
 		}
 		&.on{
-			a{
+			> *:not(#hamburger){
 				display: block;
 				margin: 5px 0;
 			}
@@ -89,6 +89,16 @@ body:not(.home) nav{
 			display: block;
 	    padding-bottom: 5px;
 	    margin-bottom: 0;
+		}
+	}
+	.search-form{
+		text-align: right;
+		input{
+			border-radius: 5px;
+			text-align: right;
+			font-size: .67em;
+			width: 100px;
+			padding: 5px;
 		}
 	}
 }
