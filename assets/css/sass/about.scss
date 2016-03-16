@@ -5,6 +5,7 @@ body.page-template-page-about{
     max-width: 670px;
 	}
 	section{
+		background: white;
 		margin: auto;
 		position: relative;
 		width: 90%;
@@ -45,11 +46,10 @@ body.page-template-page-about{
 		}
 	}
 	footer{
-		margin: auto;
+		margin: 0 auto 25px;
 		opacity: 0;
 		transition: opacity .5s;
 		display: flex;
-		margin-bottom: 25px;
 		width: 90%;
 		max-width: 670px;
 		justify-content: center;

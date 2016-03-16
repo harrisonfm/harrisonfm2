@@ -27,35 +27,44 @@ $blue: #0061AB;
 }
 
 .icon-up:before {
-	content: "\e900";
+    content: "\e900";
 }
 .icon-right:before {
-	content: "\e901";
+    content: "\e901";
 }
 .icon-left:before {
-	content: "\e902";
+    content: "\e902";
 }
 .icon-mail:before {
-	content: "\e903";
-}
-.icon-insta:before {
-	content: "\e905";
-}
-.icon-twitter:before {
-	content: "\e906";
-}
-.icon-bolt-before:before {
-	content: "\e908";
-}
-.icon-bolt-after:before {
-	content: "\e909";
+    content: "\e903";
 }
 .icon-facebook:before {
-	content: "\e904";
+    content: "\e904";
+}
+.icon-insta:before {
+    content: "\e905";
+}
+.icon-twitter:before {
+    content: "\e906";
 }
 .icon-steam:before {
-	content: "\e907";
+    content: "\e907";
+}
+.icon-bolt-before:before {
+    content: "\e908";
+}
+.icon-bolt-after:before {
+    content: "\e909";
 }
 .icon-github:before {
-	content: "\e90a";
+    content: "\e90a";
+}
+.icon-image:before {
+    content: "\e90b";
+}
+.icon-undo2:before {
+    content: "\e90c";
+}
+.icon-confused:before {
+    content: "\e90d";
 }

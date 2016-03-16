@@ -19,19 +19,29 @@ body:not(.home) nav{
 			a{
 				display: none;
 				opacity: 0;
-				transition: opacity .25s;
+				transition: opacity .75s;
 				&.on{
 					opacity: 1;
 					display: block;
+				}
+				&:nth-child(n+5){
+					color: #A000AB;
+					&:hover{
+						color: $blue;
+					}
 				}
 			}
 		}
 		@media(min-width: 769px){
 			width: 200px;
+			a:nth-child(n+5){
+				display: none !important;
+			}
 		}
 		&.on{
 			a{
 				display: block;
+				margin: 5px 0;
 			}
 			#hamburger div{
 				&:first-child{
@@ -67,6 +77,18 @@ body:not(.home) nav{
 			transition: transform .5s, opacity .25s;
 			height: 2px;
 			background: black;
+		}
+	}
+	#categories{
+		padding: 2.5px 5px;
+		display: none;
+		a{
+			display: block;
+		}
+		@media(min-width: 769px){
+			display: block;
+	    padding-bottom: 5px;
+	    margin-bottom: 0;
 		}
 	}
 }

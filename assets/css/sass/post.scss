@@ -19,6 +19,13 @@ body.single-post{
 				animation-name: nav-hide;
 			}
 		}
+		> span{
+			align-self: center;
+    	font-size: 1.5em;
+		}
+		#categories{
+			display: none;
+		}
 	}
 	section{
 		max-width: 900px;
@@ -110,6 +117,9 @@ body.single-post{
 		}
 		p{
 			margin: 5px 10px;
+			@media(max-width: 420px){
+				font-size: .6em;
+			}
 		}
 	}
 	#banner{
@@ -125,7 +135,7 @@ body.single-post{
 		}
 		#banner{
 			width: 75%;
-			height: calc((75vw - 225px) * .67);
+			height: calc(75vw * .67);
 			max-height: 450px;
 			border-radius: 5px;
 			box-shadow: 2px 2px 1px grey;

@@ -1,13 +1,6 @@
 body.page-template-page-photo, 
 body.single-photo{
 	nav{
-		#galleries{
-			padding: 2.5px 5px;
-			display: none;
-			a{
-				display: block;
-			}
-		}
 		#description{
 			margin: 1em 0;
 			font-size: 14px;
@@ -40,14 +33,6 @@ body.single-photo{
 			opacity: 1;
 		}
 	}
-	@media(max-width: 768px){
-		nav .menu a:nth-child(n+5){
-			color: #A000AB;
-			&:hover{
-				color: $blue;
-			}
-		}
-	}
 	@media(min-width: 769px){
 		.page{
 			display: flex;
@@ -63,16 +48,11 @@ body.single-photo{
 			box-sizing: border-box;
 			text-align: center;
 			box-shadow: 0 0 5px gray;
+			header{
+				padding: 10px 0;
+			}
 			.menu{
 				width: 150px;
-				a:nth-child(n+5){
-					display: none !important;
-				}
-			}
-			#galleries{
-				display: block;
-		    padding-bottom: 5px;
-		    margin-bottom: 0;
 			}
 			footer{
 				display: block;

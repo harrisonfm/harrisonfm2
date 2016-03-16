@@ -39,6 +39,15 @@ module.exports = class Post {
 			$(window).on('resize', _.debounce(this.resizeIframe, 300));
 		}
 		$(window).on('scroll', _.debounce(this.showNav, 300));
+
+		this.$nav.find('span').on('click', function(){
+			if(document.referrer.indexOf('harrisonfm') !== -1){
+				window.history.back();
+			}
+			else{
+				document.location = '/write';
+			}
+		});
 	}
 
 	cacheSelectors(){

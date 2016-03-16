@@ -26,6 +26,14 @@ a{
 		color: $blue;
 	}
 }
+.link{
+	color: inherit;
+	cursor: pointer;
+	transition: color .5s;
+	&:hover{
+		color: $blue;
+	}
+}
 p{
 	font-size: .8rem;
 	line-height: 1.2rem;

@@ -40,6 +40,34 @@ body.page-template-page-write{
 		}
 	}
 	@media(min-width: 769px){
+		.page{
+			display: flex;
+			flex-direction: row-reverse;
+		}
+		section{
+			flex: auto;
+			overflow-y: scroll;
+		}
+		nav{
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			width: $nav-width;
+			height: auto;
+			padding: 10px;
+			box-sizing: border-box;
+			text-align: center;
+			box-shadow: 0 0 5px gray;
+			position: relative;
+			z-index: 2;
+			header{
+				padding: 10px 0;
+			}
+			.menu{
+				width: 150px;
+			}
+		}
 		section{
 			figure{
 				width: 100%;
@@ -66,41 +94,6 @@ body.page-template-page-write{
 			figure{
 				height: calc((100vw - 10px - #{$nav-width}) * 0.25);
 			}
-		}
-	}
-}
-
-body.page-template-page-write{
-	nav{
-		@media(max-width: 768px){
-			align-self: center;
-		}
-	}
-	@media(min-width: 769px){
-		.page{
-			display: flex;
-			flex-direction: row-reverse;
-		}
-		nav{
-			flex-direction: column;
-			align-items: center;
-			justify-content: flex-start;
-			flex-wrap: nowrap;
-			width: $nav-width;
-			height: auto;
-			padding: 10px;
-			box-sizing: border-box;
-			text-align: center;
-			box-shadow: 0 0 5px gray;
-			position: relative;
-			z-index: 2;
-			.menu{
-				width: 150px;
-			}
-		}
-		section{
-			flex: auto;
-			overflow-y: scroll;
 		}
 	}
 }

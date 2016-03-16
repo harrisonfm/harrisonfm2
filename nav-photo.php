@@ -19,7 +19,7 @@ if ($galleries->have_posts()){
 echo $menuAppend; #adding galleries to main menu for mobile nav
 ?>
 </div>
-<div id="galleries"><?= $menuAppend ?></div>
+<div id="categories"><?= $menuAppend ?></div>
 <div id="description"><?= $excerpt ?></div>
 <footer>
 	<h4 id="title"></h4>
