@@ -94,11 +94,13 @@ body:not(.home) nav{
 	.search-form{
 		text-align: right;
 		input{
-			border-radius: 5px;
-			text-align: right;
+			border-radius: 7.5px;
 			font-size: .67em;
 			width: 100px;
 			padding: 5px;
+			@media(min-width: 769px){
+				text-align: left;
+			}
 		}
 	}
 }

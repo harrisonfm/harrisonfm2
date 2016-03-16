@@ -1,6 +1,7 @@
 $nav-width: 225px;
 body.page-template-page-write,
-body.search-results{
+body.search-results,
+body.archive{
 	section{
 		display: flex;
 		flex-wrap: wrap;
@@ -82,8 +83,7 @@ body.search-results{
 					width: 100px;
 			    font-size: .67em;
 			    padding: 5px;
-			    margin: 0 auto 10px;
-			    text-align: left;
+			    margin: 20px auto 0;
 				}
 			}
 		}

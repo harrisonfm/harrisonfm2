@@ -5,7 +5,7 @@ get_header();
 	<?php get_template_part('nav', 'write') ?>
 	<section>
 		<?php get_template_part('loader'); ?>
-		<h4><span id="back-button" class="icon-undo2 link" title="Back"></span> Results for: <span><?= the_search_query() ?></span></h4>
+		<h4><span id="back-button" class="icon-undo2 link" title="Back"></span> Category: <span><?= single_cat_title() ?></span></h4>
 		<?php get_template_part('write', 'loop'); ?>
 	</section>
 </div>
