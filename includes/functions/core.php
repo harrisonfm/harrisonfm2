@@ -114,51 +114,51 @@ function customFormatGallery($string,$attr){
 	global $post;
     $output = '';
 	if($post->post_name === 'web'){
-    $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
-    foreach($posts as $imagePost){
-    	$post = get_post($imagePost);
-    	$img = wp_get_attachment_image_src($imagePost->ID, 'full')[0];
-    	$output .= '<a href="'.$post->post_content.'" target="_blank"><figure data-url="'.$img.'" style="background-image: url('.$img.')"><header>'.$post->post_title.'</header><figcaption>'.$post->post_excerpt.'</figcaption></figure></a>';
-    }
+        $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
+        foreach($posts as $imagePost){
+        	$post = get_post($imagePost);
+        	$img = wp_get_attachment_image_src($imagePost->ID, 'full')[0];
+        	$output .= '<a href="'.$post->post_content.'" target="_blank"><figure data-url="'.$img.'" style="background-image: url('.$img.')"><header>'.$post->post_title.'</header><figcaption>'.$post->post_excerpt.'</figcaption></figure></a>';
+        }
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){
-    $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
-    for($i = 0; $i < count($posts); $i++){
-    	$post = get_post($posts[$i]);
-    	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
-    	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
-    	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
-    	$output .= '
-    	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
-    		<picture>
-    			<source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="'.$wide.'" />
-    			<img src="'.$large.'" />
-    		</picture>
-    		<figcaption>'.$post->post_title.'</figcaption>
-    	</figure>';
+        $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
+        for($i = 0; $i < count($posts); $i++){
+        	$post = get_post($posts[$i]);
+        	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
+        	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
+        	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
+        	$output .= '
+        	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
+        		<picture>
+        			<source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="'.$wide.'" />
+        			<img src="'.$large.'" />
+        		</picture>
+        		<figcaption>'.$post->post_title.'</figcaption>
+        	</figure>';
     }
 	}
 	else if($post->post_type === 'post'){
-    $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
-    $output .= '<div class="gallery">';
-    for($i = 0; $i < count($posts); $i++){
-    	$post = get_post($posts[$i]);
-    	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
-    	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
-    	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
-    	$post_thumb = wp_get_attachment_image_src($posts[$i]->ID, 'post_thumb')[0];
-    	$output .= '
-    	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
-    		<picture>
-    			<source media="(max-width: 400px)" srcset="'.$wide.'" />
-    			<source media="(min-width: 401px) and (max-width: 768px)" srcset="'.$large.'" />
-    			<img src="'.$post_thumb.'" />
-    		</picture>
-    		<div class="overlay"></div>
-    		<figcaption><h4>'.$post->post_title.'</h4><p>'.$post->post_excerpt.'</p></figcaption>
-    	</figure>';
-    }
-    $output .= '</div>';
+        $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
+        $output .= '<div class="gallery">';
+        for($i = 0; $i < count($posts); $i++){
+        	$post = get_post($posts[$i]);
+        	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
+        	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
+        	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
+        	$post_thumb = wp_get_attachment_image_src($posts[$i]->ID, 'post_thumb')[0];
+        	$output .= '
+        	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
+        		<picture>
+        			<source media="(max-width: 400px)" srcset="'.$wide.'" />
+        			<source media="(min-width: 401px) and (max-width: 768px)" srcset="'.$large.'" />
+        			<img src="'.$post_thumb.'" />
+        		</picture>
+        		<div class="overlay"></div>
+        		<figcaption><h4>'.$post->post_title.'</h4><p>'.$post->post_excerpt.'</p></figcaption>
+        	</figure>';
+        }
+        $output .= '</div>';
 	}
 	else{
 		return;

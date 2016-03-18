@@ -1,18 +1,11 @@
 <?php
-/**
- * The main template file
- *
- * @package harrisonfm
- * @since 0.1.0
- */
-
-get_header(); ?>
-
-	<?php if ( have_posts() ) : ?>
-		<?php while ( have_posts() ): the_post(); ?>
-			<h2><?php the_title(); ?></h2>
-			<?php the_content(); ?>
-		<?php endwhile; ?>
-	<?php endif; ?>
-
+get_header();
+?>
+<div class="page">
+	<?php get_template_part('nav', 'write') ?>
+	<section>
+		<?php get_template_part('loader'); ?>
+		<?php get_template_part('write', 'loop'); ?>
+	</section>
+</div>
 <?php get_footer();

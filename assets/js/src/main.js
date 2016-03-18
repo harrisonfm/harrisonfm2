@@ -14,7 +14,7 @@ $(function(){
 	if($body.hasClass('home')){
 		var intro = new Intro();
 	}
-	else if($body.hasClass('page-template-page-write') || $body.hasClass('search-results') || $body.hasClass('archive')){
+	else if($body.hasClass('blog') || $body.hasClass('search-results') || $body.hasClass('archive')){
 		var write = new Write();
 	}
 	else if($body.hasClass('single-post')){
