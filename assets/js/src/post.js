@@ -15,7 +15,6 @@ module.exports = class Post {
 		var img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
 		this.$banner.css('backgroundImage', "url('"+img+"')");
 
-
 		this.loader = new Loader($('section'), this.$imgs.length + 1);
 		$('<img/>').attr('src', img).on('load', this.loader.increment);
 		if(this.$imgs.length){

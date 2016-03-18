@@ -51,6 +51,14 @@ body.single-post{
 				border-bottom: solid 1px #AAA;
 				padding-bottom: 10px;
 			}
+			.tag-line{
+				span{
+					font-weight: bold;
+				}
+				a{
+					font-style: italic;
+				}
+			}
 			article{
 				border-bottom: solid 1px #AAA;
 				display: flex;
@@ -69,6 +77,7 @@ body.single-post{
 					width: 150px;
 					display: flex;
 					align-items: center;
+					margin-left: auto;
 				}
 			}
 			> a:last-of-type article{

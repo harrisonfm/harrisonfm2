@@ -3,7 +3,11 @@
 Template Name: Write
 */
 get_header();
-$query = new WP_Query(array('post_type'=>'post'));
+$query = new WP_Query(array(
+	'post_type' => 'post',
+	'posts_per_page' => 8
+	)
+);
 ?>
 <div class="page">
 	<?php get_template_part('nav', 'write') ?>

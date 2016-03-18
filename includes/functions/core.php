@@ -19,6 +19,7 @@ function setup() {
 	add_action( 'wp_head',            $n( 'header_meta' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' )     );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' )      );
+
 	add_theme_support( 'post-thumbnails' ); 
 	add_filter('show_admin_bar', '__return_false');
 
@@ -110,7 +111,7 @@ function header_meta() {
 
 function customFormatGallery($string,$attr){
 	global $post;
-  $output = '';
+    $output = '';
 	if($post->post_name === 'web'){
     $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
     foreach($posts as $imagePost){
