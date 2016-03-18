@@ -78,6 +78,9 @@ body.single-post{
 					display: flex;
 					align-items: center;
 					margin-left: auto;
+					img{
+						margin: auto;
+					}
 				}
 			}
 			> a:last-of-type article{
@@ -124,7 +127,7 @@ body.single-post{
 		justify-content: center;
 		width: 100vw;
 		margin-left: -10px;
-		a:hover{
+		a:hover, .link:hover{
 			color: skyblue;
 		}
 		p{

@@ -28,6 +28,7 @@ function setup() {
 	add_filter('post_gallery',$n('customFormatGallery'),10,2);
 
 	add_action( 'init', $n('add_excerpt') );
+    add_filter( 'excerpt_length', $n('reduceExcerptLength'), 999 );
 }
 
 function add_excerpt() {
@@ -163,4 +164,9 @@ function customFormatGallery($string,$attr){
 		return;
 	}
   return $output;
+}
+
+
+function reduceExcerptLength($length){
+    return 25;
 }

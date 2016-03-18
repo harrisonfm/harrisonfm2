@@ -67,7 +67,7 @@ get_header();
 					<p>&copy; John Harrison, <?= date("Y") ?></p>
 					<a href="/about"><p>About</p></a>
 					<a href="/write"><p>Writing</p></a>
-					<a href="#" class="top"><p>Top</p></a>
+					<p class="top link">Top</p>
 				</div>
 			</footer>
 	</section>

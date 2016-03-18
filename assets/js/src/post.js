@@ -38,6 +38,10 @@ module.exports = class Post {
 			$(window).on('resize', _.debounce(this.resizeIframe, 300));
 		}
 		$(window).on('scroll', _.debounce(this.showNav, 300));
+
+		$('.top').on('click', function(){
+			$('html, body').animate({scrollTop: 0}, "slow");
+		});
 	}
 
 	cacheSelectors(){
