@@ -111,18 +111,41 @@ function header_meta() {
 }
 
 function customFormatGallery($string,$attr){
-	global $post;
+    global $post;
+
+    function get_match( $regex, $content ) {
+        preg_match($regex, $content, $matches);
+        return $matches[1];
+    }
+
+    // Extract the shortcode arguments from the $page or $post
+    $shortcode_args = shortcode_parse_atts(get_match('/\[gallery\s(.*)\]/isU', $post->post_content));
+
+    // get the ids specified in the shortcode call
+    $ids = $shortcode_args["ids"];
+
+    // get the attachments specified in the "ids" shortcode argument
+    $posts = get_posts(
+        array(
+            'include' => $ids, 
+            'post_status' => 'inherit', 
+            'post_type' => 'attachment', 
+            'post_mime_type' => 'image', 
+            'order' => 'menu_order ID', 
+            'orderby' => 'post__in', //required to order results based on order specified the "include" param
+        )
+    ); 
+
     $output = '';
+
 	if($post->post_name === 'web'){
-        $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
         foreach($posts as $imagePost){
         	$post = get_post($imagePost);
         	$img = wp_get_attachment_image_src($imagePost->ID, 'full')[0];
-        	$output .= '<a href="'.$post->post_content.'" target="_blank"><figure data-url="'.$img.'" style="background-image: url('.$img.')"><header>'.$post->post_title.'</header><figcaption>'.$post->post_excerpt.'</figcaption></figure></a>';
+        	$output .= '<a href="'.$post->post_content.'" target="_blank"><figure data-url="'.$img.'"><div id="background" style="background-image: url('.$img.')"></div><header>'.$post->post_title.'</header><figcaption>'.$post->post_excerpt.'</figcaption></figure></a>';
         }
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){
-        $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
         for($i = 0; $i < count($posts); $i++){
         	$post = get_post($posts[$i]);
         	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
@@ -139,7 +162,6 @@ function customFormatGallery($string,$attr){
     }
 	}
 	else if($post->post_type === 'post'){
-        $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
         $output .= '<div class="gallery">';
         for($i = 0; $i < count($posts); $i++){
         	$post = get_post($posts[$i]);
