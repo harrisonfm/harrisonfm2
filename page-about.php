@@ -4,7 +4,7 @@ Template Name: About
 */
 get_header();
 $me = get_post_thumbnail_id();
-$me = wp_get_attachment_image_src($me, 'thumbnail', true);
+$me = wp_get_attachment_image_src($me, 'full', true);
 ?>
 <div class="page">
 	<?php get_template_part('nav') ?>
@@ -12,7 +12,7 @@ $me = wp_get_attachment_image_src($me, 'thumbnail', true);
 		<section>
 			<?php get_template_part('loader') ?>
 			<figure>
-				<img src="http://harrisonfm.com/api/wp-content/uploads/2015/05/me-150x150.jpg">
+				<img src="<?= $me[0] ?>" />
 			</figure>
 			<?php while(have_posts()):
 				the_post();

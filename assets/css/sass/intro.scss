@@ -50,6 +50,9 @@ body.home{
 			display: flex;
 			width: 90%;
 			justify-content: space-around;
+			#hamburger{
+				display: none;
+			}
 			a:hover{
 				color: inherit;
 			}
