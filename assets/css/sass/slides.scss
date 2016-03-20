@@ -17,6 +17,7 @@
 			position: relative;
 			opacity: 0;
 			transition: opacity .25s;
+			max-width: 100%;
 			&.loaded{
 				opacity: 1;
 			}
