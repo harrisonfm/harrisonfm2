@@ -8,7 +8,7 @@ Loader = require('./loader');
 module.exports = class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'newSlide', 'updateTitle']);
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'newSlide', 'updateTitle', 'handleKeypress']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
@@ -28,6 +28,8 @@ module.exports = class Photo {
 		}.bind(this));
 
 		$(window).on('resize', _.debounce(this.handleThumbs, 300));
+
+		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
 	}
 
 	cacheSelectors(){
@@ -110,5 +112,33 @@ module.exports = class Photo {
 		var img = this.$imgs[this.photoIndex];
 		this.updateTitle(img.id);
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
+	}
+
+	handleKeypress(e){
+		var validKey = false;
+		if(this.$thumbnails.hasClass('closed')){
+			if(e.keyCode === 27 || e.keyCode === 38){ //esc, up
+				this.shrink();
+				validKey = true;
+			}
+			else if(e.keyCode === 37){ //left
+				if(--this.photoIndex < 0){
+					this.photoIndex = this.$imgs.length - 1;
+				}
+				validKey = true;
+			}
+			else if(e.keyCode === 39){ //right
+				if(++this.photoIndex >= this.$imgs.length){
+					this.photoIndex = 0;
+				}
+				validKey = true;
+			}
+
+			if(validKey){
+				var img = this.$imgs[this.photoIndex];
+				this.updateTitle(img.id);
+				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
+			}
+		}
 	}
 };

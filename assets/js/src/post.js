@@ -7,7 +7,7 @@ Loader = require('./loader');
 
 module.exports = class Post {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'newSlide']);
+		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'newSlide', 'handleKeypress']);
 
 		this.cacheSelectors();
 		this.photoIndex = 0;
@@ -42,6 +42,8 @@ module.exports = class Post {
 		$('.top').on('click', function(){
 			$('html, body').animate({scrollTop: 0}, "slow");
 		});
+
+		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
 	}
 
 	cacheSelectors(){
@@ -151,5 +153,33 @@ module.exports = class Post {
 		var img = this.$imgs[this.photoIndex];
 		this.updateSlideText(img.id, $(img).find('p').text());
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
+	}
+
+	handleKeypress(e){
+		var validKey = false;
+		if(this.$body.hasClass('slide')){
+			if(e.keyCode === 27 || e.keyCode === 38){ //esc, up
+				this.shrink();
+				validKey = true;
+			}
+			else if(e.keyCode === 37){ //left
+				if(--this.photoIndex < 0){
+					this.photoIndex = this.$imgs.length - 1;
+				}
+				validKey = true;
+			}
+			else if(e.keyCode === 39){ //right
+				if(++this.photoIndex >= this.$imgs.length){
+					this.photoIndex = 0;
+				}
+				validKey = true;
+			}
+
+			if(validKey){
+				var img = this.$imgs[this.photoIndex];
+				this.updateSlideText(img.id, $(img).find('p').text());
+				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
+			}
+		}
 	}
 };
