@@ -9,7 +9,7 @@ $me = wp_get_attachment_image_src($me, 'full', true);
 <div class="page">
 	<?php get_template_part('nav') ?>
 	<?php if(have_posts()): ?>
-		<section>
+		<main>
 			<?php get_template_part('loader') ?>
 			<figure>
 				<img src="<?= $me[0] ?>" />
@@ -18,7 +18,7 @@ $me = wp_get_attachment_image_src($me, 'full', true);
 				the_post();
 				the_content(); 
 			endwhile; ?>
-		</section>
+		</main>
 	<?php endif; ?>
 	<footer>
 		<a href="mailto:john@harrisonfm.com"><i class="icon-mail"></i></a>
