@@ -45,9 +45,7 @@ module.exports = class Post {
 
 		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
 
-		if(window.innerWidth > 1024){
-			this.preloadSlides();
-		}
+		this.$body.on('done-loading', this.preloadSlides);
 	}
 
 	cacheSelectors(){
@@ -188,8 +186,11 @@ module.exports = class Post {
 	}
 
 	preloadSlides(){
-		this.$imgs.each(function(idx, el){
-			$('<img/>').attr('src', $(this).attr('data-url-full'));
-		});
+		console.log('preload');
+		if(window.innerWidth > 1024){
+			this.$imgs.each(function(idx, el){
+				$('<img/>').attr('src', $(this).attr('data-url-full'));
+			});
+		}
 	}
 };

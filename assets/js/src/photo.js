@@ -31,9 +31,7 @@ module.exports = class Photo {
 
 		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
 
-		if(window.innerWidth > 1024){
-			this.preloadSlides();
-		}
+		this.$page.on('done-loading', this.preloadSlides);
 	}
 
 	cacheSelectors(){
@@ -147,8 +145,10 @@ module.exports = class Photo {
 	}
 
 	preloadSlides(){
-		this.$imgs.each(function(idx, el){
-			$('<img/>').attr('src', $(this).attr('data-url-full'));
-		});
+		if(window.innerWidth > 1024){
+			this.$imgs.each(function(idx, el){
+				$('<img/>').attr('src', $(this).attr('data-url-full'));
+			});
+		}
 	}
 };

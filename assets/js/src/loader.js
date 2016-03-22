@@ -24,6 +24,7 @@ module.exports = class Loader {
 			this.$el.fadeOut().remove();
 			this.$parent.addClass('loaded');
 			window.clearInterval(this.interval);
+			this.$parent.trigger('done-loading');
 		}
 	}
 };
