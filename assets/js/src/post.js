@@ -7,7 +7,7 @@ Loader = require('./loader');
 
 module.exports = class Post {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'newSlide', 'handleKeypress']);
+		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'newSlide', 'handleKeypress', 'preloadSlides']);
 
 		this.cacheSelectors();
 		this.photoIndex = 0;
@@ -44,6 +44,10 @@ module.exports = class Post {
 		});
 
 		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
+
+		if(window.innerWidth > 1024){
+			this.preloadSlides();
+		}
 	}
 
 	cacheSelectors(){
@@ -181,5 +185,11 @@ module.exports = class Post {
 				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 			}
 		}
+	}
+
+	preloadSlides(){
+		this.$imgs.each(function(idx, el){
+			$('<img/>').attr('src', $(this).attr('data-url-full'));
+		});
 	}
 };

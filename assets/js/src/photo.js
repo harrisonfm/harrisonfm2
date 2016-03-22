@@ -8,7 +8,7 @@ Loader = require('./loader');
 module.exports = class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'newSlide', 'updateTitle', 'handleKeypress']);
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'newSlide', 'updateTitle', 'handleKeypress', 'preloadSlides']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
@@ -30,6 +30,10 @@ module.exports = class Photo {
 		$(window).on('resize', _.debounce(this.handleThumbs, 300));
 
 		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
+
+		if(window.innerWidth > 1024){
+			this.preloadSlides();
+		}
 	}
 
 	cacheSelectors(){
@@ -140,5 +144,11 @@ module.exports = class Photo {
 				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 			}
 		}
+	}
+
+	preloadSlides(){
+		this.$imgs.each(function(idx, el){
+			$('<img/>').attr('src', $(this).attr('data-url-full'));
+		});
 	}
 };
