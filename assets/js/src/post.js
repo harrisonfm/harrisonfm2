@@ -186,7 +186,6 @@ module.exports = class Post {
 	}
 
 	preloadSlides(){
-		console.log('preload');
 		if(window.innerWidth > 1024){
 			this.$imgs.each(function(idx, el){
 				$('<img/>').attr('src', $(this).attr('data-url-full'));
