@@ -4,6 +4,7 @@ vendor
 composer.lock
 phpunit.xml
 .idea
+.DS_Store
 assets/js/main.min.js
 assets/js/main.js
 assets/js/main-head.js
