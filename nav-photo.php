@@ -25,6 +25,7 @@ echo $menuAppend; #adding galleries to main menu for mobile nav
 	<h4 id="title"></h4>
 	<div id="controls">
 		<span class="prev">Prev</span> / <span class="next">Next</span> / <span class="up">Return</span>
+		<p>Slideshow: <span id="slide-control">On</span></p>
 	</div>
 </footer>
 <?php 

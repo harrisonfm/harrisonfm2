@@ -8,7 +8,7 @@ Loader = require('./loader');
 module.exports = class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'newSlide', 'updateTitle', 'handleKeypress', 'preloadSlides']);
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'prevSlide', 'nextSlide', 'toggleSlides', 'newSlide', 'updateTitle', 'handleKeypress', 'preloadSlides']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
@@ -20,8 +20,9 @@ module.exports = class Photo {
 
 		this.$thumbnails.on('click', 'figure', this.enlarge);
 		this.$page.on('click', '.up', this.shrink);
-		this.$page.on('click', '.prev', this.newSlide);
-		this.$page.on('click', '.next', this.newSlide);
+		this.$page.on('click', '.prev', this.prevSlide);
+		this.$page.on('click', '.next', this.nextSlide);
+		this.$slideCtrl.on('click', this.toggleSlides);
 
 		this.$galBtn.on('click', function(){
 			this.$galList.toggleClass('on');
@@ -43,6 +44,7 @@ module.exports = class Photo {
 		this.$navFooter = $('nav footer');
 		this.$galBtn = $('#galleries');
 		this.$galList = $('nav ul');
+		this.$slideCtrl = $('#slide-control');
 	}
 
 	handleThumbs(){
@@ -60,6 +62,10 @@ module.exports = class Photo {
 		this.$thumbnails.addClass('closed');
 		this.loadSlide(attributes['data-url-large'].value, attributes['data-url-full'].value);
 		this.updateTitle(e.currentTarget.id);
+		
+		if(!this.$slideCtrl.hasClass('off')){
+			this.sliding = setInterval(this.nextSlide, 5000);
+		}
 	}
 
 	loadSlide(large, full){
@@ -74,6 +80,8 @@ module.exports = class Photo {
 		this.$slides.empty();
 		this.$thumbnails.removeClass('closed');
 		this.updateTitle(false);
+
+		clearInterval(this.sliding);
 	}
 
 	updateTitle(text){
@@ -100,43 +108,61 @@ module.exports = class Photo {
 		</figure>`;
 	}
 
-	newSlide(e){
-		if(e.currentTarget.className === 'prev'){
-			if(--this.photoIndex < 0){
-				this.photoIndex = this.$imgs.length - 1;
-			}
-		}	
-		else if(e.currentTarget.className === 'next'){
-			if(++this.photoIndex >= this.$imgs.length){
-				this.photoIndex = 0;
-			}
+	prevSlide(){
+		if(--this.photoIndex < 0){
+			this.photoIndex = this.$imgs.length - 1;
 		}
+		clearInterval(this.sliding);
+		this.newSlide();
+	}
+
+	nextSlide(e){
+		if(e){
+			clearInterval(this.sliding);
+		}
+		if(++this.photoIndex >= this.$imgs.length){
+			this.photoIndex = 0;
+		}
+		this.newSlide();
+	}
+
+	newSlide(){
 		var img = this.$imgs[this.photoIndex];
 		this.updateTitle(img.id);
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}
 
+	toggleSlides(){
+		if(this.$slideCtrl.hasClass('off')){
+			this.$slideCtrl.removeClass('off').text('On');
+			this.sliding = setInterval(this.nextSlide, 5000);
+		}
+		else{
+			this.$slideCtrl.addClass('off').text('Off');
+			clearInterval(this.sliding);
+		}
+	}
+
 	handleKeypress(e){
-		var validKey = false;
 		if(this.$thumbnails.hasClass('closed')){
 			if(e.keyCode === 27 || e.keyCode === 38){ //esc, up
 				this.shrink();
-				validKey = true;
 			}
-			else if(e.keyCode === 37){ //left
-				if(--this.photoIndex < 0){
-					this.photoIndex = this.$imgs.length - 1;
+			else if(e.keyCode === 32){ //space
+				this.toggleSlides();
+			}
+			else if(e.keyCode === 37 || e.keyCode === 39){ //left or right
+				if(e.keyCode === 37){
+					if(--this.photoIndex < 0){
+						this.photoIndex = this.$imgs.length - 1;
+					}
 				}
-				validKey = true;
-			}
-			else if(e.keyCode === 39){ //right
-				if(++this.photoIndex >= this.$imgs.length){
-					this.photoIndex = 0;
+				else{
+					if(++this.photoIndex >= this.$imgs.length){
+						this.photoIndex = 0;
+					}
 				}
-				validKey = true;
-			}
 
-			if(validKey){
 				var img = this.$imgs[this.photoIndex];
 				this.updateTitle(img.id);
 				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));

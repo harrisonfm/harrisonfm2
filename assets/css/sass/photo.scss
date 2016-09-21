@@ -76,6 +76,16 @@ body.single-photo{
 						color: $blue;
 					}
 				}
+				p{
+					font-size: 1em;
+					margin: 0;
+					span{
+						color: $green;
+					}
+					.off{
+						color: $crimson;
+					}
+				}
 			}
 		}
 		section{
