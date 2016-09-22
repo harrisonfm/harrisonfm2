@@ -208,6 +208,17 @@ body.single-post{
 		    			color: $blue;
 		    		}
 		    	}
+					p{
+						text-align: center;
+						font-size: 1em;
+						margin: 0;
+						span{
+							color: $green;
+						}
+						.off{
+							color: $crimson;
+						}
+					}
 		    }
 			}
 		}

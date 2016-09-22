@@ -7,7 +7,7 @@ Loader = require('./loader');
 
 module.exports = class Post {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'newSlide', 'handleKeypress', 'preloadSlides']);
+		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'prevSlide', 'nextSlide', 'toggleSlides', 'newSlide', 'handleKeypress', 'preloadSlides']);
 
 		this.cacheSelectors();
 		this.photoIndex = 0;
@@ -24,8 +24,10 @@ module.exports = class Post {
 
 			this.$main.on('click', 'figure', this.enlarge);
 			this.$body.on('click', '.up', this.shrink);
-			this.$body.on('click', '.prev', this.newSlide);
-			this.$body.on('click', '.next', this.newSlide);
+			this.$body.on('click', '.prev', this.prevSlide);
+			this.$body.on('click', '.next', this.nextSlide);
+			this.$slideCtrl.on('click', this.toggleSlides);
+
 			$(window).on('resize', _.debounce(this.handleThumbs, 300));
 		}
 
@@ -58,6 +60,7 @@ module.exports = class Post {
 		this.$imgs = this.$main.find('.gallery figure');
 		this.$title = this.$slides.find('#title');
 		this.$caption = this.$slides.find('#caption');
+		this.$slideCtrl = $('#slide-control');
 	}
 
 	resizeIframe(){
@@ -111,6 +114,10 @@ module.exports = class Post {
 		this.$main.addClass('closed');
 		this.loadSlide(target.attr('data-url-large'), target.attr('data-url-full'));
 		this.updateSlideText(target.attr('id'), target.find('p').text());
+		
+		if(!this.$slideCtrl.hasClass('off')){
+			this.sliding = setInterval(this.nextSlide, 5000);
+		}
 	}
 
 	loadSlide(large, full){
@@ -125,6 +132,8 @@ module.exports = class Post {
 	shrink(){
 		this.$slides.removeClass('on').find('figure').remove();
 		this.$body.removeClass('slide');
+		
+		clearInterval(this.sliding);
 	}
 
 	getSlideHTML(large, full){
@@ -141,43 +150,61 @@ module.exports = class Post {
 		</figure>`;
 	}
 
-	newSlide(e){
-		if(e.currentTarget.className === 'prev'){
-			if(--this.photoIndex < 0){
-				this.photoIndex = this.$imgs.length - 1;
-			}
-		}	
-		else if(e.currentTarget.className === 'next'){
-			if(++this.photoIndex >= this.$imgs.length){
-				this.photoIndex = 0;
-			}
+	prevSlide(){
+		if(--this.photoIndex < 0){
+			this.photoIndex = this.$imgs.length - 1;
 		}
+		clearInterval(this.sliding);
+		this.newSlide();
+	}
+
+	nextSlide(e){
+		if(e){
+			clearInterval(this.sliding);
+		}
+		if(++this.photoIndex >= this.$imgs.length){
+			this.photoIndex = 0;
+		}
+		this.newSlide();
+	}
+
+	newSlide(){
 		var img = this.$imgs[this.photoIndex];
 		this.updateSlideText(img.id, $(img).find('p').text());
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}
 
+	toggleSlides(){
+		if(this.$slideCtrl.hasClass('off')){
+			this.$slideCtrl.removeClass('off').text('On');
+			this.sliding = setInterval(this.nextSlide, 5000);
+		}
+		else{
+			this.$slideCtrl.addClass('off').text('Off');
+			clearInterval(this.sliding);
+		}
+	}
+
 	handleKeypress(e){
-		var validKey = false;
 		if(this.$body.hasClass('slide')){
 			if(e.keyCode === 27 || e.keyCode === 38){ //esc, up
 				this.shrink();
-				validKey = true;
 			}
-			else if(e.keyCode === 37){ //left
-				if(--this.photoIndex < 0){
-					this.photoIndex = this.$imgs.length - 1;
+			else if(e.keyCode === 32){ //space
+				this.toggleSlides();
+			}
+			else if(e.keyCode === 37 || e.keyCode === 39){ //left or right
+				if(e.keyCode === 37){
+					if(--this.photoIndex < 0){
+						this.photoIndex = this.$imgs.length - 1;
+					}
 				}
-				validKey = true;
-			}
-			else if(e.keyCode === 39){ //right
-				if(++this.photoIndex >= this.$imgs.length){
-					this.photoIndex = 0;
+				else{
+					if(++this.photoIndex >= this.$imgs.length){
+						this.photoIndex = 0;
+					}
 				}
-				validKey = true;
-			}
 
-			if(validKey){
 				var img = this.$imgs[this.photoIndex];
 				this.updateSlideText(img.id, $(img).find('p').text());
 				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));

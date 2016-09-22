@@ -77,6 +77,7 @@ get_header();
 			<p id="caption"></p>
 			<div id="controls">
 				<span class="prev">Prev</span> / <span class="up">Return</span> / <span class="next">Next</span>
+				<p>Slideshow: <span id="slide-control">On</span></p>
 			</div>
 		</footer>
 	</div>
