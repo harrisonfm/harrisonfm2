@@ -8,7 +8,7 @@ Loader = require('./loader');
 module.exports = class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'prevSlide', 'nextSlide', 'toggleSlides', 'newSlide', 'updateTitle', 'handleKeypress', 'preloadSlides']);
+		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'prevSlide', 'nextSlide', 'pauseSlides', 'toggleSlides', 'newSlide', 'updateTitle', 'handleKeypress', 'preloadSlides']);
 
 		this.photoIndex = 0;
 		this.cacheSelectors();
@@ -112,13 +112,13 @@ module.exports = class Photo {
 		if(--this.photoIndex < 0){
 			this.photoIndex = this.$imgs.length - 1;
 		}
-		clearInterval(this.sliding);
+		this.pauseSlides();
 		this.newSlide();
 	}
 
 	nextSlide(e){
-		if(e){
-			clearInterval(this.sliding);
+		if(e){ //slideshow passes in undefined and fails this
+			this.pauseSlides();
 		}
 		if(++this.photoIndex >= this.$imgs.length){
 			this.photoIndex = 0;
@@ -132,40 +132,37 @@ module.exports = class Photo {
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}
 
+	pauseSlides(){
+		this.$slideCtrl.addClass('off').text('Off');
+		clearInterval(this.sliding);
+	}
+
 	toggleSlides(){
 		if(this.$slideCtrl.hasClass('off')){
 			this.$slideCtrl.removeClass('off').text('On');
 			this.sliding = setInterval(this.nextSlide, 5000);
 		}
 		else{
-			this.$slideCtrl.addClass('off').text('Off');
-			clearInterval(this.sliding);
+			this.pauseSlides();
 		}
 	}
 
 	handleKeypress(e){
 		if(this.$thumbnails.hasClass('closed')){
-			if(e.keyCode === 27 || e.keyCode === 38){ //esc, up
-				this.shrink();
-			}
-			else if(e.keyCode === 32){ //space
-				this.toggleSlides();
-			}
-			else if(e.keyCode === 37 || e.keyCode === 39){ //left or right
-				if(e.keyCode === 37){
-					if(--this.photoIndex < 0){
-						this.photoIndex = this.$imgs.length - 1;
-					}
-				}
-				else{
-					if(++this.photoIndex >= this.$imgs.length){
-						this.photoIndex = 0;
-					}
-				}
-
-				var img = this.$imgs[this.photoIndex];
-				this.updateTitle(img.id);
-				this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
+			switch(e.keyCode){
+				case 27: //esc
+				case 38: //up
+					this.shrink();
+					break;
+				case 32: //space
+					this.toggleSlides();
+					break;
+				case 37: //left
+					this.prevSlide();
+					break;
+				case 39: //right
+					this.nextSlide(true);
+					break;
 			}
 		}
 	}
