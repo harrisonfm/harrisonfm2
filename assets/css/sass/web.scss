@@ -36,8 +36,8 @@ body.page-template-page-web{
 		align-items: center;
 		justify-content: center;
 		position: relative;
-		#background{
-			background: cover;
+		.bg{
+			background-size: cover;
 			filter: blur(1px);
 			position: absolute;
 	    left: 0;
