@@ -29,6 +29,9 @@ function setup() {
 
 	add_action( 'init', $n('add_excerpt') );
     add_filter( 'excerpt_length', $n('reduceExcerptLength'), 999 );
+
+    add_action('wp_ajax_paginate', $n('paginate'));
+    add_action('wp_ajax_nopriv_paginate', $n('paginate'));
 }
 
 function add_excerpt() {
@@ -188,7 +191,51 @@ function customFormatGallery($string,$attr){
   return $output;
 }
 
-
 function reduceExcerptLength($length){
     return 25;
+}
+
+function paginate(){
+    $blacklist = $_POST['blacklist'];
+    $args = array(
+        'posts_per_page' => 4,
+        'post__not_in' => $blacklist,
+        'post_type' => 'post',
+        'post_status' => 'publish'
+    );
+    if(!empty($_POST['search'])){
+        $args['s'] = $_POST['search'];
+    }
+    else if(!empty($_POST['cat'])){
+        $args['category_name'] = $_POST['cat'];
+    }
+    else if(!empty($_POST['tag'])){
+        $args['tag'] = $_POST['tag'];
+    }
+    $archives = new \WP_Query($args);
+    $response = array(
+        'success' => false,
+        'articles' => ''
+    );
+    if($archives->have_posts()){
+        while($archives->have_posts()){
+            $archives->the_post();
+            global $post;
+            $blacklist[] = $post->ID;
+            $featImg = get_post_thumbnail_id($post->ID);
+            $wide = wp_get_attachment_image_src($featImg, 'wide')[0];
+            $large = wp_get_attachment_image_src($featImg, 'large')[0];
+            $url = $_POST['width'] > 400 ? $large : $full;
+            $response['articles'] .= '<a href="'.get_permalink().'">
+                <figure data-id="'.$post->ID.'" id="'.$post->post_name.'" data-url-wide="'.$wide.'" data-url-large="'.$large.'" style="background-image: url('.$url.')">
+                    <figcaption>'.get_the_title().'</figcaption>
+                    <div class="overlay"></div>
+                </figure>
+            </a>';
+        }
+        $response['blacklist'] = $blacklist;
+        $response['success'] = true;
+    }
+    header('Content-type: application/json');
+    die(json_encode($response));
 }
