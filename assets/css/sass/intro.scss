@@ -86,8 +86,6 @@ body.home{
 		}
 		article{
 			display: flex;
-			margin: 5px 0;
-			transition: background-color .5s;
 			animation-delay: 1.5s;
 			animation-duration: 1s;
 			animation-fill-mode: forwards;
@@ -97,10 +95,12 @@ body.home{
 			font-size: .8em;
 			margin: 0 10px;
 		}
-		a:hover,
-		a:active{
-			color: inherit;
-			article{
+		a{
+			margin: 5px 0;
+			transition: background-color .5s;
+			&:hover,
+			&:active{
+				color: inherit;
 				background-color: rgba(255,255,255,0.25);
 			}
 		}
