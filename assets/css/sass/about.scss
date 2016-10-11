@@ -10,7 +10,6 @@ body.page-template-page-about{
 		margin: auto;
 		position: relative;
 		width: 90%;
-		padding-top: 25px;
     max-width: 670px;
     p:first-of-type{
     	margin-top: 0;
@@ -24,6 +23,9 @@ body.page-template-page-about{
     		opacity: 1;
     	}
     }
+    @media(min-width: 769px){
+			padding-top: 25px;
+    }
 	}
 	p{
 		opacity: 0;
@@ -34,12 +36,11 @@ body.page-template-page-about{
 		transition: opacity .5s;
 		width: 100px;
     margin-right: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 0;
     float: left;
 		@media(min-width: 500px){
     	width: 150px;
 	    margin-right: 25px;
-	    margin-bottom: 25px;
 		}
 		img{
 			width: 100%;

@@ -3,7 +3,7 @@ get_header();
 ?>
 <div class="page">
 	<?php get_template_part('nav', 'write') ?>
-	<section>
+	<main>
 		<?php 
 		get_template_part('loader');
 		if (have_posts()) :
@@ -21,11 +21,11 @@ get_header();
 					<p><?php the_time('M jS, Y') ?> in <a href="<?= get_category_link($category->cat_ID) ?>"><?= $category->name ?></a></p>
 					<?php #if($photoCredit = get_post_meta($post->ID, 'photo_credit', true)){ ?>
 				</header>
-				<main>
+				<div id="content">
 				<? the_content();
 			endwhile;
 		endif; ?>
-			</main>
+			</div id="content">
 			<footer>
 				<?php
 				wp_reset_query();
@@ -70,7 +70,7 @@ get_header();
 					<p class="top link">Top</p>
 				</div>
 			</footer>
-	</section>
+	</main>
 	<div id="slides">
 		<footer>
 			<h4 id="title"></h4>

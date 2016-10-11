@@ -9,12 +9,12 @@ module.exports = class Write {
 	constructor(){
 		es6bindAll.es6BindAll(this, ['handleBGs', 'assignBGImage', 'getPosts']);
 
-		this.$section = $('section');
-		this.$figures = this.$section.find('figure');
+		this.$main = $('main');
+		this.$figures = this.$main.find('figure');
 		this.blacklist = [];
 
 		this.windowWidth = window.innerWidth;
-		this.loader = new Loader(this.$section, this.$figures.length);
+		this.loader = new Loader(this.$main, this.$figures.length);
 		this.$figures.each(function(idx, el){
 			this.assignBGImage($(el));
 			this.blacklist.push($(el).attr('data-id'));
@@ -39,8 +39,8 @@ module.exports = class Write {
 			this.pag.str = window.location.search.replace( "?s=", "" );
 		}
 
-		this.$section.on('scroll', _.debounce(function(){
-			if(this.$section.scrollTop() + this.$section.innerHeight() + 5 >= this.$section[0].scrollHeight - 5){
+		this.$main.on('scroll', _.debounce(function(){
+			if(this.$main.scrollTop() + this.$main.innerHeight() + 5 >= this.$main[0].scrollHeight - 5){
 				this.getPosts();
 			}
 		}.bind(this), 300));
@@ -67,7 +67,7 @@ module.exports = class Write {
 			return;
 		}
 		this.pag.enabled = false;
-		this.$section.append('<div id="post-loader"><img src="/wp-content/themes/harrisonfm/images/loader.gif" /></div>');
+		this.$main.append('<div id="post-loader"><img src="/wp-content/themes/harrisonfm/images/loader.gif" /></div>');
 		var data = {
 			action: 'paginate', 
 			blacklist: this.blacklist,
@@ -88,8 +88,8 @@ module.exports = class Write {
 			if(response.success){
 				this.blacklist = response.blacklist;
 				this.pag.enabled = true;
-				this.$section.append(response.articles);
-				this.$figures = this.$section.find('figure');
+				this.$main.append(response.articles);
+				this.$figures = this.$main.find('figure');
 			}
 		}.bind(this), 'json').fail(function(response){
 			console.log(response);

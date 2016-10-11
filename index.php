@@ -3,9 +3,9 @@ get_header();
 ?>
 <div class="page">
 	<?php get_template_part('nav', 'write') ?>
-	<section>
+	<main>
 		<?php get_template_part('loader'); ?>
 		<?php get_template_part('write', 'loop'); ?>
-	</section>
+	</main>
 </div>
 <?php get_footer();

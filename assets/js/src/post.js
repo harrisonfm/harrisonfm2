@@ -15,14 +15,14 @@ module.exports = class Post {
 		var img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
 		this.$banner.css('backgroundImage', "url('"+img+"')");
 
-		this.loader = new Loader($('section'), this.$imgs.length + 1);
+		this.loader = new Loader($('main'), this.$imgs.length + 1);
 		$('<img/>').attr('src', img).on('load', this.loader.increment);
 		if(this.$imgs.length){
 			$('.gallery img').filter(function() {
 			    return this.complete;
 			}).each(this.loader.increment).end().on('load', this.loader.increment);
 
-			this.$main.on('click', 'figure', this.enlarge);
+			this.$content.on('click', 'figure', this.enlarge);
 			this.$body.on('click', '.up', this.shrink);
 			this.$body.on('click', '.prev', this.prevSlide);
 			this.$body.on('click', '.next', this.nextSlide);
@@ -54,10 +54,10 @@ module.exports = class Post {
 		this.$banner = $('#banner');
 		this.$nav = $('nav');
 		this.$body = $('body');
-		this.$main = $('main');
+		this.$content = $('#content');
 		this.$slides = $('#slides');
-		this.$iframe = this.$main.find('iframe.resizable');
-		this.$imgs = this.$main.find('.gallery figure');
+		this.$iframe = this.$content.find('iframe.resizable');
+		this.$imgs = this.$content.find('.gallery figure');
 		this.$title = this.$slides.find('#title');
 		this.$caption = this.$slides.find('#caption');
 		this.$slideCtrl = $('#slide-control');
@@ -111,7 +111,7 @@ module.exports = class Post {
 		this.$slides.addClass('on');
 		var target = $(e.currentTarget);
 		this.photoIndex = target.attr('data-id');
-		this.$main.addClass('closed');
+		this.$content.addClass('closed');
 		this.loadSlide(target.attr('data-url-large'), target.attr('data-url-full'));
 		this.updateSlideText(target.attr('id'), target.find('p').text());
 		

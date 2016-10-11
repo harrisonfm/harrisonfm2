@@ -2,7 +2,7 @@ $nav-width: 225px;
 body.blog,
 body.search-results,
 body.archive{
-	section{
+	main{
 		display: flex;
 		flex-wrap: wrap;
 		align-content: flex-start;
@@ -58,7 +58,7 @@ body.archive{
 			display: flex;
 			flex-direction: row-reverse;
 		}
-		section{
+		main{
 			flex: auto;
 			overflow-y: scroll;
 		}
@@ -93,7 +93,7 @@ body.archive{
 				}
 			}
 		}
-		section{
+		main{
 			figure{
 				width: 100%;
 				height: calc((100vw - #{$nav-width}) * 0.5);
@@ -104,7 +104,7 @@ body.archive{
 		}
 	}
 	@media(min-width: 1024px){
-		section{
+		main{
 			a{
 				flex: none;
 				width: calc(50% - 5px);
