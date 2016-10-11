@@ -1,4 +1,4 @@
-@keyframes reveal-image{
+@keyframes image-reveal{
 	from{
 		opacity: 0;
 		transform: skewX(20deg);
@@ -8,6 +8,14 @@
 		opacity: 1;
 		transform: skewX(0deg);
 		transform: skewY(0deg);
+	}
+}
+@keyframes article-reveal{
+	from{
+		background-color: transparent;
+	}
+	to{
+		background-color: rgba(255,255,255,0.1);
 	}
 }
 @keyframes smoky-reveal{

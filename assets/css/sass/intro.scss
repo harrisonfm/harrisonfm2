@@ -17,6 +17,15 @@ body.home{
 			.logo{
 				animation-name: smoky-reveal;
 			}
+			.recent{
+				animation-name: smoky-reveal;
+			}
+			article{
+				animation-name: article-reveal;
+			}
+			img{
+				animation-name: image-reveal;
+			}
 		}
 	}
 	.logo{
@@ -25,6 +34,7 @@ body.home{
 		letter-spacing: 2px;
 		animation-duration: 2s;
 		animation-fill-mode: forwards;
+		margin-top: auto;
 		@media(min-width: 600px){
 			font-size: 3em;
 			letter-spacing: 10px;
@@ -33,12 +43,15 @@ body.home{
 			font-size: .8em;
 		}
 	}
-	nav{
+	.logo ~ *{
 		display: flex;
 		justify-content: center;
-		margin-top: 50px;
 		width: 100%;
 		max-width: 400px;
+	}
+	nav{
+		margin-top: 50px;
+		margin-bottom: 50px;
 		font-size: 1.25em;
 		animation-delay: 1s;
 		animation-duration: 1s;
@@ -56,6 +69,48 @@ body.home{
 			a:hover{
 				color: inherit;
 			}
+		}
+	}
+	.recent{
+		font-size: 1em;
+		flex-direction: column;
+		margin-bottom: 25px;
+		animation-delay: 1.5s;
+		animation-duration: 1s;
+		animation-fill-mode: forwards;
+		h5{
+			text-align: center;
+			font-style: italic;
+			font-weight: normal;
+			margin: 0;
+		}
+		article{
+			display: flex;
+			margin: 5px 0;
+			transition: background-color .5s;
+			animation-delay: 1.5s;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
+		}
+		p{
+			align-self: center;
+			font-size: .8em;
+			margin: 0 10px;
+		}
+		a:hover,
+		a:active{
+			color: inherit;
+			article{
+				background-color: rgba(255,255,255,0.25);
+			}
+		}
+		img{
+			opacity: 0;
+			width: 75px;
+			height: 75px;
+			animation-delay: 1.5s;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
 		}
 	}
 }
