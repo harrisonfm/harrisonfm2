@@ -1,25 +1,22 @@
 "use strict";
 
 var $ = require('jquery'),
-es6bindAll = require('es6bindall'),
 _ = require('lodash'),
 Loader = require('./loader');
 
 module.exports = class Write {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['handleBGs', 'assignBGImage', 'getPosts']);
-
 		this.$main = $('main');
 		this.$figures = this.$main.find('figure');
 		this.blacklist = [];
 
 		this.windowWidth = window.innerWidth;
 		this.loader = new Loader(this.$main, this.$figures.length);
-		this.$figures.each(function(idx, el){
+		this.$figures.each((idx, el) => {
 			this.assignBGImage($(el));
 			this.blacklist.push($(el).attr('data-id'));
-		}.bind(this));
-		$(window).on('resize', _.debounce(this.handleBGs, 300));
+		});
+		$(window).on('resize', _.debounce(() => this.handleBGs(), 300));
 
 		this.pag = { 
 			enabled: true
@@ -39,25 +36,25 @@ module.exports = class Write {
 			this.pag.str = window.location.search.replace( "?s=", "" );
 		}
 
-		this.$main.on('scroll', _.debounce(function(){
+		this.$main.on('scroll', _.debounce(() => {
 			if(this.$main.scrollTop() + this.$main.innerHeight() + 5 >= this.$main[0].scrollHeight - 5){
 				this.getPosts();
 			}
-		}.bind(this), 300));
+		}, 300));
 	}
 
 	assignBGImage($el){
 		var img = window.innerWidth <= 400 ? $el.attr('data-url-wide') : $el.attr('data-url-large');
 		$el.css('backgroundImage', "url('"+img+"')");
-		$('<img/>').attr('src', img).on('load', this.loader.increment);
+		$('<img/>').attr('src', img).on('load', () => this.loader.increment());
 	}
 
 	handleBGs(){
 		if((this.windowWidth <= 400 && window.innerWidth > 400) || (this.windowWidth > 400 && window.innerWidth <= 400)){
-			this.$figures.each(function(idx, el){
+			this.$figures.each((idx, el) => {
 				var img = window.innerWidth <= 400 ? el.attributes['data-url-wide'].value : el.attributes['data-url-large'].value;
 				el.style.backgroundImage = "url('"+img+"')";
-			}.bind(this));
+			});
 		}
 		this.windowWidth = window.innerWidth;
 	}
@@ -84,16 +81,16 @@ module.exports = class Write {
 				data.tag = this.pag.str;
 				break;
 		}
-		$.post('/wp-admin/admin-ajax.php', data, function(response){
+		$.post('/wp-admin/admin-ajax.php', data, (response) => {
 			if(response.success){
 				this.blacklist = response.blacklist;
 				this.pag.enabled = true;
 				this.$main.append(response.articles);
 				this.$figures = this.$main.find('figure');
 			}
-		}.bind(this), 'json').fail(function(response){
+		}, 'json').fail((response) => {
 			console.log(response);
-		}).done(function(){
+		}).done(() => {
 			$('#post-loader').remove();
 		});
 	}

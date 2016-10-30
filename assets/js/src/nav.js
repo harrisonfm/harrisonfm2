@@ -1,20 +1,16 @@
 "use strict";
-
-var $ = require('jquery'),
-es6bindAll = require('es6bindall');
+var $ = require('jquery');
 
 module.exports = class Nav {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['standardMenu']);
-
 		this.$body = $('body');
 		this.$burger = $('#hamburger');
 		this.$menu = $('.menu');
 		this.$children = this.$menu.children();
 
-		this.$burger.on('click', this.standardMenu);
+		this.$burger.on('click', () => this.standardMenu());
 
-		$('#back-button').on('click', function(){
+		$('#back-button').on('click', () => {
 			if(document.referrer.indexOf('harrisonfm') !== -1){
 				window.history.back();
 			}
@@ -28,13 +24,13 @@ module.exports = class Nav {
 		this.$menu.toggleClass('on');
 
 		if(this.$menu.hasClass('on')){
-			this.$children.each(function(index){
+			this.$children.each((index, el) => {
 				var delay = 300 * index + 1;
-				setTimeout(function(child){
-					if(child.parent().hasClass('on')){
-						child.addClass('on');
+				setTimeout((child) => {
+					if($(child).parent().hasClass('on')){
+						$(child).addClass('on');
 					}
-				}, delay, $(this));
+				}, delay, el);
 			});
 		}
 		else{

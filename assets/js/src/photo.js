@@ -2,37 +2,34 @@
 
 var $ = require('jquery'),
 _ = require('lodash'),
-es6bindAll = require('es6bindall'),
 Loader = require('./loader');
 
 module.exports = class Photo {
 
 	constructor(){
-		es6bindAll.es6BindAll(this, ['cacheSelectors', 'handleThumbs', 'enlarge', 'shrink', 'prevSlide', 'nextSlide', 'pauseSlides', 'toggleSlides', 'newSlide', 'updateTitle', 'handleKeypress', 'preloadSlides']);
-
 		this.photoIndex = 0;
 		this.cacheSelectors();
 
 		this.loader = new Loader(this.$thumbnails, this.$imgs.length);
-		$('#thumbnails img').filter(function() {
-		    return this.complete;
-		}).each(this.loader.increment).end().on('load', this.loader.increment);
+		$('#thumbnails img').filter((idx, el) => {
+		    return el.complete;
+		}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
 
-		this.$thumbnails.on('click', 'figure', this.enlarge);
-		this.$page.on('click', '.up', this.shrink);
-		this.$page.on('click', '.prev', this.prevSlide);
-		this.$page.on('click', '.next', this.nextSlide);
-		this.$slideCtrl.on('click', this.toggleSlides);
+		this.$thumbnails.on('click', 'figure', (e) => this.enlarge(e));
+		this.$page.on('click', '.up', () => this.shrink());
+		this.$page.on('click', '.prev', () => this.prevSlide());
+		this.$page.on('click', '.next', (e) => this.nextSlide(e));
+		this.$slideCtrl.on('click', () => this.toggleSlides());
 
-		this.$galBtn.on('click', function(){
+		this.$galBtn.on('click', () => {
 			this.$galList.toggleClass('on');
-		}.bind(this));
+		});
 
-		$(window).on('resize', _.debounce(this.handleThumbs, 300));
+		$(window).on('resize', _.debounce(() => this.handleThumbs(), 300));
 
-		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
+		$(document).on('keyup', _.debounce((e) => this.handleKeypress(e), 50));
 
-		this.$page.on('done-loading', this.preloadSlides);
+		this.$page.on('done-loading', () => this.preloadSlides());
 	}
 
 	cacheSelectors(){
@@ -70,10 +67,10 @@ module.exports = class Photo {
 
 	loadSlide(large, full){
 		this.$slides.html(this.getSlideHTML(large, full)).addClass('loading');
-		this.$slides.find('img').on('load', function(e){
+		this.$slides.find('img').on('load', (e) => {
 			e.currentTarget.offsetParent.className = 'loaded';
 			this.$slides.removeClass('loading');
-		}.bind(this));
+		});
 	}
 
 	shrink(){
@@ -169,8 +166,8 @@ module.exports = class Photo {
 
 	preloadSlides(){
 		if(window.innerWidth > 1024){
-			this.$imgs.each(function(idx, el){
-				$('<img/>').attr('src', $(this).attr('data-url-full'));
+			this.$imgs.each((idx, el) => {
+				$('<img/>').attr('src', $(el).attr('data-url-full'));
 			});
 		}
 	}

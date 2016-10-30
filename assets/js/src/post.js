@@ -1,14 +1,11 @@
 "use strict";
 
 var $ = require('jquery'),
-es6bindAll = require('es6bindall'),
 _ = require('lodash'),
 Loader = require('./loader');
 
 module.exports = class Post {
 	constructor(){
-		es6bindAll.es6BindAll(this, ['handleThumbs', 'cacheSelectors', 'showNav', 'resizeBanner', 'resizeIframe', 'updateSlideText', 'enlarge', 'shrink', 'prevSlide', 'nextSlide', 'pauseSlides', 'toggleSlides', 'newSlide', 'handleKeypress', 'preloadSlides']);
-
 		this.cacheSelectors();
 		this.photoIndex = 0;
 
@@ -16,38 +13,38 @@ module.exports = class Post {
 		this.$banner.css('backgroundImage', "url('"+img+"')");
 
 		this.loader = new Loader($('main'), this.$imgs.length + 1);
-		$('<img/>').attr('src', img).on('load', this.loader.increment);
+		$('<img/>').attr('src', img).on('load', () => this.loader.increment());
 		if(this.$imgs.length){
-			$('.gallery img').filter(function() {
-			    return this.complete;
-			}).each(this.loader.increment).end().on('load', this.loader.increment);
+			$('.gallery img').filter((idx, el) => {
+			    return el.complete;
+			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
 
-			this.$content.on('click', 'figure', this.enlarge);
-			this.$body.on('click', '.up', this.shrink);
-			this.$body.on('click', '.prev', this.prevSlide);
-			this.$body.on('click', '.next', this.nextSlide);
-			this.$slideCtrl.on('click', this.toggleSlides);
+			this.$content.on('click', 'figure', (e) => this.enlarge(e));
+			this.$body.on('click', '.up', () => this.shrink());
+			this.$body.on('click', '.prev', () => this.prevSlide());
+			this.$body.on('click', '.next', (e) => this.nextSlide(e));
+			this.$slideCtrl.on('click', () => this.toggleSlides());
 
-			$(window).on('resize', _.debounce(this.handleThumbs, 300));
+			$(window).on('resize', _.debounce(() => this.handleThumbs(), 300));
 		}
 
 		this.lastScroll = 0;
 		this.lastWindowWidth = window.innerWidth;
 
-		$(window).on('resize', _.debounce(this.resizeBanner, 300));
+		$(window).on('resize', _.debounce(() => this.resizeBanner(), 300));
 		if(this.$iframe.length){
 			this.resizeIframe();
-			$(window).on('resize', _.debounce(this.resizeIframe, 300));
+			$(window).on('resize', _.debounce(() => this.resizeIframe(), 300));
 		}
-		$(window).on('scroll', _.debounce(this.showNav, 300));
+		$(window).on('scroll', _.debounce(() => this.showNav(), 300));
 
-		$('.top').on('click', function(){
+		$('.top').on('click', () => {
 			$('html, body').animate({scrollTop: 0}, "slow");
 		});
 
-		$(document).on('keyup', _.debounce(this.handleKeypress, 50));
+		$(document).on('keyup', _.debounce((e) => this.handleKeypress(e), 50));
 
-		this.$body.on('done-loading', this.preloadSlides);
+		this.$body.on('done-loading', () => this.preloadSlides());
 	}
 
 	cacheSelectors(){
@@ -76,7 +73,7 @@ module.exports = class Post {
 		this.lastWindowWidth = window.innerWidth;
 	}
 
-	showNav(e){
+	showNav(){
 		var scroll = $(window).scrollTop();
 		if(scroll >= 75){
 			if(scroll >= this.lastScroll){
@@ -123,10 +120,10 @@ module.exports = class Post {
 	loadSlide(large, full){
 		this.$slides.find('figure').remove();
 		this.$slides.prepend(this.getSlideHTML(large, full)).addClass('loading');
-		this.$slides.find('img').on('load', function(e){
+		this.$slides.find('img').on('load', (e) => {
 			e.currentTarget.offsetParent.className = 'loaded';
 			this.$slides.removeClass('loading');
-		}.bind(this));
+		});
 	}
 
 	shrink(){
@@ -211,8 +208,8 @@ module.exports = class Post {
 
 	preloadSlides(){
 		if(window.innerWidth > 1024){
-			this.$imgs.each(function(idx, el){
-				$('<img/>').attr('src', $(this).attr('data-url-full'));
+			this.$imgs.each((idx, el) => {
+				$('<img/>').attr('src', $(el).attr('data-url-full'));
 			});
 		}
 	}
