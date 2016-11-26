@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery'),
+const $ = require('jquery'),
 Loader = require('./loader');
 
 module.exports = class Web {

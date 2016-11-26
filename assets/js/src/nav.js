@@ -1,5 +1,5 @@
 "use strict";
-var $ = require('jquery');
+const $ = require('jquery');
 
 module.exports = class Nav {
 	constructor(){
@@ -25,7 +25,7 @@ module.exports = class Nav {
 
 		if(this.$menu.hasClass('on')){
 			this.$children.each((index, el) => {
-				var delay = 300 * index + 1;
+				let delay = 300 * index + 1;
 				setTimeout((child) => {
 					if($(child).parent().hasClass('on')){
 						$(child).addClass('on');

@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery'),
+const $ = require('jquery'),
 _ = require('lodash'),
 Loader = require('./loader');
 
@@ -44,7 +44,7 @@ module.exports = class Write {
 	}
 
 	assignBGImage($el){
-		var img = window.innerWidth <= 400 ? $el.attr('data-url-wide') : $el.attr('data-url-large');
+		const img = window.innerWidth <= 400 ? $el.attr('data-url-wide') : $el.attr('data-url-large');
 		$el.css('backgroundImage', "url('"+img+"')");
 		$('<img/>').attr('src', img).on('load', () => this.loader.increment());
 	}
@@ -52,7 +52,7 @@ module.exports = class Write {
 	handleBGs(){
 		if((this.windowWidth <= 400 && window.innerWidth > 400) || (this.windowWidth > 400 && window.innerWidth <= 400)){
 			this.$figures.each((idx, el) => {
-				var img = window.innerWidth <= 400 ? el.attributes['data-url-wide'].value : el.attributes['data-url-large'].value;
+				const img = window.innerWidth <= 400 ? el.attributes['data-url-wide'].value : el.attributes['data-url-large'].value;
 				el.style.backgroundImage = "url('"+img+"')";
 			});
 		}
@@ -65,7 +65,7 @@ module.exports = class Write {
 		}
 		this.pag.enabled = false;
 		this.$main.append('<div id="post-loader"><img src="/wp-content/themes/harrisonfm/images/loader.gif" /></div>');
-		var data = {
+		let data = {
 			action: 'paginate', 
 			blacklist: this.blacklist,
 			width: window.innerWidth

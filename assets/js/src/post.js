@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery'),
+const $ = require('jquery'),
 _ = require('lodash'),
 Loader = require('./loader');
 
@@ -9,7 +9,7 @@ module.exports = class Post {
 		this.cacheSelectors();
 		this.photoIndex = 0;
 
-		var img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
+		const img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
 		this.$banner.css('backgroundImage', "url('"+img+"')");
 
 		this.loader = new Loader($('main'), this.$imgs.length + 1);
@@ -66,7 +66,7 @@ module.exports = class Post {
 
 	resizeBanner(){
 		if((this.lastWindowWidth <= 400 && window.innerWidth > 400) || (this.lastWindowWidth > 400 && window.innerWidth <= 400)){
-			var img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
+			const img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
 			this.$banner.css('backgroundImage', "url('"+img+"')");
 		}
 
@@ -74,7 +74,7 @@ module.exports = class Post {
 	}
 
 	showNav(){
-		var scroll = $(window).scrollTop();
+		const scroll = $(window).scrollTop();
 		if(scroll >= 75){
 			if(scroll >= this.lastScroll){
 				this.$nav.addClass('hide');
@@ -106,7 +106,7 @@ module.exports = class Post {
 		}
 		this.$body.addClass('slide');
 		this.$slides.addClass('on');
-		var target = $(e.currentTarget);
+		const target = $(e.currentTarget);
 		this.photoIndex = target.attr('data-id');
 		this.$content.addClass('closed');
 		this.loadSlide(target.attr('data-url-large'), target.attr('data-url-full'));
@@ -156,7 +156,6 @@ module.exports = class Post {
 	}
 
 	nextSlide(e){
-		console.log(this.$imgs);
 		if(e){ //slideshow passes in undefined and fails this
 			this.pauseSlides();
 		}
@@ -167,7 +166,7 @@ module.exports = class Post {
 	}
 
 	newSlide(){
-		var img = this.$imgs[this.photoIndex];
+		const img = this.$imgs[this.photoIndex];
 		this.updateSlideText(img.id, $(img).find('p').text());
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}

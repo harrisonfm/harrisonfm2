@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery'),
+const $ = require('jquery'),
 _ = require('lodash'),
 Loader = require('./loader');
 
@@ -54,7 +54,7 @@ module.exports = class Photo {
 		if(window.innerWidth <= 768){
 			return;
 		}
-		var attributes = e.currentTarget.attributes;
+		const attributes = e.currentTarget.attributes;
 		this.photoIndex = attributes['data-id'].value;
 		this.$thumbnails.addClass('closed');
 		this.loadSlide(attributes['data-url-large'].value, attributes['data-url-full'].value);
@@ -124,7 +124,7 @@ module.exports = class Photo {
 	}
 
 	newSlide(){
-		var img = this.$imgs[this.photoIndex];
+		const img = this.$imgs[this.photoIndex];
 		this.updateTitle(img.id);
 		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
 	}

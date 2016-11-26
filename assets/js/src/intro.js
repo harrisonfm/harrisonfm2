@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery'),
+const $ = require('jquery'),
 _ = require('lodash'),
 Loader = require('./loader');
 

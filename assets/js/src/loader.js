@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery');
+const $ = require('jquery');
 
 module.exports = class Loader {
 	constructor($parent, count){

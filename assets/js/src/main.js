@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('jquery'),
+const $ = require('jquery'),
 About = require('./about'),
 Intro = require('./intro'),
 Photo = require('./photo'),
@@ -9,25 +9,25 @@ Write = require('./write'),
 Post = require('./post'),
 Nav = require('./nav');
 
-$(function(){
-	var $body = $('body');
+$(() => {
+	const $body = $('body');
 	if($body.hasClass('home')){
-		var intro = new Intro();
+		const intro = new Intro();
 	}
 	else if($body.hasClass('blog') || $body.hasClass('search-results') || $body.hasClass('archive')){
-		var write = new Write();
+		const write = new Write();
 	}
 	else if($body.hasClass('single-post')){
-		var post = new Post();
+		const post = new Post();
 	}
 	else if($body.hasClass('page-template-page-photo') || $body.hasClass('single-photo')){
-		var photo = new Photo();
+		const photo = new Photo();
 	}
 	else if($body.hasClass('page-template-page-web')){
-		var web = new Web();
+		const web = new Web();
 	}
 	else if($body.hasClass('page-template-page-about')){
-		var about = new About();
+		const about = new About();
 	}
-	var nav = new Nav();
+	const nav = new Nav();
 });
