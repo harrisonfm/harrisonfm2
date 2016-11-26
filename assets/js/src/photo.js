@@ -61,7 +61,7 @@ module.exports = class Photo {
 		this.updateTitle(e.currentTarget.id);
 		
 		if(!this.$slideCtrl.hasClass('off')){
-			this.sliding = setInterval(this.nextSlide, 5000);
+			this.sliding = setInterval(() => this.nextSlide(), 5000);
 		}
 	}
 
@@ -137,7 +137,7 @@ module.exports = class Photo {
 	toggleSlides(){
 		if(this.$slideCtrl.hasClass('off')){
 			this.$slideCtrl.removeClass('off').text('On');
-			this.sliding = setInterval(this.nextSlide, 5000);
+			this.sliding = setInterval(() => this.nextSlide(), 5000);
 		}
 		else{
 			this.pauseSlides();

@@ -113,7 +113,7 @@ module.exports = class Post {
 		this.updateSlideText(target.attr('id'), target.find('p').text());
 		
 		if(!this.$slideCtrl.hasClass('off')){
-			this.sliding = setInterval(this.nextSlide, 5000);
+			this.sliding = setInterval(() => this.nextSlide(), 5000);
 		}
 	}
 
@@ -156,6 +156,7 @@ module.exports = class Post {
 	}
 
 	nextSlide(e){
+		console.log(this.$imgs);
 		if(e){ //slideshow passes in undefined and fails this
 			this.pauseSlides();
 		}
@@ -179,7 +180,7 @@ module.exports = class Post {
 	toggleSlides(){
 		if(this.$slideCtrl.hasClass('off')){
 			this.$slideCtrl.removeClass('off').text('On');
-			this.sliding = setInterval(this.nextSlide, 5000);
+			this.sliding = setInterval(() => this.nextSlide(), 5000);
 		}
 		else{
 			this.pauseSlides();
