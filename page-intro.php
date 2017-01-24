@@ -11,7 +11,7 @@ $bg = array(
 ?>
 <div class="page" data-url-large="<?= $bg['large'][0] ?>" data-url-full="<?= $bg['full'][0] ?>">
 	<?php get_template_part('loader') ?>
-	<div class="logo">Harrison <span class="icon-bolt-before"></span>FM<span class="icon-bolt-after"></span></div>
+	<div class="logo">Harrison <span class="icon-bolt-after"></span>FM<span class="icon-bolt-before"></span></div>
 	<?php get_template_part('nav');
 	$args = array(
     'posts_per_page' => 3

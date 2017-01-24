@@ -1,5 +1,5 @@
 <nav>
-<header><a href="/"><span class="icon-bolt-before"></span>HFM<span class="icon-bolt-after"></span></a></header>
+<header><a href="/"><span class="icon-bolt-after"></span>HFM<span class="icon-bolt-before"></span></a></header>
 <?php if($post->post_type === 'post' && !is_search() && !is_archive() && !is_home()): ?>
 <span id="back-button" class="icon-undo2 link" title="Back"></span>
 <?php endif; ?>

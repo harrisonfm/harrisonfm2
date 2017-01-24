@@ -10,6 +10,8 @@ Post = require('./post'),
 Nav = require('./nav');
 
 $(() => {
+	$('<img/>').attr('src', "/wp-content/themes/harrisonfm/images/loader.gif").on('load', () => { $(this).remove(); });
+
 	const $body = $('body');
 	if($body.hasClass('home')){
 		const intro = new Intro();
