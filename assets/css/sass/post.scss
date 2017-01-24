@@ -44,6 +44,27 @@ body.single-post{
 			}
 			p{
 				margin: 0 0 0 auto;
+				display: flex;
+				align-items: center;
+				> a{
+					margin-left: 5px;
+				}
+			}
+			span{
+				margin-left: 5px;
+		    font-size: .75em;
+		    color: #666;
+		    a{
+		    	color: inherit;
+		    	&:hover,
+		    	&:focus{
+		    		color: #999;
+		    	}
+		    }
+		    i{
+		    	position: relative;
+		    	top: 2px;
+		    }
 			}
 		}
 		footer{
