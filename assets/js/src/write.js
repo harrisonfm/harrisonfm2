@@ -13,7 +13,7 @@ module.exports = class Write {
 		this.windowWidth = window.innerWidth;
 		this.loader = new Loader(this.$main, this.$figures.length);
 		this.$figures.each((idx, el) => {
-			this.assignBGImage($(el));
+			this.assignBGImage($(el), true);
 			this.blacklist.push($(el).attr('data-id'));
 		});
 		$(window).on('resize', _.debounce(() => this.handleBGs(), 300));
@@ -21,6 +21,7 @@ module.exports = class Write {
 		this.pag = { 
 			enabled: true
 		};
+
 		if(window.location.pathname.indexOf('/category/') !== -1){
 			this.pag.type = 'category';
 			this.pag.str = window.location.pathname.substr(window.location.pathname.indexOf('/category/') + 8);
@@ -36,17 +37,19 @@ module.exports = class Write {
 			this.pag.str = window.location.search.replace( "?s=", "" );
 		}
 
-		this.$main.on('scroll', _.debounce(() => {
-			if(this.$main.scrollTop() + this.$main.innerHeight() + 5 >= this.$main[0].scrollHeight - 5){
+		$(window).on('scroll', _.debounce(() => {
+			if($(window).scrollTop() + $(window).innerHeight() + 5 >= this.$main[0].scrollHeight - 5){
 				this.getPosts();
 			}
 		}, 300));
 	}
 
-	assignBGImage($el){
-		const img = window.innerWidth <= 400 ? $el.attr('data-url-wide') : $el.attr('data-url-large');
-		$el.css('backgroundImage', "url('"+img+"')");
-		$('<img/>').attr('src', img).on('load', () => this.loader.increment());
+	assignBGImage($figure, onLoad){
+		const img = window.innerWidth <= 400 ? $figure.attr('data-url-wide') : $figure.attr('data-url-large');
+		$figure.css('backgroundImage', "url('"+img+"')");
+		if(onLoad){
+			$('<img/>').attr('src', img).on('load', () => this.loader.increment());
+		}
 	}
 
 	handleBGs(){
@@ -87,6 +90,10 @@ module.exports = class Write {
 				this.pag.enabled = true;
 				this.$main.append(response.articles);
 				this.$figures = this.$main.find('figure');
+
+				this.$figures.each((idx, el) => {
+					this.assignBGImage($(el), true);
+				});
 			}
 		}, 'json').fail((response) => {
 			console.log(response);
