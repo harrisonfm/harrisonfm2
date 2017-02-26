@@ -164,7 +164,10 @@ body.single-post{
 				}
 				@media(min-width: 620px){
 					flex-direction: row;
-					justify-content: space-between;
+					justify-content: center;
+					&.two-stories{
+						justify-content: space-between;
+					}
 					.story-item{
 				    width: 300px;
 				    a{

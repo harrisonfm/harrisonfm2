@@ -52,7 +52,7 @@ get_header();
 			if($title = get_field('story_title')):
 			?>
 				<h5>This is part of the <?= $title ?> story</h5>
-				<div id="story-container">
+				<div id="story-container" <?= get_field('story_previous') && get_field('story_next') ? 'class="two-stories"' : '' ?>>
 					<?php
 					if($post = get_field('story_previous')):
 						setup_postdata($post);
