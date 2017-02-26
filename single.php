@@ -49,30 +49,72 @@ get_header();
 				}
 				echo substr($tagLine, 0, -2).'</p>';
 			}
-			$related = new WP_Query(
-				array(
-				'cat'=>$category->cat_ID,
-				'posts_per_page' => 3,
-				'post__not_in' => array($id)
-			));
-			if ($related->have_posts()) : ?>
+			if($title = get_field('story_title')):
+			?>
+				<h5>This is part of the <?= $title ?> story</h5>
+				<div id="story-container">
+					<?php
+					if($post = get_field('story_previous')):
+						setup_postdata($post);
+						$bg = wp_get_attachment_image_src(get_post_thumbnail_id(), 'wide')[0];
+					?>
+						<div class="story-item">
+							<h6>&lt;&lt;&lt; Previous</h6>
+							<a href="<?= get_the_permalink() ?>">
+								<figure style="background-image:url('<?= $bg ?>')">
+									<figcaption><?= get_the_title() ?></figcaption>
+									<div class="overlay"></div>
+								</figure>
+							</a>
+						</div>
+					<?php
+						wp_reset_postdata();
+					endif;
+					if($post = get_field('story_next')):
+						setup_postdata($post);
+						$bg = wp_get_attachment_image_src(get_post_thumbnail_id(), 'wide')[0];
+					?>
+						<div class="story-item">
+							<h6>Next &gt;&gt;&gt;</h6>
+							<a href="<?= get_the_permalink() ?>">
+								<figure style="background-image:url('<?= $bg ?>')">
+									<figcaption><?= get_the_title() ?></figcaption>
+									<div class="overlay"></div>
+								</figure>
+							</a>
+						</div>
+					<?php
+						wp_reset_postdata();
+					endif;
+					?>
+				</div>
+			<?php
+			else:
+				$related = new WP_Query(
+					array(
+					'cat'=>$category->cat_ID,
+					'posts_per_page' => 3,
+					'post__not_in' => array($id)
+				));
+				if ($related->have_posts()) : ?>
 					<h5>Other Reading</h5>
 					<?php while ($related->have_posts()):
 						$related->the_post();
 					?>
-					<a href="<?= the_permalink() ?>">
-						<article>
+					<a href="<?= get_the_permalink() ?>">
+						<article class="related">
 							<div>
-								<h5><?= the_title() ?></h5>
-								<p><?= the_excerpt() ?></p>
+								<h5><?= get_the_title() ?></h5>
+								<p><?= get_the_excerpt() ?></p>
 							</div>
 							<figure>
 								<?= the_post_thumbnail('thumb') ?>
 							</figure>
 						</article>
 					</a>
-			<?php
-			endwhile;
+				<?php
+					endwhile;
+				endif;
 			endif;
 			?>
 			<div id="end">

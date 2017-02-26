@@ -1,7 +1,7 @@
 <?php
 if (have_posts()):
 	while (have_posts()): the_post();
-		$featImg = get_post_thumbnail_id($post->ID);
+		$featImg = get_post_thumbnail_id();
 		$wide = wp_get_attachment_image_src($featImg, 'wide')[0];
 		$large = wp_get_attachment_image_src($featImg, 'large')[0];
 		?>
