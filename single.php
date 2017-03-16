@@ -12,7 +12,7 @@ get_header();
 				$featImg = get_post_thumbnail_id($id);
 				$category = get_the_category();
 				$category = $category[0];
-				$isSquare = get_field('square') ? 'class = "square"' : '';
+				$isSquare = get_field('square_feature') ? 'class = "square"' : '';
 				$wide = wp_get_attachment_image_src($featImg, 'wide')[0];
 				$large = wp_get_attachment_image_src($featImg, 'large')[0];
 
