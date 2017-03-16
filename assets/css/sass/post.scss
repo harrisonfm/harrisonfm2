@@ -5,11 +5,16 @@ body.single-post{
 	.page{
 		height: auto;
 		overflow: hidden;
+		background: #333;
 	}
 	nav{
 		position: absolute;
 		z-index: 2;
 		background: white;
+		max-width: 900px;
+		margin: auto;
+		left: 0;
+		right: 0;
 		&.fixed{
 			position: fixed;
 			animation-duration: .25s;
@@ -22,9 +27,6 @@ body.single-post{
 		> span{
 			margin: 12.5px auto auto auto;
     	font-size: 1.5em;
-    	@media(min-width: 450px){
-    		margin-left: 33vw;
-    	}
 		}
 		#categories{
 			display: none;
@@ -32,10 +34,11 @@ body.single-post{
 	}
 	main{
 		max-width: 900px;
-		padding: 65px 10px 0;
+		padding: 57px 10px 0;
 		position: relative;
 		margin: auto;
 		box-sizing: border-box;
+		background: white;
 		header{
 			padding: 25px 0 5px;
 			h1{
@@ -78,7 +81,14 @@ body.single-post{
 					font-weight: bold;
 				}
 				a{
-					font-style: italic;
+					font-size: .75em;
+			    padding: 5px 10px;
+			    border-radius: 10px;
+			    border: solid 1px;
+			    margin-right: 5px;
+			    &:last-of-type{
+			    	margin: 0;
+			    }
 				}
 			}
 			article{
@@ -197,11 +207,12 @@ body.single-post{
 		}
 	}
 	.gallery{
+		margin: 0 -10px;
 		figure{
 			margin-bottom: 5px;
 		}
 		figcaption{
-			padding-left: 5px;
+			padding-left: 10px;
 			h4{
 				font-size: .67em;
 				margin: 0;
@@ -239,11 +250,22 @@ body.single-post{
 		}
 	}
 	#banner{
-		width: 100%;
-		height: calc((100vw - 20px) * .67);
+		width: 100vw;
+		height: calc(100vw * .67);
 		background-position: 50%;
 		background-size: cover;
-		margin: auto;
+		margin: 0 -10px;
+		&.square{
+			margin: auto;
+			height: 100vw;
+			max-width: 450px;
+			max-height: 450px;
+		}
+	}
+	@media(max-width: 450px){
+		#banner.square{
+			margin: 0 -10px;
+		}
 	}
 	@media(min-width: 769px){
 		nav{
@@ -251,7 +273,6 @@ body.single-post{
 				width: 300px;
 				#searchform{
 					width: 100px;
-			    margin-top: -2.5px;
 			    padding: 0 5px;
 			    height: 30px;
 				}
@@ -261,9 +282,12 @@ body.single-post{
 			justify-content: center;
 		}
 		#banner{
-			width: 75%;
 			height: calc(75vw * .67);
-			max-height: 450px;
+			max-height: 500px;
+			&.square{
+				height: 500px;
+				width: 500px;
+			}
 		}
 		#slides{
 			position: fixed;
@@ -324,6 +348,7 @@ body.single-post{
 		.gallery{
 			display: flex;
 			flex-wrap: wrap;
+			margin: 0 -5px;
 			figure{
 				cursor: pointer;
     		margin-right: 5px;
@@ -349,7 +374,7 @@ body.single-post{
 				}
 			}
 			img{
-				max-width: calc((100vw - 22.5px) * .33);
+				max-width: calc((100vw - 12px) * .33);
 			}
 			figcaption{
 				display: none;
@@ -357,9 +382,12 @@ body.single-post{
 		}
 	}
 	@media(min-width: 900px){
+		#banner{
+			width: 900px;
+		}
 		.gallery{
 			img{
-				max-width: 290px;	
+				max-width: 293.3px;	
 			}
 		}
 		#end{

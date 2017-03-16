@@ -12,11 +12,12 @@ get_header();
 				$featImg = get_post_thumbnail_id($id);
 				$category = get_the_category();
 				$category = $category[0];
+				$isSquare = get_field('square') ? 'class = "square"' : '';
 				$wide = wp_get_attachment_image_src($featImg, 'wide')[0];
 				$large = wp_get_attachment_image_src($featImg, 'large')[0];
 
 				?>
-				<div id="banner" data-url-wide="<?= $wide ?>" data-url-large="<?= $large ?>"></div>
+				<div id="banner" <?= $isSquare ?> data-url-wide="<?= $wide ?>" data-url-large="<?= $large ?>"></div>
 				<header>
 					<h1><?php the_title() ?></h1>
 					<p>
@@ -42,13 +43,18 @@ get_header();
 			<?php
 			wp_reset_query();
 			$tags = wp_get_post_tags($post->ID);
-			if($tags){
-				$tagLine = '<p class="tag-line"><span>Tagged:</span> ';
-				foreach($tags as $tag){
-					$tagLine .= '<a href="'.get_tag_link($tag->term_id).'">#'.$tag->name.'</a>, ';
-				}
-				echo substr($tagLine, 0, -2).'</p>';
-			}
+			if($tags):
+			?>
+				<p class="tag-line">
+					<span>Tagged:</span>
+					<?php
+					foreach($tags as $tag){
+						echo '<a href="'.get_tag_link($tag->term_id).'">#'.$tag->name.'</a>';
+					}
+					?>
+				</p>
+			<?php
+			endif;
 			if($title = get_field('story_title')):
 			?>
 				<h5>This is part of the <?= $title ?> story:</h5>
@@ -97,7 +103,7 @@ get_header();
 					'post__not_in' => array($id)
 				));
 				if ($related->have_posts()) : ?>
-					<h5>Other Reading</h5>
+					<h5>Other Reading:</h5>
 					<?php while ($related->have_posts()):
 						$related->the_post();
 					?>
