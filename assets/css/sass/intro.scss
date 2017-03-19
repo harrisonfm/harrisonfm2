@@ -1,30 +1,65 @@
-body.home{
-	font-family: Palatino Linotype, sans-serif;
-	color: transparent;
-	letter-spacing: 1px;
-	font-size: .75em;
+$nav-width: 200px;
+body.home,
+body.archive,
+body.search-results{
 	.page{
-		background-position: 50% 50%;
-		background-size: cover;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 		&.loaded{
 			.logo{
 				animation-name: smoky-reveal;
 			}
-			nav{
+			#intro nav{
 				animation-name: smoky-reveal;	
 			}
-			.recent{
-				animation-name: smoky-reveal;
+			#articles figure{
+				opacity: 1;
 			}
-			article{
-				animation-name: article-reveal;
+			main nav{
+				opacity: 1;
 			}
-			img{
-				animation-name: image-reveal;
+		}
+	}
+	#intro{
+		font-family: Palatino Linotype, sans-serif;
+		color: transparent;
+		letter-spacing: 1px;
+		font-size: .75em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height: calc(100vw * .67);
+		max-height: 600px;
+		nav{
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			max-width: 400px;
+			margin-top: 50px;
+			margin-bottom: 50px;
+			font-size: 1.25em;
+			animation-delay: 1s;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
+			header{
+				display: none;
+			}
+			.menu{
+				display: flex;
+				width: 90%;
+				justify-content: space-around;
+				#hamburger{
+					display: none;
+				}
+				a:hover{
+					color: inherit;
+				}
+			}
+			form{
+				display: none;
 			}
 		}
 	}
@@ -35,7 +70,6 @@ body.home{
 		letter-spacing: 2px;
 		animation-duration: 2s;
 		animation-fill-mode: forwards;
-		margin-top: auto;
 		@media(min-width: 600px){
 			font-size: 3em;
 			letter-spacing: 10px;
@@ -44,74 +78,128 @@ body.home{
 			font-size: .8em;
 		}
 	}
-	.logo ~ *{
+	main{
+		min-height: 100vh;
+		nav{
+			opacity: 0;
+			transition: opacity .5s
+		}
+	}
+	#articles{
 		display: flex;
-		justify-content: center;
-		width: 100%;
-		max-width: 400px;
-	}
-	nav{
-		margin-top: 50px;
-		margin-bottom: 50px;
-		font-size: 1.25em;
-		animation-delay: 1s;
-		animation-duration: 1s;
-		animation-fill-mode: forwards;
-		header{
-			display: none;
+		flex-wrap: wrap;
+		align-content: flex-start;
+		padding: 5px 10px;
+		position: relative;
+		background: white;
+		&.loaded figure{
+			opacity: 1;
 		}
-		.menu{
-			display: flex;
-			width: 90%;
-			justify-content: space-around;
-			#hamburger{
-				display: none;
-			}
-			a:hover{
-				color: inherit;
-			}
-		}
-	}
-	.recent{
-		font-size: 1em;
-		flex-direction: column;
-		margin-bottom: 25px;
-		animation-delay: 1.5s;
-		animation-duration: 1s;
-		animation-fill-mode: forwards;
-		h5{
-			text-align: center;
-			font-style: italic;
-			font-weight: normal;
-			margin: 0;
-		}
-		article{
-			display: flex;
-			animation-delay: 1.5s;
-			animation-duration: 1s;
-			animation-fill-mode: forwards;
-		}
-		p{
-			align-self: center;
-			font-size: .8em;
-			margin: 0 10px;
+		> h4{
+			width: 100%;
+	    margin: 0 5px;
+	    font-style: italic;
+	    font-size: .65em;
 		}
 		a{
 			margin: 5px 0;
-			transition: background-color .5s;
-			&:hover,
-			&:active{
-				color: inherit;
-				background-color: rgba(255,255,255,0.25);
+			width: 100%;
+		}
+		figure{
+			position: relative;
+			opacity: 0;
+			transition: opacity .5s;
+			background-size: cover;
+			background-position: 50%;
+			height: calc(100vw * .67);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			figcaption{
+				z-index: 1;
+				color: white;
+				text-align: center;
+			}
+			.overlay{
+				background-color: rgba(0,0,0,.25);
+				transition: background-color .5s;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
 			}
 		}
-		img{
-			opacity: 0;
-			width: 75px;
-			height: 75px;
-			animation-delay: 1.5s;
-			animation-duration: 1s;
-			animation-fill-mode: forwards;
+		#post-loader{
+			flex: 0 1 100%;
+			margin: 10px 0;
+			text-align: center;
+		}
+	}
+	@media(min-width: 769px){
+		main{
+			display: flex;
+			nav{
+				flex-direction: column;
+				align-items: center;
+				justify-content: flex-start;
+				flex-wrap: nowrap;
+				width: $nav-width;
+				height: auto;
+				padding: 10px;
+				box-sizing: border-box;
+				text-align: center;
+				box-shadow: 0 0 5px gray;
+				position: relative;
+				z-index: 2;
+				header{
+					padding: 10px 0;
+				}
+				.menu{
+					flex-wrap: wrap;
+					justify-content: space-around;
+					box-sizing: border-box
+				}
+				.search-form{
+					margin: auto;
+					input{
+						width: 100px;
+				    font-size: .67em;
+				    padding: 5px;
+				    margin: 20px 0 0;
+					}
+				}
+			}
+		}
+		#articles{
+			flex: auto;
+			overflow-y: scroll;
+			figure{
+				width: 100%;
+				height: calc((100vw - #{$nav-width}) * 0.5);
+				&:hover .overlay{
+					background-color: rgba(0,0,0,.5);
+				}
+			}
+		}
+	}
+	@media(min-width: 1024px){
+		#articles{
+			a{
+				flex: none;
+				width: calc(50% - 5px);
+				margin: 5px 5px;
+				&:nth-of-type(even){
+					margin-right: 0;
+				}
+				&:nth-of-type(odd){
+					margin-left: 0;
+				}
+			}
+			figure{
+				height: calc((100vw - 10px - #{$nav-width}) * 0.25);
+			}
 		}
 	}
 }

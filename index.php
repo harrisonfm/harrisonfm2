@@ -1,11 +1,11 @@
-<?php
-get_header();
-?>
+<?php get_header() ?>
 <div class="page">
-	<?php get_template_part('nav', 'write') ?>
+	<?php get_template_part('intro', 'header') ?>
 	<main>
-		<?php get_template_part('loader'); ?>
-		<?php get_template_part('write', 'loop'); ?>
+		<div id="articles">
+			<?php get_template_part('write', 'loop'); ?>
+		</div>
+		<?php get_template_part('nav', 'write') ?>
 	</main>
 </div>
 <?php get_footer();

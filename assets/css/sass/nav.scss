@@ -1,4 +1,5 @@
-body:not(.home) nav{
+body:not(.home) nav,
+body main nav{
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;

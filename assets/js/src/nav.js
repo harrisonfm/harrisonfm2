@@ -6,7 +6,7 @@ module.exports = class Nav {
 		this.$body = $('body');
 		this.$burger = $('#hamburger');
 		this.$menu = $('.menu');
-		this.$children = this.$menu.children();
+		this.$menuItems = this.$menu.children();
 
 		this.$burger.on('click', () => this.standardMenu());
 
@@ -24,7 +24,7 @@ module.exports = class Nav {
 		this.$menu.toggleClass('on');
 
 		if(this.$menu.hasClass('on')){
-			this.$children.each((index, el) => {
+			this.$menuItems.each((index, el) => {
 				let delay = 300 * index + 1;
 				setTimeout((child) => {
 					if($(child).parent().hasClass('on')){
@@ -34,7 +34,7 @@ module.exports = class Nav {
 			});
 		}
 		else{
-			this.$children.removeClass('on');
+			this.$menuItems.removeClass('on');
 		}
 	}
 };

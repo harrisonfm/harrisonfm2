@@ -5,7 +5,6 @@ About = require('./about'),
 Intro = require('./intro'),
 Photo = require('./photo'),
 Web = require('./web'),
-Write = require('./write'),
 Post = require('./post'),
 Nav = require('./nav');
 
@@ -13,11 +12,8 @@ $(() => {
 	$('<img/>').attr('src', "/wp-content/themes/harrisonfm/images/loader.gif").on('load', () => { $(this).remove(); });
 
 	const $body = $('body');
-	if($body.hasClass('home')){
+	if($body.hasClass('home')|| $body.hasClass('search-results') || $body.hasClass('archive')){
 		const intro = new Intro();
-	}
-	else if($body.hasClass('blog') || $body.hasClass('search-results') || $body.hasClass('archive')){
-		const write = new Write();
 	}
 	else if($body.hasClass('single-post')){
 		const post = new Post();

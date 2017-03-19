@@ -32,10 +32,30 @@ function setup() {
 
     add_action('wp_ajax_paginate', $n('paginate'));
     add_action('wp_ajax_nopriv_paginate', $n('paginate'));
+
+    add_action( 'after_setup_theme', $n('custom_header') );
+
+    add_filter('pre_get_posts', $n('search_filter'));        
 }
 
 function add_excerpt() {
      add_post_type_support( 'page', 'excerpt' );
+}
+
+function custom_header() {
+    $args = array(
+        'flex-width' => true,
+        'flex-height' => true,
+        'default-image' => get_template_directory_uri() . '/images/src/testbg.jpg',
+    );
+    add_theme_support( 'custom-header', $args );
+}
+
+function search_filter($query) {
+    if ($query->is_search) {
+        $query->set('post_type', 'post');
+    }
+    return $query;
 }
 
 /**
