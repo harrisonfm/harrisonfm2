@@ -3,19 +3,23 @@ const $ = require('jquery');
 
 module.exports = class Nav {
 	constructor(){
-		this.$body = $('body');
-		this.$burger = $('#hamburger');
-		this.$menu = $('.menu');
+		this.$menu = $('main').find('.menu');
+		if(!this.$menu.length){
+			this.$menu = $('.menu');
+		}
+		this.$burger = this.$menu.find('#hamburger');
 		this.$menuItems = this.$menu.children();
 
-		this.$burger.on('click', () => this.standardMenu());
+		this.$burger.on('click', () => {
+			this.standardMenu();
+		});
 
 		$('#back-button').on('click', () => {
 			if(document.referrer.indexOf('harrisonfm') !== -1){
 				window.history.back();
 			}
 			else{
-				document.location = '/write';
+				document.location = '/';
 			}
 		});
 	}
