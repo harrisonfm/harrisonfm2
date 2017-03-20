@@ -12,7 +12,7 @@ $(() => {
 	$('<img/>').attr('src', "/wp-content/themes/harrisonfm/images/loader.gif").on('load', () => { $(this).remove(); });
 
 	const $body = $('body');
-	if($body.hasClass('home')|| $body.hasClass('search-results') || $body.hasClass('archive')){
+	if($body.hasClass('write')){
 		const intro = new Intro();
 	}
 	else if($body.hasClass('single-post')){
