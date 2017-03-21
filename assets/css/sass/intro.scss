@@ -164,12 +164,7 @@ body.write{
 			    top: 0;
 			    right: 0;
 			    width: 200px;
-					opacity: 0;
-					transition: opacity .5s, top .5s;
 					padding: 0;
-					&.on{
-						opacity: 1;
-					}
 				}
 				header{
 					padding: 10px 0;

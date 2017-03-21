@@ -13,7 +13,6 @@ module.exports = class Intro {
 		this.windowWidth = window.innerWidth;
 		this.blacklist = [];
 		this.$fixedNav = $('main nav');
-		this.$floatingNav = this.$fixedNav.find('.floating-content');
 
 		this.loader = new Loader(this.$page, this.$figures.length + 1);
 		this.handleIntroBG();
@@ -126,11 +125,9 @@ module.exports = class Intro {
 			else{
 				this.$fixedNav.addClass('fixed').removeClass('hide');
 			}
-			this.$floatingNav.addClass('on');
 		}
 		else{
 			this.$fixedNav.removeClass('fixed hide');
-			this.$floatingNav.removeClass('on');
 		}
 		this.lastScroll = scroll;
 	}
