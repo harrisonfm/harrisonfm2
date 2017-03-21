@@ -9,23 +9,13 @@ body.single-post{
 	}
 	nav{
 		position: absolute;
-		z-index: 2;
-		background: white;
 		max-width: 900px;
 		margin: auto;
 		left: 0;
 		right: 0;
-		&.fixed{
-			position: fixed;
-			animation-duration: .25s;
-			animation-fill-mode: forwards;
-			animation-name: nav-show;
-			&.hide{
-				animation-name: nav-hide;
-			}
-		}
-		> span{
-			margin: 12.5px auto auto auto;
+		z-index: 2;
+		#back-button{
+			margin-top: 12.5px;
     	font-size: 1.5em;
 		}
 		#categories{

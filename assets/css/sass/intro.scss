@@ -31,17 +31,21 @@ body.write{
     background-repeat: no-repeat;
     height: calc(100vw * .67);
 		max-height: 600px;
+		position: relative;
+		z-index: 3;
 		nav{
 			display: flex;
 			justify-content: center;
 			width: 100%;
 			max-width: 400px;
 			margin-top: 50px;
-			margin-bottom: 50px;
 			font-size: 1.25em;
 			animation-delay: 1s;
 			animation-duration: 1s;
 			animation-fill-mode: forwards;
+			.floating-content{
+				width: 100%;
+			}
 			header{
 				display: none;
 			}
@@ -80,7 +84,8 @@ body.write{
 		min-height: 100vh;
 		nav{
 			opacity: 0;
-			transition: opacity .5s
+			transition: opacity .5s;
+		  position: absolute;
 		}
 	}
 	#articles{
@@ -137,20 +142,35 @@ body.write{
 	}
 	@media(min-width: 769px){
 		main{
+			position: relative;
 			display: flex;
 			nav{
-				flex-direction: column;
-				align-items: center;
-				justify-content: flex-start;
-				flex-wrap: nowrap;
 				width: $nav-width;
 				height: auto;
 				padding: 10px;
 				box-sizing: border-box;
 				text-align: center;
 				box-shadow: 0 0 5px gray;
-				position: relative;
 				z-index: 2;
+		    right: 0;
+		    top: 0;
+		    bottom: 0;
+				.floating-content{
+					flex-direction: column;
+					align-items: center;
+					justify-content: flex-start;
+					flex-wrap: nowrap;
+			    position: fixed;
+			    top: 0;
+			    right: 0;
+			    width: 200px;
+					opacity: 0;
+					transition: opacity .5s, top .5s;
+					padding: 0;
+					&.on{
+						opacity: 1;
+					}
+				}
 				header{
 					padding: 10px 0;
 				}
@@ -173,6 +193,7 @@ body.write{
 		#articles{
 			flex: auto;
 			overflow-y: scroll;
+			margin-right: 200px;
 			figure{
 				width: 100%;
 				height: calc((100vw - #{$nav-width}) * 0.5);

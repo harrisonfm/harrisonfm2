@@ -38,16 +38,13 @@ body.single-photo{
 			display: flex;
 		}
 		nav{
-			flex-direction: column;
-			align-items: center;
-			justify-content: flex-start;
-			flex-wrap: nowrap;
 			width: 225px;
-			height: auto;
 			padding: 10px;
-			box-sizing: border-box;
 			text-align: center;
 			box-shadow: 0 0 5px gray;
+			.floating-content{
+				justify-content: center;
+			}
 			header{
 				padding: 10px 0;
 			}

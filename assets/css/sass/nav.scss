@@ -1,45 +1,38 @@
 body:not(.write) nav,
 body main nav{
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	padding: 0 10px;
-	font-size: .8rem;
 	width: 100%;
-	box-sizing: border-box;
+	.floating-content{
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding: 0 10px;
+		font-size: .8rem;
+		width: 100%;
+		box-sizing: border-box;
+		z-index: 2;
+		background: white;
+	}
+	&.fixed{
+		position: fixed !important;
+		animation-duration: .25s;
+		animation-fill-mode: forwards;
+		animation-name: nav-show;
+		&.hide{
+			animation-name: nav-hide;
+		}
+	}
 	header{
 		padding: 10px 10px 10px 0;
 	}
 	.menu{
     display: flex;
     justify-content: space-between;
-		padding: 10px;
+		padding: 10px 0 10px 10px;
 		align-items: center;
-		@media(max-width: 768px){
-			flex-direction: column;
-			align-items: flex-end;
-			> *:not(#hamburger){
-				display: none;
-				opacity: 0;
-				transition: opacity .75s;
-				&.on{
-					opacity: 1;
-					display: block;
-				}
-				&:nth-of-type(n+4){
-					color: $purple;
-					&:hover{
-						color: $blue;
-					}
-				}
-			}
-		}
-		@media(min-width: 769px){
-			width: 200px;
-			a:nth-of-type(n+4){
-				display: none !important;
-			}
-		}
+		align-self: center;
+    width: 30px;
+    white-space: nowrap;
 		&.on{
 			> *:not(#hamburger){
 				display: block;
@@ -66,9 +59,6 @@ body main nav{
 		}
 	}
 	#hamburger{
-		@media(min-width: 769px){
-			display: none;
-		}
 		width: 30px;
 		height: 30px;
     display: flex;
@@ -87,12 +77,6 @@ body main nav{
 		a{
 			display: block;
 		}
-		@media(min-width: 769px){
-			display: block;
-			font-size: .8em;
-	    padding-bottom: 5px;
-	    margin-bottom: 0;
-		}
 	}
 	.search-form{
 		text-align: right;
@@ -102,9 +86,54 @@ body main nav{
 			width: 100px;
 			padding: 5px;
 			text-align: right;
-			@media(min-width: 769px){
-				text-align: left;
+		}
+	}
+	@media(max-width: 768px){
+		.menu{
+			flex-direction: column;
+			align-items: flex-end;
+			> *:not(#hamburger){
+				display: none;
+				opacity: 0;
+				transition: opacity .75s;
+				&.on{
+					opacity: 1;
+					display: block;
+				}
+				&:nth-of-type(n+4){
+					color: $purple;
+					&:hover{
+						color: $blue;
+					}
+				}
 			}
 		}
+	}
+	@media(min-width: 769px){
+		transition: top .5s;
+    position: relative;
+		.floating-content{
+			&.on{
+				opacity: 1;
+			}
+		}
+    .menu{
+			width: 200px;
+			a:nth-of-type(n+4){
+				display: none !important;
+			}
+    }
+    #hamburger{
+    	display: none;
+    }
+    #categories{
+			display: block;
+			font-size: .8em;
+	    padding-bottom: 5px;
+	    margin-bottom: 0;
+    }
+    .search-form{
+    	text-align: left;
+    }
 	}
 }
