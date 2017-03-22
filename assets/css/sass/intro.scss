@@ -57,7 +57,7 @@ body.write{
 					display: none;
 				}
 				a:hover{
-					color: inherit;
+					color: white !important;
 				}
 			}
 			form{
@@ -150,11 +150,13 @@ body.write{
 				padding: 10px;
 				box-sizing: border-box;
 				text-align: center;
-				box-shadow: 0 0 5px gray;
+				box-shadow: 0 0 5px #333;
 				z-index: 2;
 		    right: 0;
 		    top: 0;
 		    bottom: 0;
+		    background: #333;
+		    color: white;
 				.floating-content{
 					flex-direction: column;
 					align-items: center;
@@ -165,6 +167,7 @@ body.write{
 			    right: 0;
 			    width: 200px;
 					padding: 0;
+					background: #333;
 				}
 				header{
 					padding: 10px 0;

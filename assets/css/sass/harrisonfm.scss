@@ -20,10 +20,10 @@ body{
 a{
 	cursor: pointer;
 	text-decoration: none;
-  color: inherit;
+  color: inherit !important;
 	transition: color .5s;
 	&:hover{
-		color: $blue;
+		color: $blue !important;
 	}
 }
 main a{

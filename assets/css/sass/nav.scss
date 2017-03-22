@@ -113,11 +113,6 @@ body main nav{
 	@media(min-width: 769px){
 		transition: top .5s;
     position: relative;
-		.floating-content{
-			&.on{
-				opacity: 1;
-			}
-		}
     .menu{
     	padding: 10px;
 			width: 200px;
