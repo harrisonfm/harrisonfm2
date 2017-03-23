@@ -13,6 +13,7 @@ module.exports = class Intro {
 		this.windowWidth = window.innerWidth;
 		this.blacklist = [];
 		this.$fixedNav = $('main nav');
+		this.isDefault = false;
 
 		this.loader = new Loader(this.$page, this.$figures.length + 1);
 		this.handleIntroBG();
@@ -39,6 +40,15 @@ module.exports = class Intro {
 		else if(window.location.search){
 			this.pag.type = 'search';
 			this.pag.str = window.location.search.replace( "?s=", "" );
+		}
+		else{
+			this.isDefault = true;
+		}
+
+		if(!this.isDefault){
+			//if we're not on the homepage we want the articles
+			//what if we're "back" on the homepage
+			window.location.href = "#articles";
 		}
 
 		$(window).on('resize', _.debounce(() => this.handleIntroBG(), 300));
