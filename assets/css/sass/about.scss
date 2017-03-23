@@ -1,16 +1,30 @@
 body.page-template-page-about{
 	color: black;
-	background: white;
+	.page{
+		background: #333;
+		> *{
+    	max-width: 900px;
+    	margin: auto;
+		}
+	}
 	nav{
-		margin: auto;
-    max-width: 670px;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: 2;
+	}
+	.banner{
+    background-position: center;
+    background-size: cover;
+    height: calc(100vw * .67);
+    margin: 0 -10px 25px;
 	}
 	main{
+		box-sizing: border-box;
 		background: white;
-		margin: auto;
 		position: relative;
-		width: 90%;
-    max-width: 670px;
+		padding: 57px 10px 25px;
     p:first-of-type{
     	margin-top: 0;
     }
@@ -24,7 +38,7 @@ body.page-template-page-about{
     	}
     }
     @media(min-width: 769px){
-			padding-top: 25px;
+			padding: 25px 10px;
     }
 	}
 	p{
@@ -48,15 +62,19 @@ body.page-template-page-about{
 		}
 	}
 	footer{
-		margin: 0 auto 25px;
+		background: white;
+		padding-bottom: 25px;
 		opacity: 0;
 		transition: opacity .5s;
 		display: flex;
-		width: 90%;
-		max-width: 670px;
 		justify-content: center;
 		a{
 			margin: 0 5px;
+		}
+	}
+	@media(min-width: 901px){
+		.banner{
+    	height: 600px;
 		}
 	}
 }

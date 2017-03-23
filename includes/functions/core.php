@@ -35,7 +35,9 @@ function setup() {
 
     add_action( 'after_setup_theme', $n('custom_header') );
 
-    add_filter('pre_get_posts', $n('search_filter'));        
+    add_filter('pre_get_posts', $n('search_filter'));
+    
+    add_theme_support( 'title-tag' );       
 }
 
 function add_excerpt() {
