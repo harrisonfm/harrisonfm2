@@ -20,7 +20,7 @@ body{
 a{
 	cursor: pointer;
 	text-decoration: none;
-  color: inherit !important;
+  color: inherit;
 	transition: color .5s;
 	&:hover{
 		color: $blue !important;

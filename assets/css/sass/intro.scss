@@ -156,7 +156,9 @@ body.write{
 		    top: 0;
 		    bottom: 0;
 		    background: #333;
-		    color: white;
+		    a{
+		    	color: white;
+		    }
 				.floating-content{
 					flex-direction: column;
 					align-items: center;

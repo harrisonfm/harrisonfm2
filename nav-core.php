@@ -11,7 +11,7 @@
 				<div></div>
 			</div>
 			<?php if($post->post_type !== 'post'): ?>
-			<a class="write" href="/write">Write</a>
+			<a class="write" href="/">Write</a>
 			<?php endif; if($post->post_name !== 'photo' && $post->post_type !== 'photo'): ?>
 			<a class="photo" href="/photo">Photo</a>
 			<?php endif; if($post->post_name !== 'web'): ?>
