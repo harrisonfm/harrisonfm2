@@ -1,4 +1,5 @@
 <?php
+get_template_part('loader');
 if (have_posts()):
 	while (have_posts()): the_post();
 		$featImg = get_post_thumbnail_id();

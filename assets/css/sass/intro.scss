@@ -8,10 +8,10 @@ body.write{
 			#intro nav{
 				animation-name: smoky-reveal;	
 			}
-			#articles figure{
+			main nav{
 				opacity: 1;
 			}
-			main nav{
+			#articles.loaded figure{
 				opacity: 1;
 			}
 		}

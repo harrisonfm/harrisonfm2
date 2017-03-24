@@ -15,12 +15,15 @@ module.exports = class Intro {
 		this.$fixedNav = $('main nav');
 		this.isDefault = false;
 
-		this.loader = new Loader(this.$page, this.$figures.length + 1);
+		this.introLoader = new Loader(this.$page, 1);
 		this.handleIntroBG();
 
-		this.$figures.each((idx, el) => {
-			this.assignBGImage($(el), true);
-			this.blacklist.push($(el).attr('data-id'));
+		this.$page.on('done-loading', () => {
+			this.postsLoader = new Loader(this.$articles, this.$figures.length);
+			this.$figures.each((idx, el) => {
+				this.assignBGImage($(el), true);
+				this.blacklist.push($(el).attr('data-id'));
+			});
 		});
 
 		this.pag = { 
@@ -46,8 +49,6 @@ module.exports = class Intro {
 		}
 
 		if(!this.isDefault){
-			//if we're not on the homepage we want the articles
-			//what if we're "back" on the homepage
 			window.location.href = "#articles";
 		}
 
@@ -65,14 +66,14 @@ module.exports = class Intro {
 	handleIntroBG(){
 		this.bg = window.innerWidth <= 900 ? this.$intro.attr('data-url-large') : this.$intro.attr('data-url-full');
 		this.$intro.css('backgroundImage', 'url('+this.bg+')');
-		$('<img/>').attr('src', this.bg).on('load', () => this.loader.increment());
+		$('<img/>').attr('src', this.bg).on('load', () => this.introLoader.increment());
 	}
 
 	assignBGImage($figure, onLoad){
 		const img = window.innerWidth <= 400 ? $figure.attr('data-url-wide') : $figure.attr('data-url-large');
 		$figure.css('backgroundImage', "url('"+img+"')");
 		if(onLoad){
-			$('<img/>').attr('src', img).on('load', () => this.loader.increment());
+			$('<img/>').attr('src', img).on('load', () => this.postsLoader.increment());
 		}
 	}
 
