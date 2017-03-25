@@ -240,10 +240,9 @@ body.single-post{
 		}
 	}
 	#banner{
+		display: block;
 		width: 100vw;
-		height: calc(100vw * .67);
-		background-position: 50%;
-		background-size: cover;
+		max-width: 900px;
 		margin: 0 -10px;
 		&.square{
 			margin: auto;
@@ -272,8 +271,6 @@ body.single-post{
 			justify-content: center;
 		}
 		#banner{
-			height: calc(75vw * .67);
-			max-height: 500px;
 			&.square{
 				height: 500px;
 				width: 500px;

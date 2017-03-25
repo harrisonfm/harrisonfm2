@@ -9,15 +9,18 @@ get_header();
 		if (have_posts()) :
 			while (have_posts()):the_post();
 				$id = $post->ID;
-				$featImg = get_post_thumbnail_id($id);
+				$banner = get_post_thumbnail_id($id);
 				$category = get_the_category();
 				$category = $category[0];
 				$isSquare = get_field('square_feature') ? 'class = "square"' : '';
-				$wide = wp_get_attachment_image_src($featImg, 'wide')[0];
-				$large = wp_get_attachment_image_src($featImg, 'large')[0];
-
 				?>
-				<div id="banner" <?= $isSquare ?> data-url-wide="<?= $wide ?>" data-url-large="<?= $large ?>"></div>
+				<figure>
+					<picture>
+		  			<source media="(max-width: 400px)" srcset="<?= wp_get_attachment_image_src($banner, 'wide')[0] ?>" />
+		  			<source media="(min-width: 401px) and (max-width: 899px)" srcset="<?= wp_get_attachment_image_src($banner, 'large')[0] ?>" />
+		  			<img id="banner" <?= $isSquare ?> src="<?= wp_get_attachment_image_src($banner, 'full')[0] ?>" />
+		  		</picture>
+		  	</figure>
 				<header>
 					<h1><?php the_title() ?></h1>
 					<p>
@@ -126,7 +129,7 @@ get_header();
 			<div id="end">
 				<p>&copy; John Harrison, <?= date("Y") ?></p>
 				<a href="/about"><p>About</p></a>
-				<a href="/write"><p>Writing</p></a>
+				<a href="/#articles"><p>Writing</p></a>
 				<p class="top link">Top</p>
 			</div>
 		</footer>

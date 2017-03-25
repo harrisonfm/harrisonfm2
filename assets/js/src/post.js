@@ -9,11 +9,11 @@ module.exports = class Post {
 		this.cacheSelectors();
 		this.photoIndex = 0;
 
-		const img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
-		this.$banner.css('backgroundImage', "url('"+img+"')");
-
 		this.loader = new Loader($('main'), this.$imgs.length + 1);
-		$('<img/>').attr('src', img).on('load', () => this.loader.increment());
+		this.$banner.filter((idx, el) => {
+			    return el.complete;
+			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
+
 		if(this.$imgs.length){
 			$('.gallery img').filter((idx, el) => {
 			    return el.complete;
@@ -31,7 +31,6 @@ module.exports = class Post {
 		this.lastScroll = 0;
 		this.lastWindowWidth = window.innerWidth;
 
-		$(window).on('resize', _.debounce(() => this.resizeBanner(), 300));
 		if(this.$iframe.length){
 			this.resizeIframe();
 			$(window).on('resize', _.debounce(() => this.resizeIframe(), 300));
@@ -62,15 +61,6 @@ module.exports = class Post {
 
 	resizeIframe(){
 		this.$iframe.width(window.innerWidth - 20).height(this.$iframe.width() * 0.67);
-	}
-
-	resizeBanner(){
-		if((this.lastWindowWidth <= 400 && window.innerWidth > 400) || (this.lastWindowWidth > 400 && window.innerWidth <= 400)){
-			const img = window.innerWidth <= 400 ? this.$banner.attr('data-url-wide') : this.$banner.attr('data-url-large');
-			this.$banner.css('backgroundImage', "url('"+img+"')");
-		}
-
-		this.lastWindowWidth = window.innerWidth;
 	}
 
 	showNav(){

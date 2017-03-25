@@ -15,7 +15,7 @@ $me = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true);
 				<picture>
 	  			<source media="(max-width: 400px)" srcset="<?= $banner['sizes']['wide'] ?>" />
 	  			<source media="(min-width: 401px) and (max-width: 899px)" srcset="<?= $banner['sizes']['large'] ?>" />
-	  			<img class="banner" src="<?= $banner['url'] ?>" />
+	  			<img id="banner" src="<?= $banner['url'] ?>" />
 	  		</picture>
 	  	</figure>
 			<?php get_template_part('loader') ?>
