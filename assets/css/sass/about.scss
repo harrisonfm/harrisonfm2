@@ -15,10 +15,9 @@ body.page-template-page-about{
 		z-index: 2;
 	}
 	.banner{
-    background-position: center;
-    background-size: cover;
-    height: calc(100vw * .67);
-    margin: 0 -10px 25px;
+		width: 100vw;
+		max-width: 900px;
+		margin: 0 -10px 25px;
 	}
 	main{
 		box-sizing: border-box;
@@ -48,6 +47,8 @@ body.page-template-page-about{
 	figure{
 		opacity: 0;
 		transition: opacity .5s;
+	}
+	#me{
 		width: 100px;
     margin-right: 15px;
     margin-bottom: 0;
@@ -70,11 +71,6 @@ body.page-template-page-about{
 		justify-content: center;
 		a{
 			margin: 0 5px;
-		}
-	}
-	@media(min-width: 901px){
-		.banner{
-    	height: 600px;
 		}
 	}
 }
