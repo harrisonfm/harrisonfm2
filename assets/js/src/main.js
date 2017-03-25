@@ -2,7 +2,7 @@
 
 const $ = require('jquery'),
 About = require('./about'),
-Intro = require('./intro'),
+Write = require('./write'),
 Photo = require('./photo'),
 Web = require('./web'),
 Post = require('./post'),
@@ -13,7 +13,7 @@ $(() => {
 
 	const $body = $('body');
 	if($body.hasClass('write')){
-		const intro = new Intro();
+		const write = new Write();
 	}
 	else if($body.hasClass('single-post')){
 		const post = new Post();
