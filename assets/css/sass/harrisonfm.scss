@@ -50,3 +50,14 @@ div.page{
 figure{
 	margin: 0;
 }
+#social{
+	background: white;
+	padding-bottom: 25px;
+	opacity: 0;
+	transition: opacity .5s;
+	display: flex;
+	justify-content: center;
+	a{
+		margin: 0 5px;
+	}
+}
