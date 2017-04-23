@@ -1,5 +1,6 @@
 "use strict";
-const $ = require('jquery');
+const $ = require('jquery'),
+_ = require('lodash');
 
 module.exports = class Nav {
 	constructor(){
@@ -22,6 +23,24 @@ module.exports = class Nav {
 				document.location = '/';
 			}
 		});
+
+		$(window).on('scroll', _.debounce(() => this.showNav(), 300));
+	}
+
+	showNav(){
+		const scroll = $(window).scrollTop();
+		if(scroll >= 75){
+			if(scroll >= this.lastScroll){
+				this.$nav.addClass('hide');
+			}
+			else{
+				this.$nav.addClass('fixed').removeClass('hide');
+			}
+		}
+		else{
+			this.$nav.removeClass('fixed hide');
+		}
+		this.lastScroll = scroll;
 	}
 
 	standardMenu(){

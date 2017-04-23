@@ -167,7 +167,14 @@ function customFormatGallery($string,$attr){
         foreach($posts as $imagePost){
         	$post = get_post($imagePost);
         	$img = wp_get_attachment_image_src($imagePost->ID, 'full')[0];
-        	$output .= '<a href="'.$post->post_content.'" target="_blank"><figure data-url="'.$img.'"><div class="bg" style="background-image: url('.$img.')"></div><header>'.$post->post_title.'</header><figcaption>'.$post->post_excerpt.'</figcaption></figure></a>';
+            $output .= <<<web
+            <figure data-url="$img" style="background-image: url('$img')">
+                <header>{$post->post_title}</header>
+            </figure>
+            <figcaption>
+                <a href="{$post->post_content}" target="_blank">Link</a> &mdash; {$post->post_excerpt}
+            </figcaption>
+web;
         }
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){

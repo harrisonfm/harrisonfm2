@@ -12,7 +12,6 @@ module.exports = class Intro {
 		this.$figures = this.$articles.find('figure');
 		this.windowWidth = window.innerWidth;
 		this.blacklist = [];
-		this.$fixedNav = $('main nav');
 		this.isDefault = false;
 
 		this.introLoader = new Loader(this.$page, 1);
@@ -59,8 +58,6 @@ module.exports = class Intro {
 				this.getPosts();
 			}
 		}, 300));
-		$(window).on('scroll', _.debounce(() => this.showNav(), 300));
-		this.showNav();
 	}
 
 	handleIntroBG(){
@@ -125,21 +122,5 @@ module.exports = class Intro {
 		}).done(() => {
 			$('#post-loader').remove();
 		});
-	}
-
-	showNav(){
-		const scroll = $(window).scrollTop();
-		if(scroll >= this.$intro.height()){
-			if(scroll >= this.lastScroll){
-				this.$fixedNav.addClass('hide');
-			}
-			else{
-				this.$fixedNav.addClass('fixed').removeClass('hide');
-			}
-		}
-		else{
-			this.$fixedNav.removeClass('fixed hide');
-		}
-		this.lastScroll = scroll;
 	}
 };

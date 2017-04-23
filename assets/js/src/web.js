@@ -1,14 +1,17 @@
 "use strict";
 
 const $ = require('jquery'),
-Loader = require('./loader'),
-_ = require('lodash');
+Loader = require('./loader');
 
 module.exports = class Web {
 	constructor(){
-		this.$nav = $('nav');
 		this.$jobs = $('#portfolio figure');
-		this.loader = new Loader($('main'), this.$jobs.length );
+		this.loader = new Loader($('main'), this.$jobs.length + 1);
+
+		$('#banner').filter((idx, el) => {
+			    return el.complete;
+			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
+		
 		this.$jobs.each((idx, el) => {
 			$('<img/>').attr('src', el.attributes['data-url'].value).on('load', () => this.loader.increment());
 		});
@@ -17,22 +20,5 @@ module.exports = class Web {
 			$(e.currentTarget).toggleClass('on');
 		});
 
-		$(window).on('scroll', _.debounce(() => this.showNav(), 300));
-	}
-
-	showNav(){
-		const scroll = $(window).scrollTop();
-		if(scroll >= 75){
-			if(scroll >= this.lastScroll){
-				this.$nav.addClass('hide');
-			}
-			else{
-				this.$nav.addClass('fixed').removeClass('hide');
-			}
-		}
-		else{
-			this.$nav.removeClass('fixed hide');
-		}
-		this.lastScroll = scroll;
 	}
 };

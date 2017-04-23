@@ -10,7 +10,7 @@ module.exports = class Post {
 		this.photoIndex = 0;
 
 		this.loader = new Loader($('main'), this.$imgs.length + 1);
-		this.$banner.filter((idx, el) => {
+		$('#banner').filter((idx, el) => {
 			    return el.complete;
 			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
 
@@ -35,7 +35,6 @@ module.exports = class Post {
 			this.resizeIframe();
 			$(window).on('resize', _.debounce(() => this.resizeIframe(), 300));
 		}
-		$(window).on('scroll', _.debounce(() => this.showNav(), 300));
 
 		$('.top').on('click', () => {
 			$('html, body').animate({scrollTop: 0}, "slow");
@@ -47,8 +46,6 @@ module.exports = class Post {
 	}
 
 	cacheSelectors(){
-		this.$banner = $('#banner');
-		this.$nav = $('nav');
 		this.$body = $('body');
 		this.$content = $('#content');
 		this.$slides = $('#slides');
@@ -61,22 +58,6 @@ module.exports = class Post {
 
 	resizeIframe(){
 		this.$iframe.width(window.innerWidth - 20).height(this.$iframe.width() * 0.67);
-	}
-
-	showNav(){
-		const scroll = $(window).scrollTop();
-		if(scroll >= 75){
-			if(scroll >= this.lastScroll){
-				this.$nav.addClass('hide');
-			}
-			else{
-				this.$nav.addClass('fixed').removeClass('hide');
-			}
-		}
-		else{
-			this.$nav.removeClass('fixed hide');
-		}
-		this.lastScroll = scroll;
 	}
 
 	handleThumbs(){
