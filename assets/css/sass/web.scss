@@ -18,6 +18,7 @@ body.page-template-page-web{
 		width: 100vw;
 		max-width: 900px;
 		margin: 0 -10px 25px;
+		max-height: 450px;
 	}
 	#blurb{
 		margin: -20px 0 10px;
@@ -89,7 +90,7 @@ body.page-template-page-web{
 		figcaption{
 			background: white;
 			display: none;
-			padding: 10px 0;
+			padding: 10px;
 			&:last-of-type{
 				border-bottom: solid 5px;
 			}
