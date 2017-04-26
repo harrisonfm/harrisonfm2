@@ -144,6 +144,8 @@ body.write{
 			position: relative;
 			display: flex;
 			nav{
+				position: fixed;
+				animation: none;
 				width: $nav-width;
 				height: auto;
 				padding: 10px;
@@ -155,6 +157,7 @@ body.write{
 		    top: 0;
 		    bottom: 0;
 		    background: #333;
+		    transform: translateY(0) !important;
 		    a{
 		    	color: white;
 		    }
@@ -166,7 +169,7 @@ body.write{
 			    position: fixed;
 			    top: 0;
 			    right: 0;
-			    width: 200px;
+			    width: $nav-width;
 					padding: 0;
 					background: #333;
 				}

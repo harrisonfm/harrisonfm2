@@ -29,17 +29,17 @@
 
 @keyframes nav-show{
 	from{
-		top: -57px;
+		transform: translateY(-100%);
 	}
 	to{
-		top: 0;
+		transform: translateY(0%);
 	}
 }
 @keyframes nav-hide{
 	from{
-		top: 0;
+		transform: translateY(0%);
 	}
 	to{
-		top: -57px;
+		transform: translateY(-100%);
 	}
 }

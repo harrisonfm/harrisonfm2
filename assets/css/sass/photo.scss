@@ -1,6 +1,9 @@
 body.page-template-page-photo, 
 body.single-photo{
+	$nav-width: 225px;
 	nav{
+		position: fixed;
+		z-index: 1;
 		#description{
 			margin: 1em 0;
 			font-size: 14px;
@@ -17,7 +20,7 @@ body.single-photo{
 		figure{
 			opacity: 0;
 			transition: opacity .5s;
-			margin: 5px 5px 15px;
+			margin: 5px 0 15px;
 			@media(max-width: 768px){
 		    position: relative !important;
 		    left: auto !important;
@@ -34,16 +37,17 @@ body.single-photo{
 		}
 	}
 	@media(min-width: 769px){
-		.page{
-			display: flex;
-		}
 		nav{
-			width: 225px;
-			padding: 10px;
+			width: $nav-width;
 			text-align: center;
-			box-shadow: 0 0 5px gray;
+			box-shadow: 0 0 5px #333;
+			background: white;
+	    top: 0;
+	    bottom: 0;
+	    animation-name: none !important;
 			.floating-content{
-				justify-content: center;
+					flex-direction: column;
+			    width: $nav-width;
 			}
 			header{
 				padding: 10px 0;
@@ -87,7 +91,7 @@ body.single-photo{
 		}
 		main{
 			max-width: 1500px;
-			flex: auto;
+			margin-left: $nav-width;
 			overflow-y: scroll;
 		}
 		#thumbnails{

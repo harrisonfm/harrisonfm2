@@ -4,6 +4,7 @@ _ = require('lodash');
 
 module.exports = class Nav {
 	constructor(){
+		this.$nav = $('nav');
 		this.$menu = $('main').find('.menu');
 		if(!this.$menu.length){
 			this.$menu = $('.menu');
