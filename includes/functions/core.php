@@ -33,11 +33,14 @@ function setup() {
     add_action('wp_ajax_paginate', $n('paginate'));
     add_action('wp_ajax_nopriv_paginate', $n('paginate'));
 
+    add_action('wp_ajax_get_photos', $n('getPhotos'));
+    add_action('wp_ajax_nopriv_get_photos', $n('getPhotos'));
+
     add_action( 'after_setup_theme', $n('custom_header') );
 
     add_filter('pre_get_posts', $n('search_filter'));
     
-    add_theme_support( 'title-tag' );       
+    add_theme_support( 'title-tag' );
 }
 
 function add_excerpt() {
@@ -135,13 +138,13 @@ function header_meta() {
 	echo apply_filters( 'hfm_humans', $humans );
 }
 
+function get_match( $regex, $content ) {
+    preg_match($regex, $content, $matches);
+    return $matches[1];
+}
+
 function customFormatGallery($string,$attr){
     global $post;
-
-    function get_match( $regex, $content ) {
-        preg_match($regex, $content, $matches);
-        return $matches[1];
-    }
 
     // Extract the shortcode arguments from the $page or $post
     $shortcode_args = shortcode_parse_atts(get_match('/\[gallery\s(.*)\]/isU', $post->post_content));
@@ -150,21 +153,21 @@ function customFormatGallery($string,$attr){
     $ids = $shortcode_args["ids"];
 
     // get the attachments specified in the "ids" shortcode argument
-    $posts = get_posts(
+    $imagePosts = get_posts(
         array(
-            'include' => $ids, 
-            'post_status' => 'inherit', 
-            'post_type' => 'attachment', 
-            'post_mime_type' => 'image', 
-            'order' => 'menu_order ID', 
+            'include' => $ids,
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image',
+            'order' => 'menu_order ID',
             'orderby' => 'post__in', //required to order results based on order specified the "include" param
         )
-    ); 
+    );
 
     $output = '';
 
 	if($post->post_name === 'web'){
-        foreach($posts as $imagePost){
+        foreach($imagePosts as $imagePost){
         	$post = get_post($imagePost);
         	$img = wp_get_attachment_image_src($imagePost->ID, 'full')[0];
             $output .= <<<web
@@ -178,39 +181,44 @@ web;
         }
 	}
 	else if($post->post_name === 'photo' || $post->post_type === 'photo'){
-        for($i = 0; $i < count($posts); $i++){
-        	$post = get_post($posts[$i]);
-        	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
-        	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
-        	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
-        	$output .= '
-        	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
+        for($i = 0; $i < count($imagePosts); $i++){
+        	$photo = get_post($imagePosts[$i]);
+        	$full = wp_get_attachment_image_src($imagePosts[$i]->ID, 'full')[0];
+        	$large = wp_get_attachment_image_src($imagePosts[$i]->ID, 'large')[0];
+        	$wide = wp_get_attachment_image_src($imagePosts[$i]->ID, 'wide')[0];
+        	$output .= <<<photo
+        	<figure id="{$photo->post_title}" data-index="$i" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
         		<picture>
-        			<source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="'.$wide.'" />
-        			<img src="'.$large.'" />
+        			<source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="$wide" />
+        			<img src="$large" />
         		</picture>
-        		<figcaption>'.$post->post_title.'</figcaption>
-        	</figure>';
-    }
+        		<figcaption>{$photo->post_title}</figcaption>
+        	</figure>
+photo;
+            if($post->post_type === 'photo' && $i >= 7){ #on highlights, we get all.
+                break;
+            }
+        }
 	}
 	else if($post->post_type === 'post'){
         $output .= '<div class="gallery">';
-        for($i = 0; $i < count($posts); $i++){
-        	$post = get_post($posts[$i]);
-        	$full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
-        	$large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
-        	$wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
-        	$post_thumb = wp_get_attachment_image_src($posts[$i]->ID, 'post_thumb')[0];
-        	$output .= '
-        	<figure id="'.$post->post_title.'" data-id="'.$i.'" data-url-full="'.$full.'" data-url-large="'.$large.'">
+        for($i = 0; $i < count($imagePosts); $i++){
+        	$photo = get_post($imagePosts[$i]);
+        	$full = wp_get_attachment_image_src($imagePosts[$i]->ID, 'full')[0];
+        	$large = wp_get_attachment_image_src($imagePosts[$i]->ID, 'large')[0];
+        	$wide = wp_get_attachment_image_src($imagePosts[$i]->ID, 'wide')[0];
+        	$post_thumb = wp_get_attachment_image_src($imagePosts[$i]->ID, 'post_thumb')[0];
+        	$output .= <<<photo
+        	<figure id="{$photo->post_title}" data-index="$i" data-url-full="$full" data-url-large="$large">
         		<picture>
-        			<source media="(max-width: 400px)" srcset="'.$wide.'" />
-        			<source media="(min-width: 401px) and (max-width: 768px)" srcset="'.$large.'" />
-        			<img src="'.$post_thumb.'" />
+        			<source media="(max-width: 400px)" srcset="$wide" />
+        			<source media="(min-width: 401px) and (max-width: 768px)" srcset="$large" />
+        			<img src="$post_thumb" />
         		</picture>
         		<div class="overlay"></div>
-        		<figcaption><h4>'.$post->post_title.'</h4><p>'.$post->post_excerpt.'</p></figcaption>
-        	</figure>';
+        		<figcaption><h4>{$photo->post_title}</h4><p>{$photo->post_excerpt}</p></figcaption>
+        	</figure>
+photo;
         }
         $output .= '</div>';
 	}
@@ -265,6 +273,58 @@ function paginate(){
         $response['blacklist'] = $blacklist;
         $response['success'] = true;
     }
+    header('Content-type: application/json');
+    die(json_encode($response));
+}
+
+function getPhotos(){
+    $post = get_post($_POST['postID']);
+
+    $shortcode_args = shortcode_parse_atts(get_match('/\[gallery\s(.*)\]/isU', $post->post_content));
+
+    $ids = $shortcode_args["ids"];
+    
+    $lastID = $_POST['lastPhoto'].',';
+    $photoIndex = $_POST['photoIndex'];
+
+    $ids = strpos($ids, $lastID) ? substr($ids, strpos($ids, $lastID) + strlen($lastID)) : false;
+
+    $response = array(
+        'success' => false,
+        'photos' => ''
+    );
+
+    if($ids){
+        $posts = get_posts(
+            array(
+                'include' => $ids, 
+                'post_status' => 'inherit', 
+                'post_type' => 'attachment', 
+                'post_mime_type' => 'image', 
+                'order' => 'menu_order ID', 
+                'orderby' => 'post__in',
+            )
+        );
+
+        for($i = 0; $i < count($posts); $i++){
+            $photoIndex++;
+            $photo = get_post($posts[$i]);
+            $full = wp_get_attachment_image_src($posts[$i]->ID, 'full')[0];
+            $large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
+            $wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
+            $response['photos'] .= <<<photo
+            <figure id="{$photo->post_title}" data-index="$photoIndex" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
+                <picture>
+                    <source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="$wide" />
+                    <img src="$large" />
+                </picture>
+                <figcaption>{$photo->post_title}</figcaption>
+            </figure>
+photo;
+        }
+        $response['success'] = true;
+    }
+
     header('Content-type: application/json');
     die(json_encode($response));
 }

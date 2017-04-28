@@ -78,9 +78,9 @@ module.exports = class Post {
 		this.$body.addClass('slide');
 		this.$slides.addClass('on');
 		const target = $(e.currentTarget);
-		this.photoIndex = target.attr('data-id');
+		this.photoIndex = target.data('index');
 		this.$content.addClass('closed');
-		this.loadSlide(target.attr('data-url-large'), target.attr('data-url-full'));
+		this.loadSlide(target.data('url-large'), target.data('url-full'));
 		this.updateSlideText(target.attr('id'), target.find('p').text());
 		
 		if(!this.$slideCtrl.hasClass('off')){

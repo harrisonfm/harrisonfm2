@@ -5,10 +5,10 @@ _ = require('lodash'),
 Loader = require('./loader');
 
 module.exports = class Photo {
-
 	constructor(){
 		this.photoIndex = 0;
 		this.cacheSelectors();
+		this.postID = this.$body.attr('class').substr(this.$body.attr('class').indexOf('postid') + 7);
 
 		this.loader = new Loader(this.$thumbnails, this.$imgs.length);
 		$('#thumbnails img').filter((idx, el) => {
@@ -25,28 +25,52 @@ module.exports = class Photo {
 			this.$galList.toggleClass('on');
 		});
 
-		$(window).on('resize', _.debounce(() => this.handleThumbs(), 300));
+		this.pag = {
+			enabled: true
+		};
+
+		if(this.$imgs.length > 8){
+			this.pag.enabled = false;
+		}
+
+		$(window).on('resize', _.debounce(() => this.handleResize(), 300));
 
 		$(document).on('keyup', _.debounce((e) => this.handleKeypress(e), 50));
 
+		$(window).on('scroll', _.debounce(() => {
+			if($(window).scrollTop() + $(window).innerHeight() + 5 >= this.$thumbnails[0].scrollHeight - 5){
+				this.getPhotos();
+			}
+		}, 300));
+
 		this.$page.on('done-loading', () => this.preloadSlides());
+		if(window.innerWidth <= 768){
+			this.$main.css('paddingTop', this.$nav.height());
+		}
 	}
 
 	cacheSelectors(){
+		this.$body = $('body');
 		this.$page = $('.page');
+		this.$main = $('main');
 		this.$thumbnails = $('#thumbnails');
 		this.$slides = $('#slides');
 		this.$imgs = this.$thumbnails.find('figure');
 		this.$title = $('#title');
+		this.$nav = $('nav');
 		this.$navFooter = $('nav footer');
 		this.$galBtn = $('#galleries');
 		this.$galList = $('nav ul');
 		this.$slideCtrl = $('#slide-control');
 	}
 
-	handleThumbs(){
+	handleResize(){
 		if(window.innerWidth <= 768){
 			this.shrink();
+			this.$main.css('paddingTop', this.$nav.height());
+		}
+		else{
+			this.$main.css('paddingTop', 0);	
 		}
 	}
 
@@ -55,7 +79,7 @@ module.exports = class Photo {
 			return;
 		}
 		const attributes = e.currentTarget.attributes;
-		this.photoIndex = attributes['data-id'].value;
+		this.photoIndex = attributes['data-index'].value;
 		this.$thumbnails.addClass('closed');
 		this.loadSlide(attributes['data-url-large'].value, attributes['data-url-full'].value);
 		this.updateTitle(e.currentTarget.id);
@@ -170,5 +194,29 @@ module.exports = class Photo {
 				$('<img/>').attr('src', $(el).attr('data-url-full'));
 			});
 		}
+	}
+
+	getPhotos(){
+		if(!this.pag.enabled){
+			return;
+		}
+		this.pag.enabled = false;
+		this.$thumbnails.append('<div id="post-loader"><img src="/wp-content/themes/harrisonfm/images/loader.gif" /></div>');
+		$.post('/wp-admin/admin-ajax.php', {
+			action: 'get_photos',
+			lastPhoto: this.$imgs.last().data('id'),
+			photoIndex: this.$imgs.last().data('index'),
+			postID: this.postID
+		}, (response) => {
+			if(response.success){
+				this.pag.enabled = true;
+				this.$thumbnails.append(response.photos);
+				this.$imgs = this.$thumbnails.find('figure');
+			}
+		}, 'json').fail((response) => {
+			console.log(response);
+		}).done(() => {
+			$('#post-loader').remove();
+		});
 	}
 };
