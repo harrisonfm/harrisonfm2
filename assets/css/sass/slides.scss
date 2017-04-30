@@ -2,8 +2,10 @@
 	display: none;
 }
 @media(min-width: 769px){
-	#slides{
+	.closed + #slides{
 		padding: 10px;
+	}
+	#slides{
 		display: flex;
 		justify-content: center;
 		&.loading{

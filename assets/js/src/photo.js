@@ -2,10 +2,17 @@
 
 const $ = require('jquery'),
 _ = require('lodash'),
-Loader = require('./loader');
+Loader = require('./loader'),
+jQueryBridget = require('jquery-bridget'),
+Masonry = require('masonry-layout'),
+imagesLoaded = require('imagesloaded');
+
+imagesLoaded.makeJQueryPlugin( $ );
 
 module.exports = class Photo {
 	constructor(){
+		jQueryBridget('masonry', Masonry, $);
+
 		this.photoIndex = 0;
 		this.cacheSelectors();
 		this.postID = this.$body.attr('class').substr(this.$body.attr('class').indexOf('postid') + 7);
@@ -14,6 +21,12 @@ module.exports = class Photo {
 		$('#thumbnails img').filter((idx, el) => {
 		    return el.complete;
 		}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
+
+		this.$thumbnails.masonry({
+			itemSelector: 'figure',
+			gutter: 5,
+			percentPosition: true
+		});
 
 		this.$thumbnails.on('click', 'figure', (e) => this.enlarge(e));
 		this.$page.on('click', '.up', () => this.shrink());
@@ -29,7 +42,7 @@ module.exports = class Photo {
 			enabled: true
 		};
 
-		if(this.$imgs.length > 8){
+		if(this.$imgs.length > 16){
 			this.pag.enabled = false;
 		}
 
@@ -201,7 +214,6 @@ module.exports = class Photo {
 			return;
 		}
 		this.pag.enabled = false;
-		this.$thumbnails.append('<div id="post-loader"><img src="/wp-content/themes/harrisonfm/images/loader.gif" /></div>');
 		$.post('/wp-admin/admin-ajax.php', {
 			action: 'get_photos',
 			lastPhoto: this.$imgs.last().data('id'),
@@ -209,14 +221,20 @@ module.exports = class Photo {
 			postID: this.postID
 		}, (response) => {
 			if(response.success){
-				this.pag.enabled = true;
 				this.$thumbnails.append(response.photos);
-				this.$imgs = this.$thumbnails.find('figure');
+				$(response.photos).imagesLoaded().progress((imgLoad, image) => {
+					let $figure = this.$thumbnails.find("figure[data-index='" + $(image.img).parents('.added').data('index') + "']");
+					$figure.addClass('loaded');
+					this.$thumbnails.masonry('appended', $figure);
+				}).always(() => {
+					this.$imgs = this.$thumbnails.find('figure');
+					this.pag.enabled = true;
+					this.preloadSlides();
+				});
 			}
 		}, 'json').fail((response) => {
 			console.log(response);
 		}).done(() => {
-			$('#post-loader').remove();
 		});
 	}
 };

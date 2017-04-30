@@ -195,7 +195,7 @@ web;
         		<figcaption>{$photo->post_title}</figcaption>
         	</figure>
 photo;
-            if($post->post_type === 'photo' && $i >= 7){ #on highlights, we get all.
+            if($post->post_type === 'photo' && $i >= 15){ #on highlights, we get all.
                 break;
             }
         }
@@ -283,7 +283,7 @@ function getPhotos(){
     $shortcode_args = shortcode_parse_atts(get_match('/\[gallery\s(.*)\]/isU', $post->post_content));
 
     $ids = $shortcode_args["ids"];
-    
+
     $lastID = $_POST['lastPhoto'].',';
     $photoIndex = $_POST['photoIndex'];
 
@@ -313,7 +313,7 @@ function getPhotos(){
             $large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
             $wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
             $response['photos'] .= <<<photo
-            <figure id="{$photo->post_title}" data-index="$photoIndex" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
+            <figure class="added" id="{$photo->post_title}" data-index="$photoIndex" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
                 <picture>
                     <source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="$wide" />
                     <img src="$large" />
