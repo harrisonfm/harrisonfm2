@@ -17,17 +17,16 @@ module.exports = class Photo {
 		this.postID = this.$body.attr('class').substr(this.$body.attr('class').indexOf('postid') + 7);
 
 		this.loader = new Loader(this.$thumbnails, this.$imgs.length);
-		// $('#thumbnails img').filter((idx, el) => {
-		//     return el.complete;
-		// }).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
 		this.$thumbnails.imagesLoaded().progress(() => {
 			this.loader.increment();
 		});
 
-		this.$thumbnails.masonry({
-			itemSelector: 'figure',
-			gutter: 5,
-			percentPosition: true
+		$(window).on('load', () => {
+			this.$thumbnails.masonry({
+				itemSelector: 'figure',
+				gutter: 5,
+				percentPosition: true
+			});
 		});
 
 		this.$thumbnails.on('click', 'figure', (e) => this.enlarge(e));
