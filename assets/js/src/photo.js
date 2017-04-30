@@ -3,11 +3,10 @@
 const $ = require('jquery'),
 _ = require('lodash'),
 Loader = require('./loader'),
-jQueryBridget = require('jquery-bridget'),
 Masonry = require('masonry-layout'),
+jQueryBridget = require('jquery-bridget'),
 imagesLoaded = require('imagesloaded');
-
-imagesLoaded.makeJQueryPlugin( $ );
+imagesLoaded.makeJQueryPlugin($);
 
 module.exports = class Photo {
 	constructor(){
@@ -18,9 +17,12 @@ module.exports = class Photo {
 		this.postID = this.$body.attr('class').substr(this.$body.attr('class').indexOf('postid') + 7);
 
 		this.loader = new Loader(this.$thumbnails, this.$imgs.length);
-		$('#thumbnails img').filter((idx, el) => {
-		    return el.complete;
-		}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
+		// $('#thumbnails img').filter((idx, el) => {
+		//     return el.complete;
+		// }).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
+		this.$thumbnails.imagesLoaded().progress(() => {
+			this.loader.increment();
+		});
 
 		this.$thumbnails.masonry({
 			itemSelector: 'figure',
@@ -234,7 +236,6 @@ module.exports = class Photo {
 			}
 		}, 'json').fail((response) => {
 			console.log(response);
-		}).done(() => {
 		});
 	}
 };

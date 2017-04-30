@@ -2,7 +2,10 @@
 
 const $ = require('jquery'),
 _ = require('lodash'),
-Loader = require('./loader');
+Loader = require('./loader'),
+jQueryBridget = require('jquery-bridget'),
+imagesLoaded = require('imagesloaded');
+imagesLoaded.makeJQueryPlugin($);
 
 module.exports = class Intro {
 	constructor(){
@@ -22,6 +25,9 @@ module.exports = class Intro {
 			this.$figures.each((idx, el) => {
 				this.assignBGImage($(el), true);
 				this.blacklist.push($(el).attr('data-id'));
+			});
+			this.$articles.imagesLoaded({background: 'figure'}).progress(() => {
+				this.postsLoader.increment();
 			});
 		});
 
@@ -63,15 +69,14 @@ module.exports = class Intro {
 	handleIntroBG(){
 		this.bg = window.innerWidth <= 900 ? this.$intro.attr('data-url-large') : this.$intro.attr('data-url-full');
 		this.$intro.css('backgroundImage', 'url('+this.bg+')');
-		$('<img/>').attr('src', this.bg).on('load', () => this.introLoader.increment());
+		this.$page.imagesLoaded({background: '#intro'}).progress(() => {
+			this.introLoader.increment();
+		});
 	}
 
-	assignBGImage($figure, onLoad){
+	assignBGImage($figure){
 		const img = window.innerWidth <= 400 ? $figure.attr('data-url-wide') : $figure.attr('data-url-large');
 		$figure.css('backgroundImage', "url('"+img+"')");
-		if(onLoad){
-			$('<img/>').attr('src', img).on('load', () => this.postsLoader.increment());
-		}
 	}
 
 	handleFigureBGs(){
@@ -114,7 +119,7 @@ module.exports = class Intro {
 				this.$figures = this.$articles.find('figure');
 
 				this.$figures.each((idx, el) => {
-					this.assignBGImage($(el), true);
+					this.assignBGImage($(el));
 				});
 			}
 		}, 'json').fail((response) => {

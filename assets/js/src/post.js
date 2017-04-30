@@ -2,23 +2,22 @@
 
 const $ = require('jquery'),
 _ = require('lodash'),
-Loader = require('./loader');
+Loader = require('./loader'),
+jQueryBridget = require('jquery-bridget'),
+imagesLoaded = require('imagesloaded');
+imagesLoaded.makeJQueryPlugin($);
 
 module.exports = class Post {
 	constructor(){
 		this.cacheSelectors();
 		this.photoIndex = 0;
 
-		this.loader = new Loader($('main'), this.$imgs.length + 1);
-		$('#banner').filter((idx, el) => {
-			    return el.complete;
-			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
+		this.loader = new Loader(this.$main, this.$imgs.length + 1);
+		this.$main.imagesLoaded().progress(() => {
+			this.loader.increment();
+		});
 
 		if(this.$imgs.length){
-			$('.gallery img').filter((idx, el) => {
-			    return el.complete;
-			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
-
 			this.$content.on('click', 'figure', (e) => this.enlarge(e));
 			this.$body.on('click', '.up', () => this.shrink());
 			this.$body.on('click', '.prev', () => this.prevSlide());
@@ -47,6 +46,7 @@ module.exports = class Post {
 
 	cacheSelectors(){
 		this.$body = $('body');
+		this.$main = $('main');
 		this.$content = $('#content');
 		this.$slides = $('#slides');
 		this.$iframe = this.$content.find('iframe.resizable');

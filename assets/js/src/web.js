@@ -1,19 +1,19 @@
 "use strict";
 
 const $ = require('jquery'),
-Loader = require('./loader');
+Loader = require('./loader'),
+jQueryBridget = require('jquery-bridget'),
+imagesLoaded = require('imagesloaded');
+imagesLoaded.makeJQueryPlugin($);
 
 module.exports = class Web {
 	constructor(){
 		this.$jobs = $('#portfolio figure');
-		this.loader = new Loader($('main'), this.$jobs.length + 1);
+		this.$main = $('main');
+		this.loader = new Loader(this.$main, this.$jobs.length + 1);
 
-		$('#banner').filter((idx, el) => {
-			    return el.complete;
-			}).each(() => this.loader.increment()).end().on('load', () => this.loader.increment());
-		
-		this.$jobs.each((idx, el) => {
-			$('<img/>').attr('src', el.attributes['data-url'].value).on('load', () => this.loader.increment());
+		this.$main.imagesLoaded({background: 'figure'}).progress(() => {
+			this.loader.increment();
 		});
 
 		this.$jobs.on('click', (e) => {
