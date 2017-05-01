@@ -321,6 +321,9 @@ function getPhotos(){
                 <figcaption>{$photo->post_title}</figcaption>
             </figure>
 photo;
+            if($i >= 7){
+                break;
+            }
         }
         $response['success'] = true;
     }
