@@ -133,6 +133,9 @@ body.single-photo{
 			figcaption{
 				display: none;
 			}
+			#end{
+				display: none;
+			}
 		}
 	}
 	@media(min-width: 1025px){

@@ -225,21 +225,7 @@ body.single-post{
 		}
 	}
 	#end{
-		background: black;
-    color: white;
-    display: flex;
-		justify-content: center;
-		width: 100vw;
 		margin-left: -10px;
-		a:hover, .link:hover{
-			color: skyblue;
-		}
-		p{
-			margin: 5px 10px;
-			@media(max-width: 420px){
-				font-size: .55em;
-			}
-		}
 	}
 	#banner{
 		display: block;

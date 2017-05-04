@@ -128,9 +128,12 @@ get_header();
 			?>
 			<div id="end">
 				<p>&copy; John Harrison, <?= date("Y") ?></p>
-				<a href="/about"><p>About</p></a>
-				<a href="/#articles"><p>Writing</p></a>
-				<p class="top link">Top</p>
+				<span id="social"><?php get_template_part('social') ?></span>
+				<div id="end-items">
+					<a href="/about"><p>About</p></a>
+					<a href="/#articles"><p>Writing</p></a>
+					<p class="top link">Top</p>
+				</div>
 			</div>
 		</footer>
 	</main>

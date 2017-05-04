@@ -27,6 +27,9 @@ module.exports = class Photo {
 				gutter: 5,
 				percentPosition: true
 			});
+			if(window.innerWidth <= 768){
+				this.$thumbnails.height(this.$thumbnails.height() - 20);
+			}
 		});
 
 		this.$thumbnails.on('click', 'figure', (e) => this.enlarge(e));
@@ -52,7 +55,7 @@ module.exports = class Photo {
 		$(document).on('keyup', _.debounce((e) => this.handleKeypress(e), 50));
 
 		$(window).on('scroll', _.debounce(() => {
-			if($(window).scrollTop() + $(window).innerHeight() + 5 >= this.$thumbnails[0].scrollHeight - 5){
+			if($(window).scrollTop() + $(window).innerHeight() + 5 >= this.$thumbnails[0].scrollHeight - 125){
 				this.getPhotos();
 			}
 		}, 300));
@@ -68,6 +71,7 @@ module.exports = class Photo {
 		this.$page = $('.page');
 		this.$main = $('main');
 		this.$thumbnails = $('#thumbnails');
+		this.$end = this.$thumbnails.find('#end');
 		this.$slides = $('#slides');
 		this.$imgs = this.$thumbnails.find('figure');
 		this.$title = $('#title');
@@ -82,6 +86,9 @@ module.exports = class Photo {
 		if(window.innerWidth <= 768){
 			this.shrink();
 			this.$main.css('paddingTop', this.$nav.height());
+			setTimeout(() => {
+				this.$thumbnails.height(this.$thumbnails.height() - 20);
+			}, 500);
 		}
 		else{
 			this.$main.css('paddingTop', 0);	
@@ -225,7 +232,7 @@ module.exports = class Photo {
 			postID: this.postID
 		}, (response) => {
 			if(response.success){
-				this.$thumbnails.append(response.photos);
+				this.$end.before(response.photos);
 				$(response.photos).imagesLoaded().progress((imgLoad, image) => {
 					let $figure = this.$thumbnails.find("figure[data-index='" + $(image.img).parents('.added').data('index') + "']");
 					$figure.addClass('loaded');

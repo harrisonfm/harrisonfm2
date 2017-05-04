@@ -28,6 +28,6 @@ $me = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true);
 			endwhile; ?>
 		</main>
 	<?php endif; ?>
-	<?php get_template_part('social') ?>
+	<footer id="social"><?php get_template_part('social') ?></footer>
 </div>
 <?php get_footer() ?>

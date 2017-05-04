@@ -28,4 +28,8 @@ $(() => {
 		const about = new About();
 	}
 	const nav = new Nav();
+
+	$('.top').on('click', () => {
+		$('html, body').animate({scrollTop: 0}, "slow");
+	});
 });

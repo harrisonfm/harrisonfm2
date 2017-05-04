@@ -20,6 +20,6 @@ $banner = get_field('banner');
 		<p id="blurb"><?= get_field('blurb') ?></p>
 		<div id="portfolio"><?= get_post_gallery($post->ID); ?></div>
 	</main>
-	<?php get_template_part('social') ?>
+	<footer id="social"><?php get_template_part('social') ?></footer>
 </div>
 <?php get_footer() ?>

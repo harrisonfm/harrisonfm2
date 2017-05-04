@@ -35,10 +35,6 @@ module.exports = class Post {
 			$(window).on('resize', _.debounce(() => this.resizeIframe(), 300));
 		}
 
-		$('.top').on('click', () => {
-			$('html, body').animate({scrollTop: 0}, "slow");
-		});
-
 		$(document).on('keyup', _.debounce((e) => this.handleKeypress(e), 50));
 
 		this.$body.on('done-loading', () => this.preloadSlides());
