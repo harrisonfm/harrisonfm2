@@ -158,6 +158,9 @@ module.exports = class Photo {
 		if(++this.photoIndex >= this.$imgs.length){
 			this.photoIndex = 0;
 		}
+		if(this.photoIndex >= this.$imgs.length - 1 && this.pag.enabled){
+			this.getPhotos();
+		}
 		this.newSlide();
 	}
 
