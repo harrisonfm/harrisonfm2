@@ -10,7 +10,7 @@ module.exports = class About {
 	constructor(){
 		this.$main = $('main');
 		this.loader = new Loader(this.$main, $('figure').length);
-		this.$main.imagesLoaded.progress(() => {
+		this.$main.imagesLoaded().progress(() => {
 			this.loader.increment();
 		});
 	}
