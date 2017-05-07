@@ -238,6 +238,13 @@ body.single-post{
 			max-width: 450px;
 			max-height: 450px;
 		}
+		img{
+			width: 100%;
+			height: 100%;
+		}
+		figcaption{
+			font-size: .5em;
+		}
 	}
 	@media(max-width: 450px){
 		#banner.square{

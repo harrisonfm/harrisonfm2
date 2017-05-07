@@ -14,12 +14,15 @@ get_header();
 				$category = $category[0];
 				$isSquare = get_field('square_feature') ? 'class = "square"' : '';
 				?>
-				<figure>
+				<figure id="banner" <?= $isSquare ?>>
 					<picture>
 		  			<source media="(max-width: 400px)" srcset="<?= wp_get_attachment_image_src($banner, 'wide')[0] ?>" />
 		  			<source media="(min-width: 401px) and (max-width: 899px)" srcset="<?= wp_get_attachment_image_src($banner, 'large')[0] ?>" />
-		  			<img id="banner" <?= $isSquare ?> src="<?= wp_get_attachment_image_src($banner, 'full')[0] ?>" />
+		  			<img src="<?= wp_get_attachment_image_src($banner, 'full')[0] ?>" />
 		  		</picture>
+		  		<?php if($bannerText = get_field('banner_text')): ?>
+		  			<figcaption><?= $bannerText ?></figcaption>
+		  		<?php endif; ?>
 		  	</figure>
 				<header>
 					<h1><?php the_title() ?></h1>
