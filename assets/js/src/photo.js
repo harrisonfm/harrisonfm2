@@ -99,11 +99,10 @@ module.exports = class Photo {
 		if(window.innerWidth <= 768){
 			return;
 		}
-		const attributes = e.currentTarget.attributes;
-		this.photoIndex = attributes['data-index'].value;
+		this.photoIndex = $(e.currentTarget).data('index');
 		this.$thumbnails.addClass('closed');
-		this.loadSlide(attributes['data-url-large'].value, attributes['data-url-full'].value);
-		this.updateTitle(e.currentTarget.id);
+		this.loadSlide($(e.currentTarget).data('url-large'), $(e.currentTarget).data('url-full'));
+		this.updateTitle($(e.currentTarget).find('figcaption').text());
 		
 		if(!this.$slideCtrl.hasClass('off')){
 			this.sliding = setInterval(() => this.nextSlide(), 5000);
@@ -113,7 +112,7 @@ module.exports = class Photo {
 	loadSlide(large, full){
 		this.$slides.html(this.getSlideHTML(large, full)).addClass('loading');
 		this.$slides.find('img').on('load', (e) => {
-			e.currentTarget.offsetParent.className = 'loaded';
+			$(e.currentTarget).parents('figure').addClass('loaded');
 			this.$slides.removeClass('loading');
 		});
 	}
@@ -122,6 +121,7 @@ module.exports = class Photo {
 		this.$slides.empty();
 		this.$thumbnails.removeClass('closed');
 		this.updateTitle(false);
+		window.scrollTo(0, this.$imgs.eq(this.photoIndex).offset().top);
 
 		clearInterval(this.sliding);
 	}
@@ -172,9 +172,9 @@ module.exports = class Photo {
 	}
 
 	newSlide(){
-		const img = this.$imgs[this.photoIndex];
-		this.updateTitle(img.id);
-		this.loadSlide(img.getAttribute('data-url-large'), img.getAttribute('data-url-full'));
+		let $img = this.$imgs.eq(this.photoIndex);
+		this.updateTitle($img.find('figcaption').text());
+		this.loadSlide($img.data('url-large'), $img.data('url-full'));
 	}
 
 	pauseSlides(){

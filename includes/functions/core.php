@@ -187,7 +187,7 @@ web;
         	$large = wp_get_attachment_image_src($imagePosts[$i]->ID, 'large')[0];
         	$wide = wp_get_attachment_image_src($imagePosts[$i]->ID, 'wide')[0];
         	$output .= <<<photo
-        	<figure id="{$photo->post_title}" data-index="$i" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
+        	<figure id="{$photo->post_name}" data-index="$i" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
         		<picture>
         			<source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="$wide" />
         			<img src="$large" />
@@ -313,7 +313,7 @@ function getPhotos(){
             $large = wp_get_attachment_image_src($posts[$i]->ID, 'large')[0];
             $wide = wp_get_attachment_image_src($posts[$i]->ID, 'wide')[0];
             $response['photos'] .= <<<photo
-            <figure class="added" id="{$photo->post_title}" data-index="$photoIndex" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
+            <figure class="added" id="{$photo->post_name}" data-index="$photoIndex" data-id="{$photo->ID}" data-url-full="$full" data-url-large="$large">
                 <picture>
                     <source media="(max-width: 400px), (min-width: 769px) and (max-width: 1024px)" srcset="$wide" />
                     <img src="$large" />
