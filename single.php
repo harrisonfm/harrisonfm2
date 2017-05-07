@@ -20,24 +20,22 @@ get_header();
 		  			<source media="(min-width: 401px) and (max-width: 899px)" srcset="<?= wp_get_attachment_image_src($banner, 'large')[0] ?>" />
 		  			<img src="<?= wp_get_attachment_image_src($banner, 'full')[0] ?>" />
 		  		</picture>
-		  		<?php if($bannerText = get_field('banner_text')): ?>
-		  			<figcaption><?= $bannerText ?></figcaption>
+		  		<?php 
+					$bannerText = get_field('banner_text');
+					$credit = get_field('photo_credit');
+					$creditURL = get_field('photo_credit_url');
+					if($bannerText || $credit): ?>
+		  			<figcaption>
+		  				<i class="icon icon-image"></i>
+		  				<?= $bannerText ?>
+							<span class="credit"> via <?= !$creditURL ? $credit : '<a href="'.$creditURL.'" target="_blank">'.$credit.'</a>' ?></span>
+						</figcaption>
 		  		<?php endif; ?>
 		  	</figure>
 				<header>
 					<h1><?php the_title() ?></h1>
 					<p>
 						<?php the_time('M jS, Y') ?> in <a href="<?= get_category_link($category->cat_ID) ?>"><?= $category->name ?></a>
-						<?php if($credit = get_field('photo_credit')): ?>
-							<span class="credit"><i class="icon icon-image"></i> via 
-								<?php if($creditURL = get_field('photo_credit_url')): ?>
-									<a href="<?= $creditURL ?>" target="_blank"><?= $credit ?></a>
-								<?php else: 
-									echo $credit;
-								endif;
-								?>
-							</span>
-						<?php endif; ?>
 					</p>
 				</header>
 				<div id="content"><?php the_content(); ?></div>

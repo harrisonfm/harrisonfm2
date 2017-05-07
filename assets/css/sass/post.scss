@@ -43,22 +43,6 @@ body.single-post{
 					margin-left: 5px;
 				}
 			}
-			span{
-				margin-left: 15px;
-		    font-size: .75em;
-		    color: #666;
-		    a{
-		    	color: inherit;
-		    	&:hover,
-		    	&:focus{
-		    		color: #999;
-		    	}
-		    }
-		    i{
-		    	position: relative;
-		    	top: 2px;
-		    }
-			}
 		}
 		footer{
 			> h5{
@@ -237,6 +221,9 @@ body.single-post{
 			height: 100vw;
 			max-width: 450px;
 			max-height: 450px;
+			figcaption{
+				padding: 0;
+			}
 		}
 		img{
 			width: 100%;
@@ -244,6 +231,19 @@ body.single-post{
 		}
 		figcaption{
 			font-size: .5em;
+			padding: 0 10px;
+	    color: #333;
+	    a{
+	    	color: inherit;
+	    	&:hover,
+	    	&:focus{
+	    		color: #999;
+	    	}
+	    }
+	    i{
+	    	position: relative;
+	    	top: 1px;
+	    }
 		}
 	}
 	@media(max-width: 450px){
