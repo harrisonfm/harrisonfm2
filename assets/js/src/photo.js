@@ -61,9 +61,6 @@ module.exports = class Photo {
 		}, 300));
 
 		this.$page.on('done-loading', () => this.preloadSlides());
-		if(window.innerWidth <= 768){
-			this.$main.css('paddingTop', this.$nav.height());
-		}
 	}
 
 	cacheSelectors(){
@@ -85,7 +82,6 @@ module.exports = class Photo {
 	handleResize(){
 		if(window.innerWidth <= 768){
 			this.shrink();
-			this.$main.css('paddingTop', this.$nav.height());
 			setTimeout(() => {
 				this.$thumbnails.height(this.$thumbnails.height() - 20);
 			}, 500);
@@ -242,6 +238,11 @@ module.exports = class Photo {
 					this.pag.enabled = true;
 					this.preloadSlides();
 				});
+			}
+			else{
+				if(window.innerWidth <= 768){
+					this.$thumbnails.height(this.$thumbnails.height() - 45);
+				}
 			}
 		}, 'json').fail((response) => {
 			console.log(response);

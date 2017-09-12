@@ -6,6 +6,8 @@ module.exports = class Nav {
 	constructor(){
 		this.$nav = $('nav');
 		this.$menu = $('main').find('.menu');
+		this.$body = $('body');
+
 		if(!this.$menu.length){
 			this.$menu = $('.menu');
 		}
@@ -25,7 +27,9 @@ module.exports = class Nav {
 			}
 		});
 
-		$(window).on('scroll', _.debounce(() => this.showNav(), 300));
+		if(!this.$body.hasClass('page-template-page-photo') && !this.$body.hasClass('single-photo')) {
+			$(window).on('scroll', _.debounce(() => this.showNav(), 300));
+		}
 	}
 
 	showNav(){

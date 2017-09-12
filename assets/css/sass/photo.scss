@@ -2,7 +2,6 @@ body.page-template-page-photo,
 body.single-photo{
 	$nav-width: 225px;
 	nav{
-		position: fixed;
 		z-index: 1;
 		#description{
 			margin: 1em 0;
@@ -45,6 +44,7 @@ body.single-photo{
 	}
 	@media(min-width: 769px){
 		nav{
+			position: fixed;
 			width: $nav-width;
 			text-align: center;
 			box-shadow: 0 0 5px #333;
