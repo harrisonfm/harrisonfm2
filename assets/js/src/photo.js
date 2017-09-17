@@ -12,6 +12,7 @@ module.exports = class Photo {
 	constructor(){
 		jQueryBridget('masonry', Masonry, $);
 
+		this.windowWidth = window.innerWidth;
 		this.photoIndex = 0;
 		this.cacheSelectors();
 		this.postID = this.$body.attr('class').substr(this.$body.attr('class').indexOf('postid') + 7);
@@ -80,6 +81,10 @@ module.exports = class Photo {
 	}
 
 	handleResize(){
+		if(window.innerWidth === this.windowWidth){
+			//fake resize event triggered by stupid iOS bug.
+			return;
+		}
 		if(window.innerWidth <= 768){
 			this.shrink();
 			setTimeout(() => {
@@ -89,6 +94,7 @@ module.exports = class Photo {
 		else{
 			this.$main.css('paddingTop', 0);	
 		}
+		this.windowWidth = window.innerWidth;
 	}
 
 	enlarge(e){

@@ -27,7 +27,7 @@ module.exports = class Nav {
 			}
 		});
 
-		if(!this.$body.hasClass('page-template-page-photo') && !this.$body.hasClass('single-photo')) {
+		if(!(this.$body.hasClass('page-template-page-photo') || this.$body.hasClass('single-photo'))) {
 			$(window).on('scroll', _.debounce(() => this.showNav(), 300));
 		}
 	}
