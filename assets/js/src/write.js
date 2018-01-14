@@ -29,6 +29,13 @@ module.exports = class Intro {
 			this.$articles.imagesLoaded({background: 'figure'}).progress(() => {
 				this.postsLoader.increment();
 			});
+			this.$articles.on('done-loading', () => {
+				$(window).on('scroll', _.debounce(() => {
+					if($(window).scrollTop() + $(window).innerHeight() + 5 >= this.$articles[0].scrollHeight - 5){
+						this.getPosts();
+					}
+				}, 300));
+			});
 		});
 
 		this.pag = { 
@@ -59,11 +66,6 @@ module.exports = class Intro {
 
 		$(window).on('resize', _.debounce(() => this.handleIntroBG(), 300));
 		$(window).on('resize', _.debounce(() => this.handleFigureBGs(), 300));
-		$(window).on('scroll', _.debounce(() => {
-			if($(window).scrollTop() + $(window).innerHeight() + 5 >= this.$articles[0].scrollHeight - 5){
-				this.getPosts();
-			}
-		}, 300));
 	}
 
 	handleIntroBG(){
